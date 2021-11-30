@@ -8,7 +8,7 @@ set(exe_sources
 )
 
 set(headers
-    include/project/tmp.hpp
+    include/MyAoC_2021/tmp.hpp
 )
 
 set(test_sources

@@ -3,8 +3,8 @@ if(${PROJECT_NAME}_ENABLE_CONAN)
   # Setup Conan requires and options here:
   #
 
-  set(${PROJECT_NAME}_CONAN_REQUIRES "")
-  set(${PROJECT_NAME}_CONAN_OPTIONS "")
+  set(${PROJECT_NAME}_CONAN_REQUIRES "gtest/cci.20210126\ncppcheck/[>=2.6]")
+  set(${PROJECT_NAME}_CONAN_OPTIONS "gtest:build_gmock=False")
 
   #
   # If `conan.cmake` (from https://github.com/conan-io/cmake-conan) does not exist, download it.
