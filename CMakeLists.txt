@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.15)
 #
 
 project(
-  "Project"
+  "MyAoC_2021"
   VERSION 0.1.0
   LANGUAGES CXX
 )
