@@ -1,3 +1,0 @@
-pushd build
-cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -DCMAKE_BUILD_TYPE:STRING=Debug -DCMAKE_INSTALL_PREFIX:STRING=C:/Dev/GitHub/myAoC_2021/install -DCMAKE_C_COMPILER:FILEPATH=C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\Llvm\x64\bin\clang-cl.exe -DCMAKE_CXX_COMPILER:FILEPATH=C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\Llvm\x64\bin\clang-cl.exe -Hc:/Dev/GitHub/myAoC_2021 -Bc:/Dev/GitHub/myAoC_2021/build -G Ninja
-popd

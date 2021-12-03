@@ -1,5 +1,5 @@
 set(sources
-    src/tmp.cpp
+    src/Solution_1_1.cpp
 )
 
 set(exe_sources
@@ -8,9 +8,9 @@ set(exe_sources
 )
 
 set(headers
-    include/MyAoC_2021/tmp.hpp
+    include/MyAoC_2021/Solution_1_1.hpp
 )
 
 set(test_sources
-  src/tmp_test.cpp
+  src/Solution_1_1_test.cpp
 )
