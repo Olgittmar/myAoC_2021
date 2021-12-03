@@ -52,8 +52,8 @@ foreach(file ${test_sources})
     target_link_libraries(
       ${test_name}_Tests
       PUBLIC
-        GTest::GTest
-        GTest::Main
+        GTest::gtest
+        GTest::gtest_main
         ${GOOGLE_MOCK_LIBRARIES}
         ${${CMAKE_PROJECT_NAME}_TEST_LIB}
     )

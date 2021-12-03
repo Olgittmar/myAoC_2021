@@ -5,7 +5,7 @@ if(${PROJECT_NAME}_ENABLE_CONAN)
 
   set(${PROJECT_NAME}_CONAN_REQUIRES "gtest/cci.20210126")
   set(${PROJECT_NAME}_CONAN_OPTIONS "gtest:build_gmock=False")
-  set(${PROJECT_NAME}_CONAN_GENERATORS "cmake_find_package")
+  set(${PROJECT_NAME}_CONAN_GENERATORS "cmake_paths" "cmake_find_package")
 
   #
   # If `conan.cmake` (from https://github.com/conan-io/cmake-conan) does not exist, download it.
@@ -38,12 +38,13 @@ if(${PROJECT_NAME}_ENABLE_CONAN)
     GENERATORS
     ${${PROJECT_NAME}_CONAN_GENERATORS}
     BASIC_SETUP
-    CMAKE_TARGETS # Individual targets to link to
+    CMAKE_TARGETS GTest # Individual targets to link to
     BUILD
     missing
   )
-
+  
   conan_basic_setup()
+  include(${CMAKE_BINARY_DIR}/conan_paths.cmake)
 
   verbose_message("Conan is setup and all requires have been installed.")
 endif()

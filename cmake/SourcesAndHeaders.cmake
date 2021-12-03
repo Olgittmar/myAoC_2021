@@ -8,7 +8,7 @@ set(exe_sources
 )
 
 set(headers
-    include/MyAoC_2021/Solution_1_1.hpp
+    include/MyAoC_2021/Solution_1_1.h
 )
 
 set(test_sources
