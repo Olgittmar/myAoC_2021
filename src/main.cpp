@@ -5,6 +5,7 @@
 #include "MyAoC_2021/solutions/Solution_1_1.h"
 #include "MyAoC_2021/solutions/Solution_1_2.h"
 #include "MyAoC_2021/solutions/Solution_2_1.h"
+#include "MyAoC_2021/solutions/Solution_2_2.h"
 
 // ---------------------------------------------------------------------------
 // Main utils
@@ -58,6 +59,9 @@ int main(int argc, char** argv){
     
     std::cout << "\nDay 2, problem 1:" << std::endl;
     std::cout << solutions::SubmarineNavigationProduct( GetInputData(2, 1) ) << std::endl;
+
+    std::cout << "\nDay 2, problem 2:" << std::endl;
+    std::cout << solutions::SubmarineAdvancedNavigationProduct( GetInputData(2, 2) ) << std::endl;
 
     return 0;
 }
