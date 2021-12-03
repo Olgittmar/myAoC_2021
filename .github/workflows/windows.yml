@@ -25,6 +25,13 @@ jobs:
       with:
         path: ${{env.INSTALL_LOCATION}}
         key: ${{runner.os}}-dependencies
+      
+    - name: Install Conan
+      id: conan
+      uses: turtlebrowser/get-conan@main
+    
+    - name: Conan version
+      run: echo "${{ steps.conan.outputs.version }}"
 
     - name: install GoogleTest
       if: ${{steps.cache.output.cache-hit != 'true'}}
