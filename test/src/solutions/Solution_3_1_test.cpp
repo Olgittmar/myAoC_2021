@@ -6,6 +6,7 @@
 
 TEST(Solution_3_1Test, CheckGenericValues)
 {
+  EXPECT_EQ( solutions::SubmarinePowerConsumption(genericInput_3_1), 198);
 }
 
 TEST(Solution_3_1Test, CheckBadInput)

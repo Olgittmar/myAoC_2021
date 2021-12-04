@@ -6,6 +6,7 @@
 #include "MyAoC_2021/solutions/Solution_1_2.h"
 #include "MyAoC_2021/solutions/Solution_2_1.h"
 #include "MyAoC_2021/solutions/Solution_2_2.h"
+#include "MyAoC_2021/solutions/Solution_3_1.h"
 
 // ---------------------------------------------------------------------------
 // Main utils
@@ -49,7 +50,7 @@ std::string GetInputData(const int& day, const int& problem){
 }
 // ---------------------------------------------------------------------------
 
-int main(int argc, char** argv){
+int main(/*int argc, char** argv*/){
 
     std::cout << "\nDay 1, problem 1: " << std::endl;
     std::cout << solutions::CountNumIncreasing( GetInputData(1, 1) ) << std::endl;
@@ -62,6 +63,9 @@ int main(int argc, char** argv){
 
     std::cout << "\nDay 2, problem 2:" << std::endl;
     std::cout << solutions::SubmarineAdvancedNavigationProduct( GetInputData(2, 2) ) << std::endl;
+
+    std::cout << "\nDay 3, problem 1:" << std::endl;
+    std::cout << solutions::SubmarinePowerConsumption( GetInputData(3, 1) ) << std::endl;
 
     return 0;
 }
