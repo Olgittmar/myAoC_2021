@@ -7,8 +7,8 @@
 namespace solutions {
 
 int SubmarinePowerConsumption(const std::string& str);
-std::pair<std::string,std::string> TallyOnes(const std::vector<std::string>& bitstrings);
-
+std::string TallyOnes(const std::vector<std::string>& strings);
+std::string FlipBitsInBitstring(const std::string& bitstring);
 
 }
 

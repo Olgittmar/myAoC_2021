@@ -5,23 +5,34 @@
 
 namespace solutions {
 
-// TODO: Not very elegant, need to refactor a bit.
 int
 SubmarinePowerConsumption(const std::string& str)
 {
     auto input = utils::SplitString(str, '\n');
 
-    auto tallyResult = TallyOnes(input);
-    auto gamma = std::stoi(tallyResult.first, nullptr, 2);
-    auto epsilon = std::stoi(tallyResult.second, nullptr, 2);
+    auto onesTrend = TallyOnes(input);
+    auto gamma = std::stoi(onesTrend, nullptr, 2);
+    auto zerosTrend = FlipBitsInBitstring(onesTrend); // faster than option below?
+    // auto zerosTrend = TallyChar(input, '0');
+    auto epsilon = std::stoi(zerosTrend, nullptr, 2);
 
     return gamma * epsilon;
 }
 
-std::pair<std::string, std::string>
+std::string
+FlipBitsInBitstring(const std::string& bitstring)
+{
+    std::string _ret = bitstring;
+    for(auto it = _ret.begin(); it != _ret.end(); ++it){
+        *it = (*it == '1' ? '0' : '1');
+    }
+    return _ret;
+}
+
+std::string
 TallyOnes(const std::vector<std::string>& bitstrings)
 {
-    std::pair<std::string,std::string> _ret;
+    std::string _ret;
     std::vector<int> buckets;
     int numRows = 0;
     auto it = bitstrings.cbegin();
@@ -38,13 +49,11 @@ TallyOnes(const std::vector<std::string>& bitstrings)
     }
 
     for(auto bucketIt = buckets.cbegin(); bucketIt != buckets.cend(); ++bucketIt){
-        // If at least half of the bits are 1s, then 1 is most common
+        // If at least half of the bits are 1s, then c is most common
         if(*bucketIt >= numRows/2){
-            _ret.first.push_back('1');
-            _ret.second.push_back('0');
+            _ret.push_back('1');
         } else {
-            _ret.first.push_back('0');
-            _ret.second.push_back('1');
+            _ret.push_back('0');
         }
     }
     return _ret;
