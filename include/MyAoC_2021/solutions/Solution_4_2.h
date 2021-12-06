@@ -1,5 +1,5 @@
-#ifndef SOLUTION_3_2_h
-#define SOLUTION_3_2_h
+#ifndef SOLUTION_4_2_h
+#define SOLUTION_4_2_h
 
 namespace solutions {
 
