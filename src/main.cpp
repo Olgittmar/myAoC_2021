@@ -7,6 +7,7 @@
 #include "MyAoC_2021/solutions/Solution_2_1.h"
 #include "MyAoC_2021/solutions/Solution_2_2.h"
 #include "MyAoC_2021/solutions/Solution_3_1.h"
+#include "MyAoC_2021/solutions/Solution_3_2.h"
 
 // ---------------------------------------------------------------------------
 // Main utils
@@ -66,6 +67,9 @@ int main(/*int argc, char** argv*/){
 
     std::cout << "\nDay 3, problem 1:" << std::endl;
     std::cout << solutions::SubmarinePowerConsumption( GetInputData(3, 1) ) << std::endl;
+
+    std::cout << "\nDay 3, problem 2:" << std::endl;
+    std::cout << solutions::SubmarineLifeSupportRating( GetInputData(3, 2) ) << std::endl;
 
     return 0;
 }

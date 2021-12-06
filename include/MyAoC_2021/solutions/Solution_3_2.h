@@ -4,14 +4,16 @@
 #include <vector>
 #include <string>
 #include <unordered_map>
+#include <unordered_set>
 
 namespace solutions {
 
 int SubmarineLifeSupportRating(const std::string& input); // should create a Submarine namespace...
-std::string FilterBitsByTrend(std::vector<std::string>& bitstrings, const std::string& trend);
-// Assumes that all strings are of same size
-std::vector<std::unordered_map<char, int>> TallyChars(const std::vector<std::string>& strings);
-std::string FilterTrend(const std::vector<std::unordered_map<char,int>>& buckets, bool filterByMostCommon, const char& tieBreaker);
+void FilterByTrend(std::unordered_set<std::string>& bitstrings, bool filterByMostCommon, const char& tieBreaker );
+std::unordered_map<char,int> TallyCharsAtBitstringPosition(const std::unordered_set<std::string>& bitstrings, size_t pos);
+void RemoveIfNotMatchingTrendAtPosition(std::unordered_set<std::string>& bitstrings, const char& c, size_t pos);
+inline size_t GetBitstringLength(const std::unordered_set<std::string>& bitstrings) { return bitstrings.cbegin()->length(); }
+char GetCharByTrend(const std::unordered_map<char, int>& trend, bool searchForMostCommon, const char& tieBreaker);
 
 }
 

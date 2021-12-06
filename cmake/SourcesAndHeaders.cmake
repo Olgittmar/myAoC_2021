@@ -5,6 +5,8 @@ set(sources
     src/solutions/Solution_2_2.cpp
     src/solutions/Solution_3_1.cpp
     src/solutions/Solution_3_2.cpp
+    src/solutions/Solution_4_1.cpp
+    src/solutions/Solution_4_2.cpp
     src/utils/StringSplit.cpp
 )
 
@@ -21,6 +23,8 @@ set(headers
     include/MyAoC_2021/solutions/Solution_2_2.h
     include/MyAoC_2021/solutions/Solution_3_1.h
     include/MyAoC_2021/solutions/Solution_3_2.h
+    include/MyAoC_2021/solutions/Solution_4_1.h
+    include/MyAoC_2021/solutions/Solution_4_2.h
 )
 
 set(test_sources
@@ -31,4 +35,6 @@ set(test_sources
   src/solutions/Solution_2_2_test.cpp
   src/solutions/Solution_3_1_test.cpp
   src/solutions/Solution_3_2_test.cpp
+  src/solutions/Solution_4_1_test.cpp
+  src/solutions/Solution_4_2_test.cpp
 )
