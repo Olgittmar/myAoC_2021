@@ -24,6 +24,12 @@ TEST(BingoBoardTest, HaveWonHorizontal)
 	testBoard.MarkIfOnBoard(11);
 	testBoard.MarkIfOnBoard(0);
 	EXPECT_TRUE(testBoard.HaveWon());
+	testBoard.MarkIfOnBoard(23);
+	testBoard.MarkIfOnBoard(14);
+	testBoard.MarkIfOnBoard(3);
+	testBoard.MarkIfOnBoard(25);
+	testBoard.MarkIfOnBoard(20);
+	EXPECT_TRUE(testBoard.HaveWon());
 }
 
 TEST(BingoBoardTest, HaveWonVertical)
@@ -34,6 +40,10 @@ TEST(BingoBoardTest, HaveWonVertical)
 	testBoard.MarkIfOnBoard(21);
 	testBoard.MarkIfOnBoard(6);
 	testBoard.MarkIfOnBoard(1);
+	EXPECT_TRUE(testBoard.HaveWon());
+	testBoard.MarkIfOnBoard(23);
+	testBoard.MarkIfOnBoard(4);
+	testBoard.MarkIfOnBoard(17);
 	EXPECT_TRUE(testBoard.HaveWon());
 }
 

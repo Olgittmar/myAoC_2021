@@ -8,6 +8,8 @@
 #include "MyAoC_2021/solutions/Solution_2_2.h"
 #include "MyAoC_2021/solutions/Solution_3_1.h"
 #include "MyAoC_2021/solutions/Solution_3_2.h"
+#include "MyAoC_2021/solutions/Solution_4_1.h"
+#include "MyAoC_2021/solutions/Solution_4_2.h"
 
 // ---------------------------------------------------------------------------
 // Main utils
@@ -70,6 +72,12 @@ int main(/*int argc, char** argv*/){
 
     std::cout << "\nDay 3, problem 2:" << std::endl;
     std::cout << solutions::SubmarineLifeSupportRating( GetInputData(3, 2) ) << std::endl;
+
+    std::cout << "\nDay 4, problem 1:" << std::endl;
+    std::cout << solutions::WinBingo( GetInputData(4, 1) ) << std::endl;
+
+    std::cout << "\nDay 4, problem 2:" << std::endl;
+    std::cout << solutions::LoseBingo( GetInputData(4, 2) ) << std::endl;
 
     return 0;
 }

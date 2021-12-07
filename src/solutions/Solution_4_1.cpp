@@ -23,41 +23,75 @@ BingoBoard::BingoBoard(const std::vector<std::string>& numStrings)
 void
 BingoBoard::MarkIfOnBoard(int key)
 {
-
+    auto boardNumber = board.find(key);
+    if( boardNumber != board.end() ){
+        boardNumber->second.m_hit = true;
+    }
 }
 
 bool
 BingoBoard::HaveWon() const
 {
+    int columnsHit[5] = {0};
+    int rowsHit[5] = {0};
+
+    for(auto it = board.cbegin(); it != board.cend(); ++it) {
+        if(it->second.m_hit){
+            // Was too occupied thinking if whether I could,
+            // forgot to wonder if I should...
+            if( ++columnsHit[it->second.m_column] >= 5
+             || ++rowsHit[it->second.m_row] >= 5 ) {
+                return true;
+            }
+        }
+    }
+
     return false;
 }
 
 int
 BingoBoard::Score(int justCalled) const
 {
-    return justCalled;
+    int sum = 0;
+    for(auto it = board.cbegin(); it != board.cend(); ++it){
+        if(!it->second.m_hit){
+            sum += it->first;
+        }
+    }
+    return sum*justCalled;
+}
+
+std::vector<int> GetNumberSequence(const std::string& input, size_t* resultingOffset)
+{
+    std::string numberSequenceString = input.substr(0, input.find("\n\n"));
+    *resultingOffset = numberSequenceString.size();
+    return utils::SplitStringToInt(numberSequenceString, ',');
+}
+
+std::vector<BingoBoard> GetBingoBoards(const std::string& input, size_t start)
+{
+    size_t sectionEnd = start;
+    size_t sectionStart = 0;
+    std::vector<BingoBoard> bingoBoards;
+
+    while( sectionEnd != input.npos && sectionStart < sectionEnd ){
+        sectionStart = sectionEnd + 2;
+        sectionEnd = input.find("\n\n", sectionStart);
+        auto section = input.substr(sectionStart, sectionEnd);
+        auto numStrings = utils::SplitString(section, '\n');
+        bingoBoards.push_back( BingoBoard( numStrings ) );
+    }
+    return bingoBoards;
 }
 
 int WinBingo(const std::string& input)
 {
-    std::vector<BingoBoard> bingoBoards;
-
-    size_t sectionStart = 0;
-    size_t sectionEnd = input.find("\n\n");
-    std::string numberSequenceString = input.substr(sectionStart, sectionEnd);
-
-    while( sectionEnd != input.npos && sectionStart < sectionEnd ){
-        sectionStart = sectionEnd + 2;
-        sectionEnd = input.find("\n\n");
-
-        auto numStrings = utils::SplitString(input.substr(sectionStart, sectionEnd), '\n');
-        bingoBoards.push_back( BingoBoard( numStrings ) );
-    }
-
-    auto numberSequence = utils::SplitStringToInt(numberSequenceString, ',');
+    size_t offset;
+    auto numberSequence = GetNumberSequence(input, &offset);
+    std::vector<BingoBoard> bingoBoards = GetBingoBoards(input, offset);
 
     for(auto it = numberSequence.cbegin(); it != numberSequence.cend(); ++it){
-        for(auto boardIt = bingoBoards.begin(); boardIt != bingoBoards.cend(); ++boardIt){
+        for(auto boardIt = bingoBoards.begin(); boardIt != bingoBoards.cend(); ++boardIt) {
             boardIt->MarkIfOnBoard(*it);
             if(boardIt->HaveWon()){
                 return boardIt->Score(*it);

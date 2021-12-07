@@ -32,6 +32,9 @@ class BingoBoard {
     std::map<int, BoardNumber> board;
 };
 
+std::vector<int> GetNumberSequence(const std::string& input, size_t* resultingOffset);
+std::vector<BingoBoard> GetBingoBoards(const std::string& input, size_t start);
+
 int WinBingo(const std::string& input);
 
 }
