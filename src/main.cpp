@@ -10,6 +10,8 @@
 #include "MyAoC_2021/solutions/Solution_3_2.h"
 #include "MyAoC_2021/solutions/Solution_4_1.h"
 #include "MyAoC_2021/solutions/Solution_4_2.h"
+#include "MyAoC_2021/solutions/Solution_5_1.h"
+#include "MyAoC_2021/solutions/Solution_5_2.h"
 
 // ---------------------------------------------------------------------------
 // Main utils
@@ -78,6 +80,12 @@ int main(/*int argc, char** argv*/){
 
     std::cout << "\nDay 4, problem 2:" << std::endl;
     std::cout << solutions::LoseBingo( GetInputData(4, 2) ) << std::endl;
+
+    std::cout << "\nDay 5, problem 1:" << std::endl;
+    std::cout << solutions::NumberOfOverlappingVentlinePoints( GetInputData(5, 1) ) << std::endl;
+
+    std::cout << "\nDay 5, problem 2:" << std::endl;
+    std::cout << solutions::NumberOfOverlappingVentlinePointsIncludingDiagonals( GetInputData(5, 2) ) << std::endl;
 
     return 0;
 }

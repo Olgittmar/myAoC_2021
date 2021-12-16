@@ -1,4 +1,6 @@
 set(sources
+    src/utils/StringSplit.cpp
+    src/utils/Coordinates.cpp
     src/solutions/Solution_1_1.cpp
     src/solutions/Solution_1_2.cpp
     src/solutions/Solution_2_1.cpp
@@ -9,16 +11,16 @@ set(sources
     src/solutions/Solution_4_2.cpp
     src/solutions/Solution_5_1.cpp
     src/solutions/Solution_5_2.cpp
-    src/utils/StringSplit.cpp
 )
 
 set(exe_sources
-		src/main.cpp
-		${sources}
+	src/main.cpp
+	${sources}
 )
 
 set(headers
     include/MyAoC_2021/utils/StringSplit.h
+    include/MyAoC_2021/utils/Coordinates.h
     include/MyAoC_2021/solutions/Solution_1_1.h
     include/MyAoC_2021/solutions/Solution_1_2.h
     include/MyAoC_2021/solutions/Solution_2_1.h
@@ -31,8 +33,13 @@ set(headers
     include/MyAoC_2021/solutions/Solution_5_2.h
 )
 
-set(test_sources
+set(test_utils_sources
   src/utils/StringSplit_test.cpp
+  src/utils/Coordinates_test.cpp
+)
+
+
+set(test_solutions_sources
   src/solutions/Solution_1_1_test.cpp
   src/solutions/Solution_1_2_test.cpp
   src/solutions/Solution_2_1_test.cpp

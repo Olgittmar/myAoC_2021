@@ -21,7 +21,8 @@ struct BoardNumber {
 
 class BingoBoard {
   public:
-    BingoBoard(const std::vector<std::string>& numStrings);
+    BingoBoard() : board() {}
+    explicit BingoBoard(const std::vector<std::string>& numStrings);
     ~BingoBoard() = default;
 
     bool HaveWon() const;
