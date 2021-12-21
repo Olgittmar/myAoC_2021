@@ -5,7 +5,9 @@
 
 namespace solutions {
 
-int CountIncreasingSlidingWindow(const std::string& str);
+// cppcheck-suppress unusedFunction
+[[gnu::used]] [[maybe_unused]]
+int CountIncreasingSlidingWindow(const std::string_view& str);
 
 }
 

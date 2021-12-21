@@ -11,34 +11,38 @@ namespace solutions {
 class Submarine
 {
   public:
-    Submarine() : m_aim(0), m_hPos(0), m_depth(0) {}
+    Submarine() = default;
+    Submarine(const Submarine& other) = default;
+    Submarine(Submarine&&) = default;
     Submarine(int aim, int hPos, int depth)
         : m_aim(aim), m_hPos(hPos), m_depth(depth) {}
-    ~Submarine(){}
+    ~Submarine() = default;
 
-    int GetNavigationProduct() const;
-    void Navigate(const std::vector<std::string>& instructions);
+    Submarine& operator=(const Submarine& other) = default;
+    Submarine& operator=(Submarine&& other) = default;
+
+    [[nodiscard]] // But why not? 
+    inline constexpr int GetNavigationProduct() const { return m_depth * m_hPos; }
+    void Navigate(const std::vector<std::string_view>& instructions);
 
   private:
     enum MoveCommand {
         DOWN, UP, FORWARD, UNKNOWN
     };
 
-    static const char* ForwardStr;
-    static const char* DownStr;
-    static const char* UpStr;
-    
     int m_aim;
     int m_hPos;
     int m_depth;
 
     void Move(MoveCommand command, int value);
-    MoveCommand StrToMovecommand(const std::string& str) const;
-    std::pair<MoveCommand, int> StrToCommandValuePair(const std::string& str) const;
+    static MoveCommand StrToMovecommand(const std::string_view& str);
+    static std::pair<MoveCommand, int> StrToCommandValuePair(const std::string_view& str);
 
 };
 
-int SubmarineAdvancedNavigationProduct(const std::string& str);
+// cppcheck-suppress unusedFunction
+[[gnu::used]] [[maybe_unused]]
+int SubmarineAdvancedNavigationProduct(const std::string_view& str);
 
 }
 

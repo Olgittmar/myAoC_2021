@@ -12,12 +12,13 @@
 #include "MyAoC_2021/solutions/Solution_4_2.h"
 #include "MyAoC_2021/solutions/Solution_5_1.h"
 #include "MyAoC_2021/solutions/Solution_5_2.h"
+#include "MyAoC_2021/solutions/Solution_6_1.h"
 
 // ---------------------------------------------------------------------------
 // Main utils
 // ---------------------------------------------------------------------------
-#define dataFolder "data"
-#define projectRootFolder "myAoC_2021"
+constexpr const char* dataFolder = "data";
+constexpr const char* projectRootFolder = "myAoC_2021";
 
 std::filesystem::path
 GenerateDataPath(const int& day, const int& problem) {
@@ -26,12 +27,12 @@ GenerateDataPath(const int& day, const int& problem) {
 
     while( rootPath != cwd.root_path()
         && rootPath.has_parent_path()
-        && rootPath.stem() != "myAoC_2021" )
+        && rootPath.stem() != projectRootFolder )
     {
         rootPath = rootPath.parent_path();
     }
 
-    const auto dataPath = rootPath /
+    auto dataPath = rootPath /
         (std::string(dataFolder) + "/"
         + std::to_string(day) + "_"
         + std::to_string(problem));
@@ -47,45 +48,48 @@ std::string GetInputData(const int& day, const int& problem){
     std::ifstream ifStrm(filename);
     if(!ifStrm.is_open()){
         std::cerr << "Failed to open " << filename << std::endl;
-        return std::string();
+        return std::string{};
     }
-    return std::string(
+    return std::string{
         (std::istreambuf_iterator<char>(ifStrm)),
-        (std::istreambuf_iterator<char>()) );
+        (std::istreambuf_iterator<char>()) };
 }
 // ---------------------------------------------------------------------------
 
 int main(/*int argc, char** argv*/){
 
     std::cout << "\nDay 1, problem 1: " << std::endl;
-    std::cout << solutions::CountNumIncreasing( GetInputData(1, 1) ) << std::endl;
+    const auto input_1_1 = GetInputData(1, 1);
+    std::cout << solutions::CountNumIncreasing( input_1_1 ) << std::endl;
 
     std::cout << "\nDay 1, problem 2:" << std::endl;
-    std::cout << solutions::CountIncreasingSlidingWindow( GetInputData(1, 2) ) << std::endl;
-    
+    std::cout << solutions::CountIncreasingSlidingWindow( GetInputData(1, 2) ) << std::endl; // NOLINT
+
     std::cout << "\nDay 2, problem 1:" << std::endl;
-    std::cout << solutions::SubmarineNavigationProduct( GetInputData(2, 1) ) << std::endl;
+    std::cout << solutions::SubmarineNavigationProduct( GetInputData(2, 1) ) << std::endl; // NOLINT
 
     std::cout << "\nDay 2, problem 2:" << std::endl;
-    std::cout << solutions::SubmarineAdvancedNavigationProduct( GetInputData(2, 2) ) << std::endl;
+    std::cout << solutions::SubmarineAdvancedNavigationProduct( GetInputData(2, 2) ) << std::endl; // NOLINT
 
     std::cout << "\nDay 3, problem 1:" << std::endl;
-    std::cout << solutions::SubmarinePowerConsumption( GetInputData(3, 1) ) << std::endl;
+    std::cout << solutions::SubmarinePowerConsumption( GetInputData(3, 1) ) << std::endl; // NOLINT
 
     std::cout << "\nDay 3, problem 2:" << std::endl;
-    std::cout << solutions::SubmarineLifeSupportRating( GetInputData(3, 2) ) << std::endl;
+    std::cout << solutions::SubmarineLifeSupportRating( GetInputData(3, 2) ) << std::endl; // NOLINT
 
     std::cout << "\nDay 4, problem 1:" << std::endl;
-    std::cout << solutions::WinBingo( GetInputData(4, 1) ) << std::endl;
+    std::cout << solutions::WinBingo( GetInputData(4, 1) ) << std::endl; // NOLINT
 
     std::cout << "\nDay 4, problem 2:" << std::endl;
-    std::cout << solutions::LoseBingo( GetInputData(4, 2) ) << std::endl;
+    std::cout << solutions::LoseBingo( GetInputData(4, 2) ) << std::endl; // NOLINT
 
     std::cout << "\nDay 5, problem 1:" << std::endl;
-    std::cout << solutions::NumberOfOverlappingVentlinePoints( GetInputData(5, 1) ) << std::endl;
+    std::cout << solutions::NumberOfOverlappingVentlinePoints( GetInputData(5, 1) ) << std::endl; // NOLINT
 
     std::cout << "\nDay 5, problem 2:" << std::endl;
-    std::cout << solutions::NumberOfOverlappingVentlinePointsIncludingDiagonals( GetInputData(5, 2) ) << std::endl;
+    std::cout << solutions::NumberOfOverlappingVentlinePointsIncludingDiagonals( GetInputData(5, 2) ) << std::endl; // NOLINT
 
+    std::cout << "\nDay 6, problem 1:" << std::endl;
+    std::cout << solutions::CalculateNumberOfLanternFishAfterNDays( GetInputData(6, 1), 80 ) << std::endl; // NOLINT
     return 0;
 }

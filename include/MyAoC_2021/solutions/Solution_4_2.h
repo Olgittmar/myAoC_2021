@@ -5,7 +5,9 @@
 
 namespace solutions {
 
-int LoseBingo(const std::string& input);
+// cppcheck-suppress unusedFunction
+[[gnu::used]] [[maybe_unused]]
+int LoseBingo(const std::string_view& input);
 
 }
 

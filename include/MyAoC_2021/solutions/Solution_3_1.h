@@ -6,9 +6,12 @@
 
 namespace solutions {
 
-int SubmarinePowerConsumption(const std::string& str);
-std::string TallyOnes(const std::vector<std::string>& strings);
-std::string FlipBitsInBitstring(const std::string& bitstring);
+std::string TallyOnes(const std::vector<std::string_view>& bitstrings);
+std::string FlipBitsInBitstring(const std::string_view& bitstring);
+
+// cppcheck-suppress unusedFunction
+[[gnu::used]] [[maybe_unused]]
+int SubmarinePowerConsumption(const std::string_view& str);
 
 }
 

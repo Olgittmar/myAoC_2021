@@ -6,16 +6,19 @@
 
 namespace solutions {
 
-inline int SumLastThree(std::vector<int>::const_iterator& it){
+inline int
+SumLastThree(const std::vector<int>::const_iterator& it){
     return *(it - 2) + *(it - 1) + *it;
 }
 
-int CountIncreasingSlidingWindow(const std::string& str) {
-    auto input = utils::SplitStringToInt(str, '\n');
+// cppcheck-suppress unusedFunction
+int CountIncreasingSlidingWindow(const std::string_view& str) {
+    int numberBase = 10; // NOLINT
+    auto input = utils::SplitStringToInt(str, '\n', true, numberBase);
     if(input.size() <= 3){
         return 0;
     }
-    auto front = input.cbegin() + 2;
+    auto front{input.cbegin() + 2};
     int previousSum = SumLastThree(front);
     int numIncreased = 0;
 

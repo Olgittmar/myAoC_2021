@@ -3,7 +3,9 @@
 #include <string>
 
 namespace solutions {
-    int CountNumIncreasing(const std::string& str);
+// cppcheck-suppress unusedFunction
+[[gnu::used]] [[maybe_unused]]
+int CountNumIncreasing(const std::string_view& str);
 }
 
 #endif

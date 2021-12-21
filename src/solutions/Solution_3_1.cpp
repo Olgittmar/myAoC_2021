@@ -1,12 +1,13 @@
 #include "MyAoC_2021/solutions/Solution_3_1.h"
 
 #include <iostream>
+#include <algorithm>
 #include "MyAoC_2021/utils/StringSplit.h"
 
 namespace solutions {
 
-int
-SubmarinePowerConsumption(const std::string& str)
+// cppcheck-suppress unusedFunction
+int SubmarinePowerConsumption(const std::string_view& str)
 {
     auto input = utils::SplitString(str, '\n');
 
@@ -20,17 +21,16 @@ SubmarinePowerConsumption(const std::string& str)
 }
 
 std::string
-FlipBitsInBitstring(const std::string& bitstring)
+FlipBitsInBitstring(const std::string_view& bitstring)
 {
-    std::string _ret = bitstring;
-    for(auto it = _ret.begin(); it != _ret.end(); ++it){
-        *it = (*it == '1' ? '0' : '1');
-    }
+    std::string _ret;
+    std::transform(bitstring.cbegin(), bitstring.cend(), std::back_inserter(_ret),
+        [](auto c){ return (c == '1' ? '0' : '1'); });
     return _ret;
 }
 
 std::string
-TallyOnes(const std::vector<std::string>& bitstrings)
+TallyOnes(const std::vector<std::string_view>& bitstrings)
 {
     std::string _ret;
     std::vector<int> buckets;
@@ -48,9 +48,9 @@ TallyOnes(const std::vector<std::string>& bitstrings)
         }
     }
 
-    for(auto bucketIt = buckets.cbegin(); bucketIt != buckets.cend(); ++bucketIt){
+    for(auto bucket : buckets){
         // If at least half of the bits are 1s, then c is most common
-        if(*bucketIt >= numRows/2){
+        if(bucket >= numRows/2){
             _ret.push_back('1');
         } else {
             _ret.push_back('0');

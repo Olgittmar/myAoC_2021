@@ -2,19 +2,26 @@
 
 #include <gtest/gtest.h>
 
-#define genericInput_1_2 "199\n200\n208\n210\n200\n207\n240\n269\n260\n263"
+constexpr const char* genericInput_1_2 = "199\n200\n208\n210\n200\n207\n240\n269\n260\n263";
 
-TEST(Solution_1_2Test, CheckBadInput)
+TEST(Solution_1_2Test, CheckBadInput) // NOLINT
 {
-    EXPECT_EQ(solutions::CountIncreasingSlidingWindow(""), 0);
-    EXPECT_EQ(solutions::CountIncreasingSlidingWindow("1"), 0);
-    EXPECT_EQ(solutions::CountIncreasingSlidingWindow("1 2"), 0);
+	constexpr std::string_view str1{};
+	constexpr std::string_view str2{"1"};
+	constexpr std::string_view str3{"1 2"};
+
+    EXPECT_EQ(solutions::CountIncreasingSlidingWindow(str1), 0);
+    EXPECT_EQ(solutions::CountIncreasingSlidingWindow(str2), 0);
+    EXPECT_EQ(solutions::CountIncreasingSlidingWindow(str3), 0);
 }
 
-TEST(Solution_1_2Test, CheckGenericValues)
+TEST(Solution_1_2Test, CheckGenericValues) // NOLINT
 {
-    EXPECT_EQ(solutions::CountIncreasingSlidingWindow("2\n3\n4\n2\n1\n1"), 0);
-    EXPECT_EQ(solutions::CountIncreasingSlidingWindow("1\n2\n3\n4\n5\n1"), 2);
+	constexpr std::string_view str1{"2\n3\n4\n2\n1\n1"};
+	constexpr std::string_view str2{"1\n2\n3\n4\n5\n1"};
+
+    EXPECT_EQ(solutions::CountIncreasingSlidingWindow(str1), 0);
+    EXPECT_EQ(solutions::CountIncreasingSlidingWindow(str2), 2);
     EXPECT_EQ(solutions::CountIncreasingSlidingWindow(genericInput_1_2), 5);
 }
 

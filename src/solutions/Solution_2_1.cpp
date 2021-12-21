@@ -4,14 +4,14 @@
 
 namespace solutions {
 
-int
-SubmarineNavigationProduct(const std::string& str)
+// cppcheck-suppress unusedFunction
+int SubmarineNavigationProduct(const std::string_view& str)
 {
     auto input = utils::SplitString(str, '\n');
     SubmarinePosition subPos;
 
-    for(auto it = input.cbegin(); it != input.cend(); it++){
-        auto moveAction = StrToMovement(*it);
+    for(const auto& command : input){
+        auto moveAction = StrToMovement(command);
         switch (moveAction.first)
         {
         case HORIZONTAL:
@@ -28,23 +28,28 @@ SubmarineNavigationProduct(const std::string& str)
     return subPos.h_position * subPos.depth;
 }
 
-// Not the safest comparison but good enough for this problem
-std::pair<MovementType, int> StrToMovement(const std::string& str)
+std::pair<MovementType, int> StrToMovement(const std::string_view& str)
 {
-    if(str.find(ForwardStr) != str.npos){
+    constexpr const std::string_view ForwardStr{"forward "};
+    constexpr const std::string_view DownStr{"down "};
+    constexpr const std::string_view UpStr{"up "};
+    
+    if(str.find(ForwardStr) != std::string_view::npos){
         // The substring which starts at ForwardStr.size must be what is left of the string when "forward " is removed,
         // which is the number of units to move.
-        return std::make_pair<MovementType,int>( HORIZONTAL, std::stoi( str.substr( ForwardStr.size() ) ) );
+        return std::make_pair<MovementType,int>( HORIZONTAL, utils::StringViewToInt( str.substr( ForwardStr.size() ) ) );
     }
 
-    if(str.find(DownStr) != str.npos){
-        return std::make_pair<MovementType,int>( DEPTH, std::stoi( str.substr( DownStr.size() ) ) );
+    if(str.find(DownStr) != std::string_view::npos){
+        return std::make_pair<MovementType,int>( DEPTH, utils::StringViewToInt( str.substr( DownStr.size() ) ) );
     }
 
-    if(str.find(UpStr) != str.npos){
+    if(str.find(UpStr) != std::string_view::npos){
         // Up is reversed in direction, so subtract that value from depth.
-        return std::make_pair<MovementType,int>( DEPTH, -(std::stoi( str.substr( UpStr.size() ) ) ) );
+        return std::make_pair<MovementType,int>( DEPTH, -(utils::StringViewToInt( str.substr( UpStr.size() ) ) ) );
     }
+
+    return std::make_pair<MovementType,int>(HORIZONTAL, 0);
 }
 
 }

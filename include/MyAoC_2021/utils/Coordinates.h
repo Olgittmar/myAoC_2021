@@ -2,55 +2,89 @@
 #define COORDINATES_H
 
 #include <string>
-#include <math.h>
+#include <cmath>
 #include <vector>
 #include <functional>
 
 namespace utils {
 
-struct Coordinate2D {
-	constexpr Coordinate2D() : x(0), y(0) {}
-	constexpr Coordinate2D(int _x, int _y)
-	  : x(_x), y(_y) {}
+class Coordinate2D {
+
+  public:
+	Coordinate2D() = default;
+	Coordinate2D(const Coordinate2D& other) = default;
+	Coordinate2D(Coordinate2D&& other) = default;
+	~Coordinate2D() = default;
+	//TODO: Need to look at how this works again
+	explicit constexpr Coordinate2D(int _x, int _y) : m_x(_x), m_y(_y) {}
+
+	Coordinate2D& operator=(const Coordinate2D& other) = default;
+	Coordinate2D& operator=(Coordinate2D&& other) = default;
+
 	constexpr bool operator==(const Coordinate2D& other) const {
-		return x == other.x && y == other.y;
+		return m_x == other.m_x && m_y == other.m_y;
 	}
 	constexpr bool operator!=(const Coordinate2D& other) const {
 		return !operator==(other);
 	}
 
-    const int x;
-    const int y;
+	[[nodiscard]] inline constexpr int x() const { return m_x; }
+	[[nodiscard]] inline constexpr int y() const { return m_y; }
+
+  private:
+    int m_x = 0;
+    int m_y = 0;
+};
+
+struct Coordinate2DHash {
+	size_t operator()(Coordinate2D const& coord) const noexcept
+	{
+		size_t hx = std::hash<int>{}(coord.x());
+		size_t hy = std::hash<int>{}(coord.y());
+		return hx ^ (hy << 1UL);
+	}
 };
 
 class Line {
   public:
-	Line() : m_start(0,0), m_end(0, 0) {}
+	Line() = default;
+	Line(const Line& other) = default;
+	Line(Line&& other) = default;
 	Line(Coordinate2D start, Coordinate2D end) : m_start(start), m_end(end) {}
-	explicit Line(const std::string& line);
+	explicit Line(const std::string_view& line);
 	~Line() = default;
 
-	constexpr int right() const { return std::max(m_start.x, m_end.x); }
-	constexpr int left() const { return std::min(m_start.x, m_end.x); }
-	constexpr int up() const { return std::max(m_start.y, m_end.y); }
-	constexpr int down() const { return std::min(m_start.y, m_end.y); }
-	constexpr int leftMostY() const { return (m_start.x <= m_end.x) ? m_start.y : m_end.y; }
-	
-	constexpr bool isHorizontal() const { return m_start.y == m_end.y; }
-	constexpr bool isVertical() const { return m_start.x == m_end.x; }
-	constexpr bool isSloped() const { return !(isHorizontal() || isVertical()); }
+	Line& operator=(const Line& other) = default;
+	Line& operator=(Line&& other) = default;
 
-	constexpr int slope() const { return (m_end.y - m_start.y)/(m_end.x - m_start.x); }
+	constexpr bool operator==(const Line& other) const {
+		return m_start == other.m_start && m_end == other.m_end;
+	}
+	constexpr bool operator!=(const Line& other) const {
+		return m_start != other.m_start || m_end != other.m_end;
+	}
 
+	[[nodiscard]] constexpr int right() const { return std::max(m_start.x(), m_end.x()); }
+	[[nodiscard]] constexpr int left() const { return std::min(m_start.x(), m_end.x()); }
+	[[nodiscard]] constexpr int up() const { return std::max(m_start.y(), m_end.y()); }
+	[[nodiscard]] constexpr int down() const { return std::min(m_start.y(), m_end.y()); }
+	[[nodiscard]] constexpr int leftMostY() const { return (m_start.x() <= m_end.x()) ? m_start.y() : m_end.y(); }
+	[[nodiscard]] constexpr bool isHorizontal() const { return m_start.y() == m_end.y(); }
+	[[nodiscard]] constexpr bool isVertical() const { return m_start.x() == m_end.x(); }
+	[[nodiscard]] constexpr bool isSloped() const { return !(isHorizontal() || isVertical()); }
+	[[nodiscard]] constexpr int slope() const { return (m_end.y() - m_start.y())/(m_end.x() - m_start.x()); }
+
+	static Line lineFromString(const std::string_view& str);
+
+	[[nodiscard]] [[maybe_unused]] [[gnu::used]]
 	std::vector<Coordinate2D> range() const;
 
   private:
-
-    const Coordinate2D m_start;
-    const Coordinate2D m_end;
+	static inline const std::string_view VentLineDivider = "->";
+    Coordinate2D m_start;
+    Coordinate2D m_end;
 };
 
-Line lineFromString(const std::string& str);
 }
 
 template<>
@@ -58,21 +92,8 @@ struct std::hash<utils::Coordinate2D>
 {
 	size_t operator()(utils::Coordinate2D const& coord) const noexcept
 	{
-		size_t hx = std::hash<int>{}(coord.x);
-		size_t hy = std::hash<int>{}(coord.y);
-		return hx ^ (hy << 1);
+		return utils::Coordinate2DHash{}(coord);
 	}
 };
-
-
-// struct Coordinate2DHash {
-// 	std::size_t operator()(utils::Coordinate2D const& coord) const noexcept
-// 	{
-// 		size_t hx = std::hash<int>{}(coord.x);
-// 		size_t hy = std::hash<int>{}(coord.y);
-// 		return hx ^ (hy << 1);
-// 	}
-// };
-
 
 #endif

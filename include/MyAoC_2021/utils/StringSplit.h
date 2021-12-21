@@ -4,12 +4,19 @@
 #include <vector>
 #include <string>
 #include <string_view>
-#include <bitset>
+
+#include "MyAoC_2021/utils/Constants.h"
 
 namespace utils {
 
-std::vector<std::string> SplitString(const std::string& str, const char& delim);
-std::vector<int> SplitStringToInt(const std::string& str, const char& delim);
+[[maybe_unused]] [[maybe_unused]]
+std::vector<std::string_view> SplitString(const std::string_view& str, const char& delim, bool greedy = true);
+
+[[maybe_unused]] [[maybe_unused]]
+std::vector<int> SplitStringToInt(const std::string_view& str, const char& delim, bool greedy = true, int base = utils::magic10); // NOLINT(*-magic-numbers)
+
+[[maybe_unused]] [[maybe_unused]]
+int StringViewToInt(const std::string_view& strView, int base = utils::magic10); // NOLINT(*-magic-numbers)
 
 }
 

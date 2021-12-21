@@ -7,21 +7,21 @@
 
 namespace solutions {
 
-int LoseBingo(const std::string& input)
+// cppcheck-suppress unusedFunction
+int LoseBingo(const std::string_view& input)
 {    
-    size_t offset;
+    size_t offset = 0;
     auto numberSequence = GetNumberSequence(input, &offset);
-    auto bingoBoards = GetBingoBoards(input, offset);
+    auto bingoBoards = GetBingoBoards(input.substr(offset));
 
-    for(auto it = numberSequence.cbegin(); it != numberSequence.cend(); ++it){
+    for(auto number : numberSequence){
         for(auto boardIt = bingoBoards.begin(); boardIt != bingoBoards.cend();) {
-            boardIt->MarkIfOnBoard(*it);
+            boardIt->MarkIfOnBoard(number);
             if(boardIt->HaveWon()){
                 if(bingoBoards.size() == 1){
-                    return bingoBoards.cbegin()->Score(*it);
-                } else {
-                    boardIt = bingoBoards.erase(boardIt);
+                    return bingoBoards.cbegin()->Score(number);
                 }
+                boardIt = bingoBoards.erase(boardIt);
             } else {
                 ++boardIt;
             }

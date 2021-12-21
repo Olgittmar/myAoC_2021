@@ -23,4 +23,12 @@ SpaceInEmptyBlock: true
 Standard: 'Latest'
 IndentWidth: 4
 UseTab: 'ForContinuationAndIndentation'
+BreakBeforeBraces: 'Custom'
+BraceWrapping:
+  AfterEnum: true
+  AfterStruct: true
+  AfterNamespace: true
+  AfterControlStatement: 'MultiLine'
+  IndentBraces: true
+  AfterFunction: true
 ...

@@ -1,17 +1,17 @@
 #include "MyAoC_2021/solutions/Solution_2_1.h"
 
-#define genericInput_2_1 "forward 5\ndown 5\nforward 8\nup 3\ndown 8\nforward 2"
-
+constexpr const char* genericInput_2_1 = "forward 5\ndown 5\nforward 8\nup 3\ndown 8\nforward 2";
+constexpr const char* badInput_2_1 = "forward 0\ndown 0\nforward 0\nup 0";
 #include <gtest/gtest.h>
 
-TEST(Solution_2_1Test, CheckGenericValues)
+TEST(Solution_2_1Test, CheckGenericValues) // NOLINT
 {
     EXPECT_EQ( solutions::SubmarineNavigationProduct(genericInput_2_1), 150 );
 }
 
-TEST(Solution_2_1Test, CheckBadInput)
+TEST(Solution_2_1Test, CheckBadInput) // NOLINT
 {
-    EXPECT_EQ( solutions::SubmarineNavigationProduct("forward 0\ndown 0\nforward 0\nup 0"), 0 );
+    EXPECT_EQ( solutions::SubmarineNavigationProduct(badInput_2_1), 0 );
 }
 
 int main(int argc, char **argv)

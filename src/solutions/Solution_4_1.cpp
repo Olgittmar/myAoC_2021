@@ -2,19 +2,21 @@
 
 #include <iostream>
 #include <sstream>
+#include <numeric>
 
 #include "MyAoC_2021/utils/StringSplit.h"
+#include "MyAoC_2021/utils/Constants.h"
 
 namespace solutions {
 
 // Assume board numbers are unique
-BingoBoard::BingoBoard(const std::vector<std::string>& numStrings)
+BingoBoard::BingoBoard(const std::vector<std::string_view>& numStrings)
 {
-    int num;
-    for(size_t i = 0; i < 5; ++i ){
-        std::stringstream strStrm(numStrings[i]);
-        for(size_t j = 0; j < 5; ++j){
-            strStrm >> num; // Don't like this
+    int num{};
+    for(size_t i = 0; i < numRows; ++i ) {
+        auto nums = utils::SplitStringToInt(numStrings.at(i), ' ', true);
+        for(size_t j = 0; j < numColumns; ++j){
+            num = nums.at(j);
             board[num] = BoardNumber(i, j);
         }
     }
@@ -32,15 +34,15 @@ BingoBoard::MarkIfOnBoard(int key)
 bool
 BingoBoard::HaveWon() const
 {
-    int columnsHit[5] = {0};
-    int rowsHit[5] = {0};
+    std::array<int, numColumns> columnsHit = {{0}};
+    std::array<int, numRows> rowsHit = {{0}};
 
-    for(auto it = board.cbegin(); it != board.cend(); ++it) {
-        if(it->second.m_hit){
+    for(auto boardNumber : board) {
+        if(boardNumber.second.m_hit){
             // Was too occupied thinking if whether I could,
             // forgot to wonder if I should...
-            if( ++columnsHit[it->second.m_column] >= 5
-             || ++rowsHit[it->second.m_row] >= 5 ) {
+            if( ++columnsHit.at(boardNumber.second.m_column) >= static_cast<int>(numColumns)
+             || ++rowsHit.at(boardNumber.second.m_row) >= static_cast<int>(numRows) ) {
                 return true;
             }
         }
@@ -52,49 +54,59 @@ BingoBoard::HaveWon() const
 int
 BingoBoard::Score(int justCalled) const
 {
-    int sum = 0;
-    for(auto it = board.cbegin(); it != board.cend(); ++it){
-        if(!it->second.m_hit){
-            sum += it->first;
+	std::cout << "Scoring" << std::endl;
+    int sum = std::accumulate(board.cbegin(), board.cend(), 0, 
+        [&](int S, const std::pair<int, solutions::BoardNumber>& BoardNumber){
+			return S + BoardNumber.first * static_cast<int>(!BoardNumber.second.isHit());
         }
-    }
-    return sum*justCalled;
+    );
+    return sum * justCalled;
 }
 
-std::vector<int> GetNumberSequence(const std::string& input, size_t* resultingOffset)
+std::vector<int>
+GetNumberSequence(const std::string_view& input, size_t* resultingOffset)
 {
-    std::string numberSequenceString = input.substr(0, input.find("\n\n"));
-    *resultingOffset = numberSequenceString.size();
+    std::string_view numberSequenceString = input.substr(0, input.find("\n\n"));
+    if(resultingOffset != nullptr){
+        *resultingOffset = numberSequenceString.size() + 2;
+    }
     return utils::SplitStringToInt(numberSequenceString, ',');
 }
 
-std::vector<BingoBoard> GetBingoBoards(const std::string& input, size_t start)
+std::vector<BingoBoard>
+GetBingoBoards(const std::string_view& input)
 {
-    size_t sectionEnd = start;
-    size_t sectionStart = 0;
+    size_t sectionStart{};
     std::vector<BingoBoard> bingoBoards;
 
-    while( sectionEnd != input.npos && sectionStart < sectionEnd ){
-        sectionStart = sectionEnd + 2;
-        sectionEnd = input.find("\n\n", sectionStart);
+    while( sectionStart < input.size() )
+    {
+        size_t sectionEnd = input.find("\n\n", sectionStart);
         auto section = input.substr(sectionStart, sectionEnd);
         auto numStrings = utils::SplitString(section, '\n');
-        bingoBoards.push_back( BingoBoard( numStrings ) );
+        bingoBoards.emplace_back( numStrings );
+
+		if( sectionEnd == std::string_view::npos ){
+			break;
+		}
+		sectionStart = sectionEnd + 2;
     }
+
     return bingoBoards;
 }
 
-int WinBingo(const std::string& input)
+// cppcheck-suppress unusedFunction
+int WinBingo(const std::string_view& input)
 {
-    size_t offset;
+    size_t offset = 0;
     auto numberSequence = GetNumberSequence(input, &offset);
-    std::vector<BingoBoard> bingoBoards = GetBingoBoards(input, offset);
+    std::vector<BingoBoard> bingoBoards = GetBingoBoards(input.substr(offset));
 
-    for(auto it = numberSequence.cbegin(); it != numberSequence.cend(); ++it){
+    for(auto number : numberSequence){
         for(auto boardIt = bingoBoards.begin(); boardIt != bingoBoards.cend(); ++boardIt) {
-            boardIt->MarkIfOnBoard(*it);
+            boardIt->MarkIfOnBoard(number);
             if(boardIt->HaveWon()){
-                return boardIt->Score(*it);
+                return boardIt->Score(number);
             }
         }
     }

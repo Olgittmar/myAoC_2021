@@ -1,19 +1,20 @@
 #include "MyAoC_2021/solutions/Solution_5_2.h"
 
 #include <iostream>
+#include <numeric>
 
 #include "MyAoC_2021/utils/Coordinates.h"
 #include "MyAoC_2021/utils/StringSplit.h"
 
 namespace solutions {
 
-// Far from optimal solution but I suspect I will need a structure like this for part 2...
+// cppcheck-suppress unusedFunction
 int NumberOfOverlappingVentlinePointsIncludingDiagonals(const std::string& input)
 {
     std::unordered_map<utils::Coordinate2D, int> grid;
     auto lines = utils::SplitString(input, '\n');
-    for(auto line : lines){
-        utils::Line ventLine = utils::lineFromString(line);
+    for(const auto& line : lines){
+        utils::Line ventLine = utils::Line::lineFromString(line);
         for(auto coord : ventLine.range()){
             auto gridCoord = grid.find(coord);
             if( gridCoord != grid.end() ){
@@ -24,10 +25,8 @@ int NumberOfOverlappingVentlinePointsIncludingDiagonals(const std::string& input
         }
     }
 
-    int numIntersections = 0;
-    for( auto it = grid.cbegin(); it != grid.cend(); ++it ) {
-        numIntersections += static_cast<int>(it->second >= 2);
-    }
+    int numIntersections = std::accumulate(grid.cbegin(), grid.cend(), 0,
+        [](int sum, const auto& gridPos){ return sum + static_cast<int>(gridPos.second >= 2);});
 
     return numIntersections;
 }

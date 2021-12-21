@@ -3,7 +3,7 @@ if(${PROJECT_NAME}_ENABLE_CONAN)
   # Setup Conan requires and options here:
   #
 
-  set(${PROJECT_NAME}_CONAN_REQUIRES "gtest/cci.20210126")
+  set(${PROJECT_NAME}_CONAN_REQUIRES "gtest/cci.20210126" "gsl-lite/0.39.0")
   set(${PROJECT_NAME}_CONAN_OPTIONS "gtest:build_gmock=False")
   set(${PROJECT_NAME}_CONAN_GENERATORS "cmake_paths" "cmake_find_package")
 

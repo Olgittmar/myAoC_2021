@@ -3,18 +3,20 @@
 #include "MyAoC_2021/utils/StringSplit.h"
 
 #include <iostream>
+#include <string_view>
 
 namespace solutions {
 
-int
-CountNumIncreasing(const std::string& str)
+// cppcheck-suppress unusedFunction
+int CountNumIncreasing(const std::string_view& str)
 {
     auto input = utils::SplitStringToInt(str, '\n');
     
     // Special case
     if( input.size() == 2 ){
         return static_cast<int>(input[0] < input[1]);
-    } else if(input.size() < 2){
+    }
+    if(input.size() < 2){
         return 0;
     }
 
