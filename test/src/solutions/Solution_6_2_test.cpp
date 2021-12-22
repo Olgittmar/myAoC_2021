@@ -4,13 +4,13 @@ constexpr const char* genericInput_6_2 = "3,4,3,1,2";
 
 #include <gtest/gtest.h>
 
-TEST(Solution_6_1Test, CheckGenericValues) // NOLINT
+TEST(Solution_6_2Test, CheckGenericValues) // NOLINT
 {
     EXPECT_EQ( solutions::CalculateMassiveNumberOfLanternFishAfterNDays( genericInput_6_2, 18UL), 26UL);
     EXPECT_EQ( solutions::CalculateMassiveNumberOfLanternFishAfterNDays( genericInput_6_2, 80UL), 5934UL);
 }
 
-TEST(Solution_6_1Test, Massive) // NOLINT
+TEST(Solution_6_2Test, Massive) // NOLINT
 {
     EXPECT_EQ( solutions::CalculateMassiveNumberOfLanternFishAfterNDays( genericInput_6_2, 256), 26984457539);
 }

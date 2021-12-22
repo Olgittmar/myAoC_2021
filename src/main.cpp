@@ -14,6 +14,8 @@
 #include "MyAoC_2021/solutions/Solution_5_2.h"
 #include "MyAoC_2021/solutions/Solution_6_1.h"
 #include "MyAoC_2021/solutions/Solution_6_2.h"
+#include "MyAoC_2021/solutions/Solution_7_1.h"
+#include "MyAoC_2021/solutions/Solution_7_2.h"
 
 // ---------------------------------------------------------------------------
 // Main utils
@@ -60,41 +62,46 @@ std::string GetInputData(const int& day, const int& problem){
 int main(/*int argc, char** argv*/){
 
     std::cout << "\nDay 1, problem 1: " << std::endl;
-    const auto input_1_1 = GetInputData(1, 1);
-    std::cout << solutions::CountNumIncreasing( input_1_1 ) << std::endl;
+    std::cout << solutions::CountNumIncreasing( GetInputData(1, 1) ) << std::endl; // NOLINT
 
     std::cout << "\nDay 1, problem 2:" << std::endl;
-    std::cout << solutions::CountIncreasingSlidingWindow( GetInputData(1, 2) ) << std::endl; // NOLINT
+    std::cout << solutions::CountIncreasingSlidingWindow( GetInputData(1, 1) ) << std::endl; // NOLINT
 
     std::cout << "\nDay 2, problem 1:" << std::endl;
     std::cout << solutions::SubmarineNavigationProduct( GetInputData(2, 1) ) << std::endl; // NOLINT
 
     std::cout << "\nDay 2, problem 2:" << std::endl;
-    std::cout << solutions::SubmarineAdvancedNavigationProduct( GetInputData(2, 2) ) << std::endl; // NOLINT
+    std::cout << solutions::SubmarineAdvancedNavigationProduct( GetInputData(2, 1) ) << std::endl; // NOLINT
 
     std::cout << "\nDay 3, problem 1:" << std::endl;
     std::cout << solutions::SubmarinePowerConsumption( GetInputData(3, 1) ) << std::endl; // NOLINT
 
     std::cout << "\nDay 3, problem 2:" << std::endl;
-    std::cout << solutions::SubmarineLifeSupportRating( GetInputData(3, 2) ) << std::endl; // NOLINT
+    std::cout << solutions::SubmarineLifeSupportRating( GetInputData(3, 1) ) << std::endl; // NOLINT
 
     std::cout << "\nDay 4, problem 1:" << std::endl;
     std::cout << solutions::WinBingo( GetInputData(4, 1) ) << std::endl; // NOLINT
 
     std::cout << "\nDay 4, problem 2:" << std::endl;
-    std::cout << solutions::LoseBingo( GetInputData(4, 2) ) << std::endl; // NOLINT
+    std::cout << solutions::LoseBingo( GetInputData(4, 1) ) << std::endl; // NOLINT
 
     std::cout << "\nDay 5, problem 1:" << std::endl;
     std::cout << solutions::NumberOfOverlappingVentlinePoints( GetInputData(5, 1) ) << std::endl; // NOLINT
 
     std::cout << "\nDay 5, problem 2:" << std::endl;
-    std::cout << solutions::NumberOfOverlappingVentlinePointsIncludingDiagonals( GetInputData(5, 2) ) << std::endl; // NOLINT
+    std::cout << solutions::NumberOfOverlappingVentlinePointsIncludingDiagonals( GetInputData(5, 1) ) << std::endl; // NOLINT
 
     std::cout << "\nDay 6, problem 1:" << std::endl;
     std::cout << solutions::CalculateNumberOfLanternFishAfterNDays( GetInputData(6, 1), 80 ) << std::endl; // NOLINT
 
     std::cout << "\nDay 6, problem 2:" << std::endl;
-    std::cout << solutions::CalculateMassiveNumberOfLanternFishAfterNDays( GetInputData(6, 2), 256 ) << std::endl; // NOLINT
-	
+    std::cout << solutions::CalculateMassiveNumberOfLanternFishAfterNDays( GetInputData(6, 1), 256 ) << std::endl; // NOLINT
+
+    std::cout << "\nDay 7, problem 1:" << std::endl;
+    std::cout << solutions::CalculateAlignmentOptimalFuelConsumption( GetInputData(7, 1) ) << std::endl; // NOLINT
+
+    std::cout << "\nDay 7, problem 2:" << std::endl;
+    std::cout << solutions::CalculateExpensiveAlignmentOptimalFuelConsumption( GetInputData(7, 1) ) << std::endl; // NOLINT
+
     return 0;
 }

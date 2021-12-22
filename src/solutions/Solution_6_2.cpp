@@ -24,7 +24,7 @@ inline ulong CountTotalNumberOfFish(std::array<ulong,utils::lanternfishDaysAfter
 }
 
 // cppcheck-suppress unusedFunction
-ulong CalculateMassiveNumberOfLanternFishAfterNDays(const std::string& input, ulong numDays)
+ulong CalculateMassiveNumberOfLanternFishAfterNDays(const std::string_view& input, ulong numDays)
 {
 	auto initialAges = utils::SplitStringToULong(input, ',');
 	std::array<ulong,utils::lanternfishDaysAfterInitialSpawn> fishlist{0UL};

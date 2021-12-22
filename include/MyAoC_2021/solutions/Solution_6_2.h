@@ -15,7 +15,7 @@ inline constexpr void CountDownFish(std::array<ulong, utils::lanternfishDaysAfte
 inline ulong CountTotalNumberOfFish(std::array<ulong, utils::lanternfishDaysAfterInitialSpawn>& fishArray);
 
 [[gnu::used]] [[maybe_unused]]
-ulong CalculateMassiveNumberOfLanternFishAfterNDays(const std::string& input , ulong numDays);
+ulong CalculateMassiveNumberOfLanternFishAfterNDays(const std::string_view& input , ulong numDays);
 
 }
 
