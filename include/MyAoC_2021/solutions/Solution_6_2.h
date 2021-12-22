@@ -2,14 +2,17 @@
 #define SOLUTION_6_2
 
 #include <string>
-#include <vector>
-#include <deque>
+#include <array>
+
+#include "MyAoC_2021/utils/Constants.h"
 
 namespace solutions
 {
 
+inline constexpr void CountDownFish(std::array<ulong, utils::lanternfishDaysAfterInitialSpawn>& fishArray);
+
 [[nodiscard]]
-inline constexpr ulong CountLanternfishChildrenSpawned(ulong initialAge, ulong currentDay, ulong numDays, std::deque<std::pair<ulong,ulong>>& queue);
+inline ulong CountTotalNumberOfFish(std::array<ulong, utils::lanternfishDaysAfterInitialSpawn>& fishArray);
 
 [[gnu::used]] [[maybe_unused]]
 ulong CalculateMassiveNumberOfLanternFishAfterNDays(const std::string& input , ulong numDays);

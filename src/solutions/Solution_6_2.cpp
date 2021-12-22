@@ -2,47 +2,42 @@
 
 #include <iostream>
 #include <numeric>
-#include <algorithm>
 
-#include "MyAoC_2021/utils/Constants.h"
 #include "MyAoC_2021/utils/StringSplit.h"
 
 namespace solutions
 {
 
-inline constexpr ulong CountLanternfishChildrenSpawned(ulong initialAge, ulong currentDay, ulong numDays, std::deque<std::pair<ulong,ulong>>& queue)
+inline constexpr void CountDownFish(std::array<ulong,utils::lanternfishDaysAfterInitialSpawn>& fishArray)
 {
-	ulong numSpawns = 0;
-	ulong daysPassed = initialAge + currentDay;
-
-	while( daysPassed < numDays ) {
-		queue.emplace_back(utils::lanternfishDaysAfterInitialSpawn, daysPassed);
-		daysPassed += utils::lanternfishSpawnInterval;
-		++numSpawns;
+	auto timedOut = fishArray.at(0);
+	for(size_t index = 1; index < fishArray.size(); ++index){
+		fishArray.at(index - 1) = fishArray.at(index);
 	}
+	fishArray.at(utils::lanternfishDaysAfterInitialSpawn - 1) = timedOut;
+	fishArray.at(utils::lanternfishSpawnInterval - 1) += timedOut;
+}
 
-	return numSpawns;
+inline ulong CountTotalNumberOfFish(std::array<ulong,utils::lanternfishDaysAfterInitialSpawn>& fishArray)
+{
+	return std::accumulate(fishArray.cbegin(), fishArray.cend(), 0UL);
 }
 
 // cppcheck-suppress unusedFunction
 ulong CalculateMassiveNumberOfLanternFishAfterNDays(const std::string& input, ulong numDays)
 {
-	auto initialAges = utils::SplitStringToInt(input, ',');
-	std::deque<std::pair<ulong,ulong>> fishQueue{};
+	auto initialAges = utils::SplitStringToULong(input, ',');
+	std::array<ulong,utils::lanternfishDaysAfterInitialSpawn> fishlist{0UL};
 
-	std::transform(initialAges.cbegin(), initialAges.cend(), std::back_inserter(fishQueue),
-		[&](ulong age) -> std::pair<ulong,ulong> { return std::pair<ulong,ulong>{age, 0UL}; });
-
-	auto numSpawned = initialAges.size();
-
-	while( !fishQueue.empty() ){
-		auto [age, spawnedAtDay] { fishQueue.front() };
-		numSpawned += CountLanternfishChildrenSpawned(age, spawnedAtDay, numDays, fishQueue);
-		fishQueue.pop_front();
+	for(auto fishAge : initialAges) {
+		fishlist.at(fishAge) += 1;
 	}
 
-	return numSpawned;
-}
+	for(ulong day = 0; day < numDays; ++day){
+		CountDownFish(fishlist);
+	}
 
+	return CountTotalNumberOfFish(fishlist);
+}
 
 }

@@ -94,7 +94,7 @@ int main(/*int argc, char** argv*/){
     std::cout << solutions::CalculateNumberOfLanternFishAfterNDays( GetInputData(6, 1), 80 ) << std::endl; // NOLINT
 
     std::cout << "\nDay 6, problem 2:" << std::endl;
-    std::cout << solutions::CalculateNumberOfLanternFishAfterNDays( GetInputData(6, 2), 256 ) << std::endl; // NOLINT
+    std::cout << solutions::CalculateMassiveNumberOfLanternFishAfterNDays( GetInputData(6, 2), 256 ) << std::endl; // NOLINT
 	
     return 0;
 }
