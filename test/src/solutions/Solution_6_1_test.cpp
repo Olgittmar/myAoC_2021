@@ -10,11 +10,6 @@ TEST(Solution_6_1Test, CheckGenericValues) // NOLINT
     EXPECT_EQ( solutions::CalculateNumberOfLanternFishAfterNDays( genericInput_6_1, 80), 5934);
 }
 
-TEST(Solution_6_1Test, Massive) // NOLINT
-{
-    EXPECT_EQ( solutions::CalculateNumberOfLanternFishAfterNDays( genericInput_6_1, 256), 26984457539);
-}
-
 TEST(Solution_6_1Test, CheckBadInput) // NOLINT
 {
 }

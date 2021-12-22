@@ -13,6 +13,7 @@
 #include "MyAoC_2021/solutions/Solution_5_1.h"
 #include "MyAoC_2021/solutions/Solution_5_2.h"
 #include "MyAoC_2021/solutions/Solution_6_1.h"
+#include "MyAoC_2021/solutions/Solution_6_2.h"
 
 // ---------------------------------------------------------------------------
 // Main utils
@@ -91,5 +92,9 @@ int main(/*int argc, char** argv*/){
 
     std::cout << "\nDay 6, problem 1:" << std::endl;
     std::cout << solutions::CalculateNumberOfLanternFishAfterNDays( GetInputData(6, 1), 80 ) << std::endl; // NOLINT
+
+    std::cout << "\nDay 6, problem 2:" << std::endl;
+    std::cout << solutions::CalculateNumberOfLanternFishAfterNDays( GetInputData(6, 2), 256 ) << std::endl; // NOLINT
+	
     return 0;
 }

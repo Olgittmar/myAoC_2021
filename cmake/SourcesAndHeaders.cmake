@@ -12,6 +12,7 @@ set(sources
     src/solutions/Solution_5_1.cpp
     src/solutions/Solution_5_2.cpp
     src/solutions/Solution_6_1.cpp
+    src/solutions/Solution_6_2.cpp
 )
 
 set(exe_sources
@@ -34,6 +35,7 @@ set(headers
     include/MyAoC_2021/solutions/Solution_5_1.h
     include/MyAoC_2021/solutions/Solution_5_2.h
     include/MyAoC_2021/solutions/Solution_6_1.h
+    include/MyAoC_2021/solutions/Solution_6_2.h
 )
 
 set(test_utils_sources
@@ -54,4 +56,5 @@ set(test_solutions_sources
   src/solutions/Solution_5_1_test.cpp
   src/solutions/Solution_5_2_test.cpp
   src/solutions/Solution_6_1_test.cpp
+  src/solutions/Solution_6_2_test.cpp
 )

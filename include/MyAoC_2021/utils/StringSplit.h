@@ -13,10 +13,16 @@ namespace utils {
 std::vector<std::string_view> SplitString(const std::string_view& str, const char& delim, bool greedy = true);
 
 [[maybe_unused]] [[maybe_unused]]
-std::vector<int> SplitStringToInt(const std::string_view& str, const char& delim, bool greedy = true, int base = utils::magic10); // NOLINT(*-magic-numbers)
+std::vector<int> SplitStringToInt(const std::string_view& str, const char& delim, bool greedy = true, int base = utils::magic10);
 
 [[maybe_unused]] [[maybe_unused]]
-int StringViewToInt(const std::string_view& strView, int base = utils::magic10); // NOLINT(*-magic-numbers)
+std::vector<ulong> SplitStringToULong(const std::string_view& str, const char& delim, bool greedy = true, int base = utils::magic10);
+
+[[maybe_unused]] [[maybe_unused]]
+int StringViewToInt(const std::string_view& strView, int base = utils::magic10);
+
+[[maybe_unused]] [[maybe_unused]]
+ulong StringViewToULong(const std::string_view& strView, int base = utils::magic10);
 
 }
 

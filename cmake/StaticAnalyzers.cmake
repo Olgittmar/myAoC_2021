@@ -11,8 +11,15 @@ endif()
 if(${PROJECT_NAME}_ENABLE_CPPCHECK)
   find_program(CPPCHECK cppcheck)
   if(CPPCHECK)
-    set(CMAKE_CXX_CPPCHECK ${CPPCHECK} --suppress=missingInclude --enable=all
-                           --inline-suppr --inconclusive -i ${CMAKE_SOURCE_DIR}/imgui/lib)
+	set(CPP_CHECK_CACHE_DIR ${CMAKE_BINARY_DIR}/cppcheck)
+  	file(MAKE_DIRECTORY ${CPP_CHECK_CACHE_DIR})
+    set(CMAKE_CXX_CPPCHECK ${CPPCHECK}
+		--cppcheck-build-dir=${CPP_CHECK_CACHE_DIR}
+		--suppressions-list=${CMAKE_SOURCE_DIR}/cppcheck_suppressions.txt
+		-I${CMAKE_SOURCE_DIR}/include/MyAoC_2021/*
+		--enable=warning
+        --inline-suppr
+		--inconclusive)
     message("Cppcheck finished setting up.")
   else()
     message(SEND_ERROR "Cppcheck requested but executable not found.")

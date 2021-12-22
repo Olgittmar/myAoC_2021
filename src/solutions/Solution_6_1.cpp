@@ -21,9 +21,13 @@ int CalculateNumberOfLanternFishAfterNDays(const std::string& input, int numDays
 	for(int i = 0; i < numDays; ++i) {
 		const auto numNewFish = std::count_if(
 			lanternFish.begin(), lanternFish.end(),
-			[&](LanternFish& fish){ return fish.CountDown(); });
+			[&, lanternFish](auto& fish){ return fish.CountDown(); });
 		
-		lanternFish.resize(lanternFish.size() + static_cast<size_t>(numNewFish), LanternFish{});
+		// lanternFish.resize(lanternFish.size() + static_cast<size_t>(numNewFish), LanternFish{});
+
+		for(int n = 0; n < numNewFish; ++n) {
+			lanternFish.emplace_back();
+		}
 	}
 
 	return static_cast<int>(lanternFish.size());
