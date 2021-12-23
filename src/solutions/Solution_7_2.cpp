@@ -15,11 +15,12 @@ ulong CalculateExpensiveFuelConsumption(const std::vector<ulong>& crabPositions)
 	}
 
 	const auto [minPos, maxPos] = GetCrabPositionRange(crabPositions);
-	std::vector<ulong> fuelConsumptions{maxPos - minPos, 0UL};
+	std::vector<ulong> fuelConsumptions(maxPos - minPos, 0UL);
 
 	for(size_t pos = 0; pos < fuelConsumptions.size(); ++pos){
 		for(auto crabPos : crabPositions) {
-			fuelConsumptions[pos] += CostOfStepsBetween(crabPos, pos);
+			auto cost = CostOfStepsBetween(crabPos, minPos + pos);
+			fuelConsumptions[pos] += cost;
 		}
 	}
 

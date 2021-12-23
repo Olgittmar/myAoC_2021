@@ -9,7 +9,7 @@
 namespace solutions
 {
 
-inline constexpr ulong CostOfSteps(ulong n) { return 2UL^(n - 1) - 1UL; }
+inline constexpr ulong CostOfSteps(ulong n) { return (n * (n + 1UL)) / 2UL; }
 
 inline constexpr ulong CostOfStepsBetween(ulong crabPos, ulong pos) {
 	return CostOfSteps(std::max(crabPos, pos) - std::min(crabPos, pos));
