@@ -17,8 +17,8 @@ constexpr const char* genericInput_8_2 =
 
 TEST(Solution_8_2Test, CheckGenericValues) // NOLINT
 {
-	// EXPECT_EQ( solutions::GetNumberOfCodesOfUniqueLengthInOutput(genericInput_8_2_small), 0); // NOLINT
-	// EXPECT_EQ( solutions::GetNumberOfCodesOfUniqueLengthInOutput(genericInput_8_2), 26); // NOLINT
+	EXPECT_EQ( solutions::SumOfJumbledCodes(genericInput_8_2_small), 5353); // NOLINT
+	EXPECT_EQ( solutions::SumOfJumbledCodes(genericInput_8_2), 61229); // NOLINT
 }
 
 int main(int argc, char **argv)

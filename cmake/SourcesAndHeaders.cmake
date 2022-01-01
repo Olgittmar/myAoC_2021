@@ -1,6 +1,7 @@
 set(sources
     src/utils/StringSplit.cpp
     src/utils/Coordinates.cpp
+    src/utils/myMath.cpp
     src/solutions/Solution_1_1.cpp
     src/solutions/Solution_1_2.cpp
     src/solutions/Solution_2_1.cpp
@@ -16,6 +17,7 @@ set(sources
     src/solutions/Solution_7_1.cpp
     src/solutions/Solution_7_2.cpp
     src/solutions/Solution_8_1.cpp
+    src/solutions/Solution_8_2.cpp
 )
 
 set(exe_sources
@@ -27,6 +29,7 @@ set(headers
     include/MyAoC_2021/utils/StringSplit.h
     include/MyAoC_2021/utils/Coordinates.h
     include/MyAoC_2021/utils/Constants.h
+    include/MyAoC_2021/utils/myMath.h
     include/MyAoC_2021/solutions/Solution_1_1.h
     include/MyAoC_2021/solutions/Solution_1_2.h
     include/MyAoC_2021/solutions/Solution_2_1.h
@@ -42,11 +45,13 @@ set(headers
     include/MyAoC_2021/solutions/Solution_7_1.h
     include/MyAoC_2021/solutions/Solution_7_2.h
     include/MyAoC_2021/solutions/Solution_8_1.h
+    include/MyAoC_2021/solutions/Solution_8_2.h
 )
 
 set(test_utils_sources
   src/utils/StringSplit_test.cpp
   src/utils/Coordinates_test.cpp
+  src/utils/myMath_test.cpp
 )
 
 
@@ -66,4 +71,5 @@ set(test_solutions_sources
   src/solutions/Solution_7_1_test.cpp
   src/solutions/Solution_7_2_test.cpp
   src/solutions/Solution_8_1_test.cpp
+  src/solutions/Solution_8_2_test.cpp
 )
