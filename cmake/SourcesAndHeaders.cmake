@@ -18,6 +18,8 @@ set(sources
     src/solutions/Solution_7_2.cpp
     src/solutions/Solution_8_1.cpp
     src/solutions/Solution_8_2.cpp
+    src/solutions/Solution_9_1.cpp
+    src/solutions/Solution_9_2.cpp
 )
 
 set(exe_sources
@@ -46,6 +48,8 @@ set(headers
     include/MyAoC_2021/solutions/Solution_7_2.h
     include/MyAoC_2021/solutions/Solution_8_1.h
     include/MyAoC_2021/solutions/Solution_8_2.h
+    include/MyAoC_2021/solutions/Solution_9_1.h
+    include/MyAoC_2021/solutions/Solution_9_2.h
 )
 
 set(test_utils_sources
@@ -72,4 +76,6 @@ set(test_solutions_sources
   src/solutions/Solution_7_2_test.cpp
   src/solutions/Solution_8_1_test.cpp
   src/solutions/Solution_8_2_test.cpp
+  src/solutions/Solution_9_1_test.cpp
+  src/solutions/Solution_9_2_test.cpp
 )

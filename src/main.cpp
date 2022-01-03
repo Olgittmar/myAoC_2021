@@ -18,6 +18,8 @@
 #include "MyAoC_2021/solutions/Solution_7_2.h"
 #include "MyAoC_2021/solutions/Solution_8_1.h"
 #include "MyAoC_2021/solutions/Solution_8_2.h"
+#include "MyAoC_2021/solutions/Solution_9_1.h"
+#include "MyAoC_2021/solutions/Solution_9_2.h"
 
 // ---------------------------------------------------------------------------
 // Main utils
@@ -110,6 +112,12 @@ int main(/*int argc, char** argv*/){
 
     std::cout << "\nDay 8, problem 2:" << std::endl;
     std::cout << solutions::SumOfJumbledCodes( GetInputData(8, 1) ) << std::endl; // NOLINT
+
+	std::cout << "\nDay 9, problem 1:" << std::endl;
+    std::cout << solutions::SumRiskLevelOfLowPoints( GetInputData(9, 1) ) << std::endl; // NOLINT
+
+	std::cout << "\nDay 9, problem 2:" << std::endl;
+    std::cout << solutions::ProductOfLargestBasinSizes( GetInputData(9, 1), 3 ) << std::endl; // NOLINT
 
     return 0;
 }

@@ -1,7 +1,10 @@
 #ifndef MY_AOC_2021_CONSTANTS
 #define MY_AOC_2021_CONSTANTS
 
-#include <array>
+// Gonna sneak in these includes since I use them pretty much everywhere
+#include <string>
+#include <vector>
+#include <iostream>
 
 namespace utils {
 
