@@ -21,6 +21,7 @@
 #include "MyAoC_2021/solutions/Solution_9_1.h"
 #include "MyAoC_2021/solutions/Solution_9_2.h"
 #include "MyAoC_2021/solutions/Solution_10_1.h"
+#include "MyAoC_2021/solutions/Solution_10_2.h"
 
 // ---------------------------------------------------------------------------
 // Main utils
@@ -122,6 +123,9 @@ int main(/*int argc, char** argv*/){
 	
 	std::cout << "\nDay 10, problem 1:" << std::endl;
     std::cout << solutions::SyntaxErrorScoreCorrupted( GetInputData(10, 1) ) << std::endl; // NOLINT
+	
+	std::cout << "\nDay 10, problem 2:" << std::endl;
+    std::cout << solutions::MiddleCompletedScore( GetInputData(10, 1) ) << std::endl; // NOLINT
 
     return 0;
 }
