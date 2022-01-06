@@ -1,6 +1,6 @@
-#include "MyAoC_2021/solutions/1/part_1.h"
+#include <1/part_1.h>
 
-#include "MyAoC_2021/utils/StringSplit.h"
+#include <StringSplit.h>
 
 #include <iostream>
 #include <string_view>

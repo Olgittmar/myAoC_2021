@@ -5,7 +5,7 @@
 #include <string>
 #include <string_view>
 
-#include "MyAoC_2021/utils/Constants.h"
+#include <Constants.h>
 
 namespace utils {
 

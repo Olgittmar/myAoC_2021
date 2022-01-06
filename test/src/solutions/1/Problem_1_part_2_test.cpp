@@ -1,4 +1,4 @@
-#include "MyAoC_2021/solutions/1/part_2.h"
+#include <1/part_2.h>
 
 #include <gtest/gtest.h>
 

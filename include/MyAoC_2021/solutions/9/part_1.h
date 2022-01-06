@@ -1,7 +1,7 @@
 #ifndef SOLUTION_9_1
 #define SOLUTION_9_1
 
-#include "MyAoC_2021/utils/Constants.h"
+#include <Constants.h>
 
 namespace solutions
 {

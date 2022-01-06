@@ -1,10 +1,8 @@
 #ifndef SOLUTION_2_2_H
 #define SOLUTION_2_2_H
 
-#include <string>
+#include <string_view>
 #include <vector>
-
-#include "MyAoC_2021/utils/StringSplit.h"
 
 namespace solutions {
 

@@ -1,11 +1,11 @@
-#include "MyAoC_2021/solutions/9/part_2.h"
+#include <9/part_2.h>
 
 #include <deque>
 #include <algorithm>
 #include <numeric>
 #include <set>
 
-#include "MyAoC_2021/utils/StringSplit.h"
+#include <StringSplit.h>
 
 namespace solutions
 {

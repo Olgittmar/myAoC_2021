@@ -1,7 +1,7 @@
-#include "MyAoC_2021/solutions/23/part_2.h"
+#include <23/part_2.h>
 
 
-#include "MyAoC_2021/utils/StringSplit.h"
+#include <StringSplit.h>
 
 namespace solutions {
 

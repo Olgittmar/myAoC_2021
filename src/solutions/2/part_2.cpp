@@ -1,6 +1,8 @@
-#include "MyAoC_2021/solutions/2/part_2.h"
+#include <2/part_2.h>
 
 #include <stdexcept>
+
+#include <StringSplit.h>
 
 namespace solutions {
 

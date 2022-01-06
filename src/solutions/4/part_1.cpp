@@ -1,11 +1,11 @@
-#include "MyAoC_2021/solutions/4/part_1.h"
+#include <4/part_1.h>
 
 #include <iostream>
 #include <sstream>
 #include <numeric>
 
-#include "MyAoC_2021/utils/StringSplit.h"
-#include "MyAoC_2021/utils/Constants.h"
+#include <StringSplit.h>
+#include <Constants.h>
 
 namespace solutions {
 

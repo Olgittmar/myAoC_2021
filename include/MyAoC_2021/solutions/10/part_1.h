@@ -2,7 +2,7 @@
 #define SOLUTION_10_1
 
 
-#include "MyAoC_2021/utils/Constants.h"
+#include <Constants.h>
 
 namespace solutions
 {

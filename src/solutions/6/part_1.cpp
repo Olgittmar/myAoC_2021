@@ -1,10 +1,10 @@
-#include "MyAoC_2021/solutions/6/part_1.h"
+#include <6/part_1.h>
 
 #include <numeric>
 #include <algorithm>
 #include <iostream>
 
-#include "MyAoC_2021/utils/StringSplit.h"
+#include <StringSplit.h>
 
 namespace solutions
 {

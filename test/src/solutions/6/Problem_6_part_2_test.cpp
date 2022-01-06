@@ -1,4 +1,4 @@
-#include "MyAoC_2021/solutions/6/part_2.h"
+#include <6/part_2.h>
 
 constexpr const char* genericInput_6_2 = "3,4,3,1,2";
 

@@ -1,4 +1,4 @@
-#include "MyAoC_2021/utils/StringSplit.h"
+#include <StringSplit.h>
 
 #include <vector>
 #include <string>

@@ -1,119 +1,18 @@
-set(sources
+set(utils_sources
     src/utils/StringSplit.cpp
     src/utils/Coordinates.cpp
     src/utils/myMath.cpp
-    src/solutions/1/part_1.cpp
-    src/solutions/1/part_2.cpp
-    src/solutions/2/part_1.cpp
-    src/solutions/2/part_2.cpp
-    src/solutions/3/part_1.cpp
-    src/solutions/3/part_2.cpp
-    src/solutions/4/part_1.cpp
-    src/solutions/4/part_2.cpp
-    src/solutions/5/part_1.cpp
-    src/solutions/5/part_2.cpp
-    src/solutions/6/part_1.cpp
-    src/solutions/6/part_2.cpp
-    src/solutions/7/part_1.cpp
-    src/solutions/7/part_2.cpp
-    src/solutions/8/part_1.cpp
-    src/solutions/8/part_2.cpp
-    src/solutions/9/part_1.cpp
-    src/solutions/9/part_2.cpp
-    src/solutions/10/part_1.cpp
-    src/solutions/10/part_2.cpp
-	src/solutions/11/part_1.cpp
-	src/solutions/11/part_2.cpp
-	src/solutions/12/part_1.cpp
-	src/solutions/12/part_2.cpp
-	src/solutions/13/part_1.cpp
-	src/solutions/13/part_2.cpp
-	src/solutions/14/part_1.cpp
-	src/solutions/14/part_2.cpp
-	src/solutions/15/part_1.cpp
-	src/solutions/15/part_2.cpp
-	src/solutions/16/part_1.cpp
-	src/solutions/16/part_2.cpp
-	src/solutions/17/part_1.cpp
-	src/solutions/17/part_2.cpp
-	src/solutions/18/part_1.cpp
-	src/solutions/18/part_2.cpp
-	src/solutions/19/part_1.cpp
-	src/solutions/19/part_2.cpp
-	src/solutions/20/part_1.cpp
-	src/solutions/20/part_2.cpp
-	src/solutions/21/part_1.cpp
-	src/solutions/21/part_2.cpp
-	src/solutions/22/part_1.cpp
-	src/solutions/22/part_2.cpp
-	src/solutions/23/part_1.cpp
-	src/solutions/23/part_2.cpp
-	src/solutions/24/part_1.cpp
-	src/solutions/24/part_2.cpp
-	src/solutions/25/part_1.cpp
-	src/solutions/25/part_2.cpp
 )
 
 set(exe_sources
 	src/main.cpp
-	${sources}
 )
 
-set(headers
-    include/MyAoC_2021/utils/StringSplit.h
-    include/MyAoC_2021/utils/Coordinates.h
-    include/MyAoC_2021/utils/Constants.h
-    include/MyAoC_2021/utils/myMath.h
-    include/MyAoC_2021/solutions/1/part_1.h
-    include/MyAoC_2021/solutions/1/part_2.h
-    include/MyAoC_2021/solutions/2/part_1.h
-    include/MyAoC_2021/solutions/2/part_2.h
-    include/MyAoC_2021/solutions/3/part_1.h
-    include/MyAoC_2021/solutions/3/part_2.h
-    include/MyAoC_2021/solutions/4/part_1.h
-    include/MyAoC_2021/solutions/4/part_2.h
-    include/MyAoC_2021/solutions/5/part_1.h
-    include/MyAoC_2021/solutions/5/part_2.h
-    include/MyAoC_2021/solutions/6/part_1.h
-    include/MyAoC_2021/solutions/6/part_2.h
-    include/MyAoC_2021/solutions/7/part_1.h
-    include/MyAoC_2021/solutions/7/part_2.h
-    include/MyAoC_2021/solutions/8/part_1.h
-    include/MyAoC_2021/solutions/8/part_2.h
-    include/MyAoC_2021/solutions/9/part_1.h
-    include/MyAoC_2021/solutions/9/part_2.h
-    include/MyAoC_2021/solutions/10/part_1.h
-    include/MyAoC_2021/solutions/10/part_2.h
-	include/MyAoC_2021/solutions/11/part_1.h
-	include/MyAoC_2021/solutions/11/part_2.h
-	include/MyAoC_2021/solutions/12/part_1.h
-	include/MyAoC_2021/solutions/12/part_2.h
-	include/MyAoC_2021/solutions/13/part_1.h
-	include/MyAoC_2021/solutions/13/part_2.h
-	include/MyAoC_2021/solutions/14/part_1.h
-	include/MyAoC_2021/solutions/14/part_2.h
-	include/MyAoC_2021/solutions/15/part_1.h
-	include/MyAoC_2021/solutions/15/part_2.h
-	include/MyAoC_2021/solutions/16/part_1.h
-	include/MyAoC_2021/solutions/16/part_2.h
-	include/MyAoC_2021/solutions/17/part_1.h
-	include/MyAoC_2021/solutions/17/part_2.h
-	include/MyAoC_2021/solutions/18/part_1.h
-	include/MyAoC_2021/solutions/18/part_2.h
-	include/MyAoC_2021/solutions/19/part_1.h
-	include/MyAoC_2021/solutions/19/part_2.h
-	include/MyAoC_2021/solutions/20/part_1.h
-	include/MyAoC_2021/solutions/20/part_2.h
-	include/MyAoC_2021/solutions/21/part_1.h
-	include/MyAoC_2021/solutions/21/part_2.h
-	include/MyAoC_2021/solutions/22/part_1.h
-	include/MyAoC_2021/solutions/22/part_2.h
-	include/MyAoC_2021/solutions/23/part_1.h
-	include/MyAoC_2021/solutions/23/part_2.h
-	include/MyAoC_2021/solutions/24/part_1.h
-	include/MyAoC_2021/solutions/24/part_2.h
-	include/MyAoC_2021/solutions/25/part_1.h
-	include/MyAoC_2021/solutions/25/part_2.h
+set(utils_headers
+	include/${PROJECT_NAME}/utils/Constants.h
+    include/${PROJECT_NAME}/utils/StringSplit.h
+    include/${PROJECT_NAME}/utils/Coordinates.h
+    include/${PROJECT_NAME}/utils/myMath.h
 )
 
 set(test_utils_sources
@@ -121,7 +20,6 @@ set(test_utils_sources
   src/utils/Coordinates_test.cpp
   src/utils/myMath_test.cpp
 )
-
 
 set(test_solutions_sources
   src/solutions/1/Problem_1_part_1_test.cpp

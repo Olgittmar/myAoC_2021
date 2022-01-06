@@ -2,26 +2,28 @@
 #include <fstream>
 #include <filesystem>
 
-#include "MyAoC_2021/solutions/1/part_1.h"
-#include "MyAoC_2021/solutions/1/part_2.h"
-#include "MyAoC_2021/solutions/2/part_1.h"
-#include "MyAoC_2021/solutions/2/part_2.h"
-#include "MyAoC_2021/solutions/3/part_1.h"
-#include "MyAoC_2021/solutions/3/part_2.h"
-#include "MyAoC_2021/solutions/4/part_1.h"
-#include "MyAoC_2021/solutions/4/part_2.h"
-#include "MyAoC_2021/solutions/5/part_1.h"
-#include "MyAoC_2021/solutions/5/part_2.h"
-#include "MyAoC_2021/solutions/6/part_1.h"
-#include "MyAoC_2021/solutions/6/part_2.h"
-#include "MyAoC_2021/solutions/7/part_1.h"
-#include "MyAoC_2021/solutions/7/part_2.h"
-#include "MyAoC_2021/solutions/8/part_1.h"
-#include "MyAoC_2021/solutions/8/part_2.h"
-#include "MyAoC_2021/solutions/9/part_1.h"
-#include "MyAoC_2021/solutions/9/part_2.h"
-#include "MyAoC_2021/solutions/10/part_1.h"
-#include "MyAoC_2021/solutions/10/part_2.h"
+#include <1/part_1.h>
+#include <1/part_2.h>
+#include <2/part_1.h>
+#include <2/part_2.h>
+#include <3/part_1.h>
+#include <3/part_2.h>
+#include <4/part_1.h>
+#include <4/part_2.h>
+#include <5/part_1.h>
+#include <5/part_2.h>
+#include <6/part_1.h>
+#include <6/part_2.h>
+#include <7/part_1.h>
+#include <7/part_2.h>
+#include <8/part_1.h>
+#include <8/part_2.h>
+#include <9/part_1.h>
+#include <9/part_2.h>
+#include <10/part_1.h>
+#include <10/part_2.h>
+#include <11/part_1.h>
+#include <11/part_2.h>
 
 // ---------------------------------------------------------------------------
 // Main utils
@@ -126,6 +128,12 @@ int main(/*int argc, char** argv*/){
 	
 	std::cout << "\nDay 10, problem 2:" << std::endl;
     std::cout << solutions::MiddleCompletedScore( GetInputData(10, 1) ) << std::endl; // NOLINT
+	
+	std::cout << "\nDay 11, problem 1:" << std::endl;
+    std::cout << solutions::CountDumboFlashes( GetInputData(11, 1), 100 ) << std::endl; // NOLINT
+
+	std::cout << "\nDay 11, problem 2:" << std::endl;
+    std::cout << solutions::PredictSynchronizedFlash( GetInputData(11, 1), 1000 ) << std::endl; // NOLINT
 
     return 0;
 }

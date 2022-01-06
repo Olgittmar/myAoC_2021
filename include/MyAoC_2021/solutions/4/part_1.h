@@ -2,9 +2,8 @@
 #define SOLUTION_4_1_h
 
 #include <unordered_map>
-
-#include "MyAoC_2021/utils/StringSplit.h"
-
+#include <string_view>
+#include <vector>
 
 namespace solutions {
 

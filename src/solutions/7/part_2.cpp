@@ -1,9 +1,9 @@
-#include "MyAoC_2021/solutions/7/part_2.h"
+#include <7/part_2.h>
 
 #include <cmath>
 
-#include "MyAoC_2021/utils/StringSplit.h"
-#include "MyAoC_2021/solutions/7/part_1.h"
+#include <StringSplit.h>
+#include <7/part_1.h>
 
 namespace solutions
 {

@@ -16,7 +16,8 @@ if(${PROJECT_NAME}_ENABLE_CPPCHECK)
     set(CMAKE_CXX_CPPCHECK ${CPPCHECK}
 		--cppcheck-build-dir=${CPP_CHECK_CACHE_DIR}
 		--suppressions-list=${CMAKE_SOURCE_DIR}/cppcheck_suppressions.txt
-		-I${CMAKE_SOURCE_DIR}/include/MyAoC_2021/*
+		-I${CMAKE_SOURCE_DIR}/include/${PROJECT_NAME}/utils/*
+		-I${CMAKE_SOURCE_DIR}/include/${PROJECT_NAME}/solutions/*
 		--enable=warning
         --inline-suppr
 		--inconclusive)

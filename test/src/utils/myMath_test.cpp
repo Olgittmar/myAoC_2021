@@ -1,4 +1,4 @@
-#include "MyAoC_2021/utils/myMath.h"
+#include <myMath.h>
 
 #include <gtest/gtest.h>
 

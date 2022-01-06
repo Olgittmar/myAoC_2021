@@ -1,10 +1,8 @@
 #ifndef SOLUTION_8_1
 #define SOLUTION_8_1
 
-#include <string>
+#include <string_view>
 #include <vector>
-
-#include "MyAoC_2021/utils/Constants.h"
 
 namespace solutions
 {

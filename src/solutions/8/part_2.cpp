@@ -1,11 +1,11 @@
-#include "MyAoC_2021/solutions/8/part_2.h"
+#include <8/part_2.h>
 
 #include <cmath>
 #include <string_view>
 #include <iostream>
 
-#include "MyAoC_2021/utils/StringSplit.h"
-#include "MyAoC_2021/utils/myMath.h"
+#include <StringSplit.h>
+#include <myMath.h>
 
 namespace solutions
 {

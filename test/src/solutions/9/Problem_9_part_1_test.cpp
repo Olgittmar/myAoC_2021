@@ -1,4 +1,4 @@
-#include "MyAoC_2021/solutions/9/part_1.h"
+#include <9/part_1.h>
 
 constexpr const char* genericInput_9_1 = "2199943210\n3987894921\n9856789892\n8767896789\n9899965678";
 

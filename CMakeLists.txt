@@ -6,14 +6,16 @@ cmake_minimum_required(VERSION 3.15)
 
 project(
   "MyAoC_2021"
-  VERSION 0.1.0
+  VERSION 0.2.0
   LANGUAGES CXX
 )
 
 set(CMAKE_CXX_STANDARD 20)
+
 if(NOT CMAKE_BUILD_TYPE)
 	set(CMAKE_BUILD_TYPE "Debug")
 endif()
+
 if (UNIX)
 	add_compile_options("$<$<CONFIG:DEBUG>:-D_DEBUG>")    #this will allow to use same _DEBUG macro available in both Linux as well as Windows - MSCV environment. Easy to put Debug specific code.
 endif (UNIX)
@@ -61,54 +63,151 @@ include(cmake/Vcpkg.cmake)
 
 # Find all headers and implementation files
 include(cmake/SourcesAndHeaders.cmake)
+include(cmake/CompilerWarnings.cmake)
+include(GNUInstallDirs)
 
-if(${PROJECT_NAME}_BUILD_EXECUTABLE)
-  add_executable(${PROJECT_NAME} ${exe_sources})
+# Create utils library
+add_library(
+  ${PROJECT_NAME}_UTILS_LIB
+  STATIC
+    ${utils_headers}
+    ${utils_sources}
+)
 
-  if(${PROJECT_NAME}_VERBOSE_OUTPUT)
-    verbose_message("Found the following sources:")
-    foreach(source IN LISTS exe_sources)
-      verbose_message("* ${source}")
-    endforeach()
-  endif()
+target_include_directories(
+  ${PROJECT_NAME}_UTILS_LIB
+  PUBLIC
+    $<INSTALL_INTERFACE:include/utils>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}/utils>
+  PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/utils
+)
 
-  if(${PROJECT_NAME}_ENABLE_UNIT_TESTING)
-    add_library(${PROJECT_NAME}_LIB ${headers} ${sources})
+if(${PROJECT_NAME}_VERBOSE_OUTPUT)
+  verbose_message("Found the following sources:")
+  foreach(source IN LISTS utils_sources)
+    verbose_message("* ${source}")
+  endforeach()
+  verbose_message("Found the following headers:")
+  foreach(header IN LISTS utils_headers)
+    verbose_message("* ${header}")
+  endforeach()
+endif()
 
-    if(${PROJECT_NAME}_VERBOSE_OUTPUT)
-      verbose_message("Found the following headers:")
-      foreach(header IN LISTS headers)
-        verbose_message("* ${header}")
-      endforeach()
-    endif()
-  endif()
-elseif(${PROJECT_NAME}_BUILD_HEADERS_ONLY)
-  add_library(${PROJECT_NAME} INTERFACE)
+set_target_properties(
+  ${PROJECT_NAME}_UTILS_LIB
+  PROPERTIES
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/${CMAKE_BUILD_TYPE}"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/${CMAKE_BUILD_TYPE}"
+)
 
-  if(${PROJECT_NAME}_VERBOSE_OUTPUT)
-    verbose_message("Found the following headers:")
-    foreach(header IN LIST headers)
-      verbose_message("* ${header}")
-    endforeach()
-  endif()
-else()
+target_compile_features(${PROJECT_NAME}_UTILS_LIB PUBLIC cxx_std_20)
+set_project_warnings(${PROJECT_NAME}_UTILS_LIB)
+
+install(
+  TARGETS
+    ${PROJECT_NAME}_UTILS_LIB
+  EXPORT
+    ${PROJECT_NAME}Targets
+  LIBRARY DESTINATION
+    ${CMAKE_INSTALL_LIBDIR}
+  RUNTIME DESTINATION
+    ${CMAKE_INSTALL_BINDIR}
+  ARCHIVE DESTINATION
+    ${CMAKE_INSTALL_LIBDIR}
+  PUBLIC_HEADER DESTINATION
+	include/utils
+  INCLUDES DESTINATION
+    include/utils
+  PUBLIC_HEADER DESTINATION
+    include/utils
+)
+
+add_library(utils ALIAS ${PROJECT_NAME}_UTILS_LIB)
+
+# Create solution libraries
+# TODO: Each solution should be an independent library
+set(SOLUTIONS_LIBS "")
+foreach(NUM RANGE 1 25)
   add_library(
-    ${PROJECT_NAME}
-    ${headers}
-    ${sources}
+    ${PROJECT_NAME}_SOLUTION_${NUM}_LIB
+    STATIC
+	  include/${PROJECT_NAME}/solutions/${NUM}/part_1.h
+	  include/${PROJECT_NAME}/solutions/${NUM}/part_2.h
+  	  src/solutions/${NUM}/part_1.cpp
+  	  src/solutions/${NUM}/part_2.cpp
   )
 
-  if(${PROJECT_NAME}_VERBOSE_OUTPUT)
-    verbose_message("Found the following sources:")
-    foreach(source IN LISTS sources)
-      verbose_message("* ${source}")
-    endforeach()
-    verbose_message("Found the following headers:")
-    foreach(header IN LISTS headers)
-      verbose_message("* ${header}")
-    endforeach()
-  endif()
+  target_include_directories(
+    ${PROJECT_NAME}_SOLUTION_${NUM}_LIB
+	PUBLIC
+	  $<INSTALL_INTERFACE:include/solutions>
+	  $<INSTALL_INTERFACE:include/utils>
+	  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}/solutions>
+	  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}/utils>
+	PRIVATE
+	  ${CMAKE_CURRENT_SOURCE_DIR}/src/solutions
+  )
+
+  set_target_properties(
+	  ${PROJECT_NAME}_SOLUTION_${NUM}_LIB
+    PROPERTIES
+      ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/${CMAKE_BUILD_TYPE}"
+      LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/${CMAKE_BUILD_TYPE}"
+  )
+
+  target_link_libraries(
+	  ${PROJECT_NAME}_SOLUTION_${NUM}_LIB
+    PRIVATE
+      ${PROJECT_NAME}_UTILS_LIB
+  )
+
+  target_compile_features(${PROJECT_NAME}_SOLUTION_${NUM}_LIB PUBLIC cxx_std_20)
+  set_project_warnings(${PROJECT_NAME}_SOLUTION_${NUM}_LIB)
+  list(APPEND SOLUTIONS_LIBS ${PROJECT_NAME}_SOLUTION_${NUM}_LIB)
+  
+install(
+	TARGETS
+	  ${PROJECT_NAME}_SOLUTION_${NUM}_LIB
+	EXPORT
+	  ${PROJECT_NAME}Targets
+	LIBRARY DESTINATION
+	  ${CMAKE_INSTALL_LIBDIR}
+	RUNTIME DESTINATION
+	  ${CMAKE_INSTALL_BINDIR}
+	ARCHIVE DESTINATION
+	  ${CMAKE_INSTALL_LIBDIR}
+	INCLUDES DESTINATION
+	  include/solutions
+	PUBLIC_HEADER DESTINATION
+	  include/solutions
+  )
+
+  add_library(solution_${num} ALIAS ${PROJECT_NAME}_SOLUTION_${NUM}_LIB)
+endforeach()
+
+if(${PROJECT_NAME}_VERBOSE_OUTPUT)
+  verbose_message("Created solution libraries:")
+  foreach(lib IN LISTS SOLUTIONS_LIBS)
+	verbose_message("* ${lib}")
+  endforeach()
 endif()
+
+# Create main executable or exportable interface (Not sure how the latter will work)
+add_executable(${PROJECT_NAME} ${exe_sources})
+
+if(${PROJECT_NAME}_VERBOSE_OUTPUT)
+  verbose_message("Found the following sources:")
+  foreach(source IN LISTS exe_sources)
+	verbose_message("* ${source}")
+  endforeach()
+endif()
+
+target_link_libraries(
+	${PROJECT_NAME}
+  PRIVATE
+    ${SOLUTIONS_LIBS}
+)
 
 set_target_properties(
   ${PROJECT_NAME}
@@ -117,33 +216,18 @@ set_target_properties(
   LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/${CMAKE_BUILD_TYPE}"
   RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/${CMAKE_BUILD_TYPE}"
 )
-if(${PROJECT_NAME}_BUILD_EXECUTABLE AND ${PROJECT_NAME}_ENABLE_UNIT_TESTING)
-  set_target_properties(
-    ${PROJECT_NAME}_LIB
-    PROPERTIES
-    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/${CMAKE_BUILD_TYPE}"
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/${CMAKE_BUILD_TYPE}"
-    OUTPUT_NAME ${PROJECT_NAME}
-  )
-endif()
 
 message(STATUS "Added all header and implementation files.\n")
 
 #
 # Set the project standard and warnings
 #
-
-if(${PROJECT_NAME}_BUILD_HEADERS_ONLY)
-  target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_20)
-else()
-  target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
-
-  if(${PROJECT_NAME}_BUILD_EXECUTABLE AND ${PROJECT_NAME}_ENABLE_UNIT_TESTING)
-    target_compile_features(${PROJECT_NAME}_LIB PUBLIC cxx_std_20)
-  endif()
-endif()
-include(cmake/CompilerWarnings.cmake)
+target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
 set_project_warnings(${PROJECT_NAME})
+
+# if(${PROJECT_NAME}_ENABLE_UNIT_TESTING)
+#   target_compile_features(${PROJECT_NAME}_LIB PUBLIC cxx_std_20)
+# endif()
 
 verbose_message("Applied compiler warnings. Using standard ${CMAKE_CXX_STANDARD}.\n")
 
@@ -168,13 +252,6 @@ include(cmake/Doxygen.cmake)
 #    ${PROJECT_NAME}_PROJECT_OPTIONS
 #    ${PROJECT_NAME}_PROJECT_WARNINGS
 #)
-#if(${PROJECT_NAME}_BUILD_EXECUTABLE AND ${PROJECT_NAME}_ENABLE_UNIT_TESTING)
-#  target_link_libraries(
-#    ${PROJECT_NAME}_LIB
-#    PUBLIC
-#      dependency1 ...
-#  )
-#endif()
 
 # For Windows, it is necessary to link with the MultiThreaded library.
 # Depending on how the rest of the project's dependencies are linked, it might be necessary
@@ -195,45 +272,32 @@ verbose_message("Successfully added all dependencies and linked against them.")
 #
 
 # Allow usage of header files in the `src` directory, but only for utilities
-if(${PROJECT_NAME}_BUILD_HEADERS_ONLY)
-  target_include_directories(
-    ${PROJECT_NAME}
-    INTERFACE
-    $<INSTALL_INTERFACE:include>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  )
-else()
-  target_include_directories(
-    ${PROJECT_NAME}
-    PUBLIC
-    $<INSTALL_INTERFACE:include>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/src
-  )
-  if(${PROJECT_NAME}_BUILD_EXECUTABLE AND ${PROJECT_NAME}_ENABLE_UNIT_TESTING)
-    target_include_directories(
-      ${PROJECT_NAME}_LIB
-      PUBLIC
-      $<INSTALL_INTERFACE:include>
-      $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-      PRIVATE
-      ${CMAKE_CURRENT_SOURCE_DIR}/src
-    )
-  endif()
-endif()
+# target_include_directories(
+#   ${PROJECT_NAME}
+#   PUBLIC
+#   $<INSTALL_INTERFACE:include>
+#   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+#   PRIVATE
+#   ${CMAKE_CURRENT_SOURCE_DIR}/src
+# )
+
+# if(${PROJECT_NAME}_ENABLE_UNIT_TESTING)
+#   target_include_directories(
+# 	${PROJECT_NAME}_LIB
+# 	PUBLIC
+# 	$<INSTALL_INTERFACE:include>
+# 	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+# 	PRIVATE
+# 	${CMAKE_CURRENT_SOURCE_DIR}/src
+#   )
+# endif()
 
 message(STATUS "Finished setting up include directories.")
 
 #
 # Provide alias to library for
 #
-
-if(${PROJECT_NAME}_BUILD_EXECUTABLE)
-  add_executable(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
-else()
-  add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
-endif()
+add_executable(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
 verbose_message("Project is now aliased as ${PROJECT_NAME}::${PROJECT_NAME}.\n")
 
@@ -247,7 +311,6 @@ add_clang_format_target()
 # Install library for easy downstream inclusion
 #
 
-include(GNUInstallDirs)
 install(
   TARGETS
   ${PROJECT_NAME}

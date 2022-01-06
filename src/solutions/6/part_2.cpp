@@ -1,9 +1,9 @@
-#include "MyAoC_2021/solutions/6/part_2.h"
+#include <6/part_2.h>
 
 #include <iostream>
 #include <numeric>
 
-#include "MyAoC_2021/utils/StringSplit.h"
+#include <StringSplit.h>
 
 namespace solutions
 {

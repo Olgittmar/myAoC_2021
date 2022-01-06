@@ -1,6 +1,6 @@
-#include "MyAoC_2021/solutions/22/part_2.h"
+#include <22/part_2.h>
 
-constexpr const char* genericInput_11_1 = "";
+// constexpr const char* genericInput_11_1 = "";
 
 #include <gtest/gtest.h>
 

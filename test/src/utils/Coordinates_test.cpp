@@ -1,4 +1,4 @@
-#include "MyAoC_2021/utils/Coordinates.h"
+#include <Coordinates.h>
 
 #include <vector>
 #include <string>

@@ -1,4 +1,4 @@
-#include "MyAoC_2021/solutions/8/part_1.h"
+#include <8/part_1.h>
 
 constexpr const char* genericInput_8_1_small = "acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab | cdfeb fcadb cdfeb cdbaf";
 constexpr const char* genericInput_8_1 =

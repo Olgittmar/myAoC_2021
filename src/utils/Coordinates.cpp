@@ -1,5 +1,5 @@
-#include "MyAoC_2021/utils/Coordinates.h"
-#include "MyAoC_2021/utils/StringSplit.h"
+#include <Coordinates.h>
+#include <StringSplit.h>
 
 #include <iostream>
 

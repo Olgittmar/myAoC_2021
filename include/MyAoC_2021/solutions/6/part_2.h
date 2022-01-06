@@ -4,7 +4,7 @@
 #include <string>
 #include <array>
 
-#include "MyAoC_2021/utils/Constants.h"
+#include <Constants.h>
 
 namespace solutions
 {
