@@ -8,12 +8,12 @@
 namespace solutions
 {
 
-std::vector<std::pair<int,int>> GetLowPoints(const std::map<std::pair<int,int>, int>& heightMap);
+auto GetLowPoints(const std::map<std::pair<int,int>, int>& heightMap) -> std::vector<std::pair<int,int>>;
 // Orthogonal floodfill to find basin size
-int GetBasinSize(const std::pair<int,int>& lowPoint, const std::map<std::pair<int,int>, int>& heightMap);
+auto GetBasinSize(const std::pair<int,int>& lowPoint, const std::map<std::pair<int,int>, int>& heightMap) -> int;
 
-int ProductOfLargestBasinSizes(const std::string_view& input, size_t numLargestBasins);
+auto ProductOfLargestBasinSizes(const std::string_view& input, size_t numLargestBasins) -> int;
 
-}
+} // namespace solutions
 
 #endif

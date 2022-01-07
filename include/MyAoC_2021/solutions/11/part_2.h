@@ -7,8 +7,8 @@
 
 namespace solutions {
 
-ulong PredictSynchronizedFlash(const std::string_view& input, ulong maxSteps);
+auto PredictSynchronizedFlash(const std::string_view& input, ulong maxSteps) -> ulong;
 
-}
+} // namespace solutions
 
 #endif

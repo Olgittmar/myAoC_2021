@@ -7,9 +7,9 @@
 
 namespace solutions {
 
-ulong PropagateDumboFlashes(std::array<std::array<int, utils::dumboMapSize>, utils::dumboMapSize>& dumboMap );
-ulong CountDumboFlashes(const std::string_view& input, ulong numSteps);
+auto PropagateDumboFlashes(std::array<std::array<int, utils::dumboMapSize>, utils::dumboMapSize>& dumboMap ) -> ulong;
+auto CountDumboFlashes(const std::string_view& input, ulong numSteps) -> ulong;
 
-}
+} // namespace solutions
 
 #endif

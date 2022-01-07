@@ -6,10 +6,9 @@
 
 namespace solutions {
 
-// cppcheck-suppress unusedFunction
 [[gnu::used]] [[maybe_unused]]
-int NumberOfOverlappingVentlinePoints(const std::string_view& input);
+auto NumberOfOverlappingVentlinePoints(const std::string_view& input) -> int;
 
-}
+} // namespace solutions
 
 #endif

@@ -7,7 +7,7 @@
 namespace solutions
 {
 
-constexpr inline int CharScore(const char& c){
+constexpr inline auto CharScore(const char& c) -> int {
 	switch (c) {
 		case '\0': return 0;
 		case ')': return 3;
@@ -19,10 +19,10 @@ constexpr inline int CharScore(const char& c){
 	return -1;
 }
 
-char GetFirstIllegalChar(const std::string_view& line);
+auto GetFirstIllegalChar(const std::string_view& line) -> char;
 
-int SyntaxErrorScoreCorrupted(const std::string_view& input);
+auto SyntaxErrorScoreCorrupted(const std::string_view& input) -> int;
 
-}
+} // namespace solutions
 
 #endif

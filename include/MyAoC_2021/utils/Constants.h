@@ -2,9 +2,9 @@
 #define CONSTANTS_H
 
 // Gonna sneak in these includes since I use them pretty much everywhere
+#include <iostream>
 #include <string>
 #include <vector>
-#include <iostream>
 
 namespace utils {
 
@@ -15,6 +15,6 @@ constexpr const int lanternfishSpawnInterval = 7;
 
 constexpr const unsigned long dumboMapSize = 10UL;
 
-}
+} // namespace utils
 
 #endif

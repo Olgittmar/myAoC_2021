@@ -7,12 +7,12 @@
 namespace solutions
 {
 
-int GetNumberOfSegments(const std::string_view& code);
+auto GetNumberOfSegments(const std::string_view& code) -> int;
 
-int GetNumberOfCodesOfUniqueLength(const std::vector<std::string_view>& data);
+auto GetNumberOfCodesOfUniqueLength(const std::vector<std::string_view>& data) -> int;
 // Don't like this solution, it feels brute force-y
-int GetNumberOfCodesOfUniqueLengthInOutput(const std::string_view& input);
+auto GetNumberOfCodesOfUniqueLengthInOutput(const std::string_view& input) -> int;
 
-}
+} // namespace solutions
 
 #endif

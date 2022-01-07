@@ -8,7 +8,7 @@
 namespace solutions
 {
 
-constexpr inline unsigned long long CharCompletionScore(const char& c){
+constexpr inline auto CharCompletionScore(const char& c) -> unsigned long long {
 	switch (c) {
 		case '(': return 1ULL;
 		case '[': return 2ULL;
@@ -19,10 +19,10 @@ constexpr inline unsigned long long CharCompletionScore(const char& c){
 	return 0ULL;
 }
 
-std::stack<char> AutoComplete(const std::string_view& line);
+auto AutoComplete(const std::string_view& line) -> std::stack<char>;
 
-unsigned long long MiddleCompletedScore(const std::string_view& input);
+auto MiddleCompletedScore(const std::string_view& input) -> unsigned long long;
 
-}
+} // namespace solutions
 
 #endif

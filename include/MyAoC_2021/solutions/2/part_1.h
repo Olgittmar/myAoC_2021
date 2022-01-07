@@ -14,12 +14,12 @@ struct SubmarinePosition {
     int depth = 0;
 };
 
-std::pair<MovementType, int> StrToMovement(const std::string_view& str);
+auto StrToMovement(const std::string_view& str) -> std::pair<MovementType, int>;
 
 // cppcheck-suppress unusedFunction
 [[gnu::used]] [[maybe_unused]]
-int SubmarineNavigationProduct(const std::string_view& str);
+auto SubmarineNavigationProduct(const std::string_view& str) -> int;
 
-}
+} // namespace solutions
 
 #endif

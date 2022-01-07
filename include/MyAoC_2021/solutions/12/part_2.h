@@ -5,8 +5,8 @@
 
 namespace solutions {
 
-unsigned long FindNumCavePathsWithExtraVisit(const std::string_view& input);
+auto FindNumCavePathsWithExtraVisit(const std::string_view& input) -> unsigned long;
 
-}
+} // namespace solutions
 
 #endif

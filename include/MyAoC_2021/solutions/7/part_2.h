@@ -9,16 +9,16 @@
 namespace solutions
 {
 
-inline constexpr ulong CostOfSteps(ulong n) { return (n * (n + 1UL)) / 2UL; }
+inline constexpr auto CostOfSteps(ulong n) -> ulong { return (n * (n + 1UL)) / 2UL; }
 
-inline constexpr ulong CostOfStepsBetween(ulong crabPos, ulong pos) {
+inline constexpr auto CostOfStepsBetween(ulong crabPos, ulong pos) -> ulong {
 	return CostOfSteps(std::max(crabPos, pos) - std::min(crabPos, pos));
 }
 
-ulong CalculateExpensiveFuelConsumption(const std::vector<ulong>& crabPositions);
+auto CalculateExpensiveFuelConsumption(const std::vector<ulong>& crabPositions) -> ulong;
 
-ulong CalculateExpensiveAlignmentOptimalFuelConsumption(const std::string_view& input);
+auto CalculateExpensiveAlignmentOptimalFuelConsumption(const std::string_view& input) -> ulong;
 
-}
+} // namespace solutions
 
 #endif

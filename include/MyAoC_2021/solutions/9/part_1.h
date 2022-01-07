@@ -6,8 +6,8 @@
 namespace solutions
 {
 
-int SumRiskLevelOfLowPoints(const std::string_view& input);
+auto SumRiskLevelOfLowPoints(const std::string_view& input) -> int;
 
-}
+} // namespace solutions
 
 #endif

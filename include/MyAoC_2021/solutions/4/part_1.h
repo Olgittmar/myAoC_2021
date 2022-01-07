@@ -1,8 +1,8 @@
 #ifndef SOLUTION_4_1_h
 #define SOLUTION_4_1_h
 
-#include <unordered_map>
 #include <string_view>
+#include <unordered_map>
 #include <vector>
 
 namespace solutions {
@@ -18,12 +18,15 @@ class BoardNumber {
       : m_row(row), m_column(column), m_hit(hit){}
     ~BoardNumber() = default;
 
-    BoardNumber& operator=(const BoardNumber& other) = default;
-    BoardNumber& operator=(BoardNumber&& other) = default;
+    auto operator=(const BoardNumber& other) -> BoardNumber& = default;
+    auto operator=(BoardNumber&& other) -> BoardNumber& = default;
 
-	[[nodiscard]] inline constexpr bool isHit() const { return m_hit; }
-	[[nodiscard]] inline constexpr size_t row() const { return m_row; }
-	[[nodiscard]] inline constexpr size_t columnt() const { return m_column; }
+	[[nodiscard]] inline constexpr auto isHit() const -> bool
+		{ return m_hit; }
+	[[nodiscard]] inline constexpr auto row() const -> size_t
+		{ return m_row; }
+	[[nodiscard]] inline constexpr auto columnt() const -> size_t
+		{ return m_column; }
 
     friend BingoBoard;
 
@@ -41,12 +44,12 @@ class BingoBoard {
     explicit BingoBoard(const std::vector<std::string_view>& numStrings);
     ~BingoBoard() = default;
 
-    BingoBoard& operator=(const BingoBoard& other) = default;
-    BingoBoard& operator=(BingoBoard&& other) = default;
+    auto operator=(const BingoBoard& other) -> BingoBoard& = default;
+    auto operator=(BingoBoard&& other) -> BingoBoard& = default;
 
-    bool HaveWon() const;
+    auto HaveWon() const -> bool;
     void MarkIfOnBoard(int key);
-    int Score(int justCalled) const;
+    auto Score(int justCalled) const -> int;
 
     static const size_t numRows = 5;
     static const size_t numColumns = 5;
@@ -54,13 +57,13 @@ class BingoBoard {
     std::unordered_map<int, BoardNumber> board;
 };
 
-std::vector<int> GetNumberSequence(const std::string_view& input, size_t* resultingOffset = nullptr);
-std::vector<BingoBoard> GetBingoBoards(const std::string_view& input);
+auto GetNumberSequence(const std::string_view& input, size_t* resultingOffset = nullptr) -> std::vector<int>;
+auto GetBingoBoards(const std::string_view& input) -> std::vector<BingoBoard>;
 
 // cppcheck-suppress unusedFunction
 [[gnu::used]] [[maybe_unused]]
-int WinBingo(const std::string_view& input);
+auto WinBingo(const std::string_view& input) -> int;
 
-}
+} // namespace solutions
 
 #endif

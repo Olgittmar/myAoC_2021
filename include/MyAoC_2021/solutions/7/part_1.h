@@ -9,10 +9,10 @@
 namespace solutions
 {
 
-ulong CalculateFuelConsumption(const std::vector<ulong>& crabPositions, size_t pos);
-std::pair<ulong,ulong> GetCrabPositionRange(const std::vector<ulong>& crabPositions);
-ulong CalculateAlignmentOptimalFuelConsumption(const std::string_view& input);
+auto CalculateFuelConsumption(const std::vector<ulong>& crabPositions, size_t pos) -> ulong;
+auto GetCrabPositionRange(const std::vector<ulong>& crabPositions) -> std::pair<ulong,ulong>;
+auto CalculateAlignmentOptimalFuelConsumption(const std::string_view& input) -> ulong;
 
-}
+} // namespace solutions
 
 #endif

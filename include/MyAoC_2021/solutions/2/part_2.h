@@ -16,11 +16,11 @@ class Submarine
         : m_aim(aim), m_hPos(hPos), m_depth(depth) {}
     ~Submarine() = default;
 
-    Submarine& operator=(const Submarine& other) = default;
-    Submarine& operator=(Submarine&& other) = default;
+    auto operator=(const Submarine& other) -> Submarine& = default;
+    auto operator=(Submarine&& other) -> Submarine& = default;
 
-    [[nodiscard]] // But why not? 
-    inline constexpr int GetNavigationProduct() const { return m_depth * m_hPos; }
+    [[nodiscard]]
+    inline constexpr auto GetNavigationProduct() const -> int { return m_depth * m_hPos; }
     void Navigate(const std::vector<std::string_view>& instructions);
 
   private:
@@ -33,15 +33,15 @@ class Submarine
     int m_depth;
 
     void Move(MoveCommand command, int value);
-    static MoveCommand StrToMovecommand(const std::string_view& str);
-    static std::pair<MoveCommand, int> StrToCommandValuePair(const std::string_view& str);
+    static auto StrToMovecommand(const std::string_view& str) -> MoveCommand;
+    static auto StrToCommandValuePair(const std::string_view& str) -> std::pair<MoveCommand, int>;
 
 };
 
 // cppcheck-suppress unusedFunction
 [[gnu::used]] [[maybe_unused]]
-int SubmarineAdvancedNavigationProduct(const std::string_view& str);
+auto SubmarineAdvancedNavigationProduct(const std::string_view& str) -> int;
 
-}
+} // namespace solutions
 
 #endif

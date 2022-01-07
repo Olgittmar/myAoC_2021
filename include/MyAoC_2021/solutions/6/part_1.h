@@ -16,17 +16,19 @@ class LanternFish
 	LanternFish(LanternFish&& other) = default;
 	~LanternFish() = default;
 
-	LanternFish& operator=(const LanternFish& other) = default;
-	LanternFish& operator=(LanternFish&& other) = default;
+	auto operator=(const LanternFish& other) -> LanternFish& = default;
+	auto operator=(LanternFish&& other) -> LanternFish& = default;
 
-	[[nodiscard]] inline constexpr bool CountDown()	{
+	[[nodiscard]]
+	inline constexpr auto CountDown() -> bool {
 		if(--m_numDaysUntilSpawn < 0) {
 			m_numDaysUntilSpawn = daysUntilRespawn;
 			return true;
 		}
 		return false;
 	}
-	[[nodiscard]] inline constexpr int DaysLeft() const { return m_numDaysUntilSpawn; }
+	[[nodiscard]]
+	inline constexpr auto DaysLeft() const -> int { return m_numDaysUntilSpawn; }
 
 	static const int daysUntilRespawn = 6;
 	static const int initDaysUntilSpawn = 8;
@@ -35,10 +37,9 @@ class LanternFish
 	int m_numDaysUntilSpawn = initDaysUntilSpawn;
 };
 
-// cppcheck-suppress unusedFunction
 [[gnu::used]] [[maybe_unused]]
-int CalculateNumberOfLanternFishAfterNDays(const std::string& input , int numDays);
+auto CalculateNumberOfLanternFishAfterNDays(const std::string& input , int numDays) -> int;
 
-}
+} // namespace solutions
 
 #endif
