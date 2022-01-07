@@ -9,7 +9,7 @@ TEST(Solution_11_2Test, CheckGenericValues) // NOLINT
 	EXPECT_EQ( solutions::PredictSynchronizedFlash(genericInput_11_2, 1000), 195); // NOLINT
 }
 
-int main(int argc, char **argv)
+auto main(int argc, char **argv) -> int
 {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

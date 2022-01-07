@@ -15,7 +15,7 @@ TEST(Solution_6_2Test, Massive) // NOLINT
     EXPECT_EQ( solutions::CalculateMassiveNumberOfLanternFishAfterNDays( genericInput_6_2, 256), 26984457539);
 }
 
-int main(int argc, char **argv)
+auto main(int argc, char **argv) -> int
 {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

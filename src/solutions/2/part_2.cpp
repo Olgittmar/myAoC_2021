@@ -36,8 +36,8 @@ Submarine::Move(MoveCommand command, int value)
 
 }
 
-Submarine::MoveCommand
-Submarine::StrToMovecommand(const std::string_view& str)
+auto
+Submarine::StrToMovecommand(const std::string_view& str) -> Submarine::MoveCommand
 {
     constexpr std::string_view ForwardStr{"forward"};
     constexpr std::string_view DownStr{"down"};
@@ -58,8 +58,8 @@ Submarine::StrToMovecommand(const std::string_view& str)
     throw std::invalid_argument(errMsg);
 }
 
-std::pair<Submarine::MoveCommand, int>
-Submarine::StrToCommandValuePair(const std::string_view& str)
+auto
+Submarine::StrToCommandValuePair(const std::string_view& str) -> std::pair<Submarine::MoveCommand, int>
 {
     auto delimPos = str.find(' ');
     if(delimPos == std::string::npos || delimPos + 1 >= str.size()){
@@ -72,11 +72,11 @@ Submarine::StrToCommandValuePair(const std::string_view& str)
 }
 
 // cppcheck-suppress unusedFunction
-int SubmarineAdvancedNavigationProduct(const std::string_view& str)
+auto SubmarineAdvancedNavigationProduct(const std::string_view& str) -> int
 {
     Submarine sub{};
     sub.Navigate( utils::SplitString(str, '\n') );
     return sub.GetNavigationProduct();
 }
 
-} // solutions
+} // namespace solutions

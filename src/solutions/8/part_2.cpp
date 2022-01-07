@@ -1,8 +1,8 @@
 #include <8/part_2.h>
 
 #include <cmath>
-#include <string_view>
 #include <iostream>
+#include <string_view>
 
 #include <StringSplit.h>
 #include <myMath.h>
@@ -10,8 +10,8 @@
 namespace solutions
 {
 
-inline std::string
-CodeToNumberMapper::Intersect(const std::string_view& str1, const std::string_view& str2)
+inline auto
+CodeToNumberMapper::Intersect(const std::string_view& str1, const std::string_view& str2) -> std::string
 {
 	std::string _ret;
 	std::copy_if(str1.cbegin(), str1.cend(), std::back_inserter(_ret),
@@ -19,8 +19,8 @@ CodeToNumberMapper::Intersect(const std::string_view& str1, const std::string_vi
 	return _ret;
 }
 	
-inline std::string
-CodeToNumberMapper::Difference(const std::string_view& str1, const std::string_view& str2)
+inline auto
+CodeToNumberMapper::Difference(const std::string_view& str1, const std::string_view& str2) -> std::string
 {
 	std::string _ret;
 	std::copy_if(str1.cbegin(), str1.cend(), std::back_inserter(_ret),
@@ -29,8 +29,8 @@ CodeToNumberMapper::Difference(const std::string_view& str1, const std::string_v
 }
 
 template<>
-int
-CodeToNumberMapper::DetermineAmbiguousDigit<5UL>(const std::string_view& code)
+auto
+CodeToNumberMapper::DetermineAmbiguousDigit<5UL>(const std::string_view& code) -> int
 {
 	// size == 5 means it's either a 2, 3 or 5
 	if(IsEquivalent(code, m_2)){ return 2; }
@@ -87,8 +87,8 @@ CodeToNumberMapper::DetermineAmbiguousDigit<5UL>(const std::string_view& code)
 }
 
 template<>
-int
-CodeToNumberMapper::DetermineAmbiguousDigit<6UL>(const std::string_view& code)
+auto
+CodeToNumberMapper::DetermineAmbiguousDigit<6UL>(const std::string_view& code) -> int
 {
 	// size == 6 means it's either a 0, 6 or 9
 	if(IsEquivalent(code, m_0)){ return 0; }
@@ -142,8 +142,8 @@ CodeToNumberMapper::DetermineAmbiguousDigit<6UL>(const std::string_view& code)
 	return -1;
 }
 
-int
-CodeToNumberMapper::ConvertToDigit(const std::string_view& code)
+auto
+CodeToNumberMapper::ConvertToDigit(const std::string_view& code) -> int
 {
 	switch (code.size())
 	{
@@ -176,8 +176,8 @@ CodeToNumberMapper::ConvertToDigit(const std::string_view& code)
 	return -1;
 }
 
-int
-SumOfJumbledCodes(const std::string_view& input)
+auto
+SumOfJumbledCodes(const std::string_view& input) -> int
 {
 	// TODO: Template for this syntax
 	// auto [in, out] = utils::SplitString(input, '|');
@@ -216,4 +216,4 @@ SumOfJumbledCodes(const std::string_view& input)
 	return totalSum;
 }
 
-}
+} // namespace solutions

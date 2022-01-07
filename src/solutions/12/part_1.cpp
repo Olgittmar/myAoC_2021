@@ -1,10 +1,10 @@
 #include <12/part_1.h>
 
-#include <map>
-#include <vector>
-#include <string>
 #include <deque>
+#include <map>
 #include <numeric>
+#include <string>
+#include <vector>
 
 #include <StringSplit.h>
 
@@ -37,8 +37,8 @@ NumValidPaths(unsigned long& numPaths, std::deque<std::vector<std::string>>& pat
 	}
 }
 
-unsigned long
-FindNumCavePaths(const std::string_view& input)
+auto
+FindNumCavePaths(const std::string_view& input) -> unsigned long
 {
 	static const std::string _start{"start"};
 
@@ -62,4 +62,4 @@ FindNumCavePaths(const std::string_view& input)
 	return numPaths;
 }
 
-} // solutions
+} // namespace solutions

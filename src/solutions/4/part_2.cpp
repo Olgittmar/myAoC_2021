@@ -8,7 +8,7 @@
 namespace solutions {
 
 // cppcheck-suppress unusedFunction
-int LoseBingo(const std::string_view& input)
+auto LoseBingo(const std::string_view& input) -> int
 {    
     size_t offset = 0;
     auto numberSequence = GetNumberSequence(input, &offset);
@@ -31,4 +31,4 @@ int LoseBingo(const std::string_view& input)
     return 0;
 }
 
-}
+} // namespace solutions

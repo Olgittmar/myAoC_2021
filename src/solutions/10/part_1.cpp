@@ -7,8 +7,8 @@
 namespace solutions
 {
 
-char
-GetFirstIllegalChar(const std::string_view& line)
+auto
+GetFirstIllegalChar(const std::string_view& line) -> char
 {
 	std::stack<char> charStack{};
 
@@ -33,8 +33,8 @@ GetFirstIllegalChar(const std::string_view& line)
 	return '\0';
 }
 
-int
-SyntaxErrorScoreCorrupted(const std::string_view& input)
+auto
+SyntaxErrorScoreCorrupted(const std::string_view& input) -> int
 {
 	auto lines = utils::SplitString(input, '\n');
 	int totalSyntaxScore = 0;

@@ -1,11 +1,11 @@
 #include <4/part_1.h>
 
 #include <iostream>
-#include <sstream>
 #include <numeric>
+#include <sstream>
 
-#include <StringSplit.h>
 #include <Constants.h>
+#include <StringSplit.h>
 
 namespace solutions {
 
@@ -31,8 +31,8 @@ BingoBoard::MarkIfOnBoard(int key)
     }
 }
 
-bool
-BingoBoard::HaveWon() const
+auto
+BingoBoard::HaveWon() const -> bool
 {
     std::array<int, numColumns> columnsHit = {{0}};
     std::array<int, numRows> rowsHit = {{0}};
@@ -51,8 +51,8 @@ BingoBoard::HaveWon() const
     return false;
 }
 
-int
-BingoBoard::Score(int justCalled) const
+auto
+BingoBoard::Score(int justCalled) const -> int
 {
 	std::cout << "Scoring" << std::endl;
     int sum = std::accumulate(board.cbegin(), board.cend(), 0, 
@@ -63,8 +63,8 @@ BingoBoard::Score(int justCalled) const
     return sum * justCalled;
 }
 
-std::vector<int>
-GetNumberSequence(const std::string_view& input, size_t* resultingOffset)
+auto
+GetNumberSequence(const std::string_view& input, size_t* resultingOffset) -> std::vector<int>
 {
     std::string_view numberSequenceString = input.substr(0, input.find("\n\n"));
     if(resultingOffset != nullptr){
@@ -73,8 +73,8 @@ GetNumberSequence(const std::string_view& input, size_t* resultingOffset)
     return utils::SplitStringToInt(numberSequenceString, ',');
 }
 
-std::vector<BingoBoard>
-GetBingoBoards(const std::string_view& input)
+auto
+GetBingoBoards(const std::string_view& input) -> std::vector<BingoBoard>
 {
     size_t sectionStart{};
     std::vector<BingoBoard> bingoBoards;
@@ -96,7 +96,7 @@ GetBingoBoards(const std::string_view& input)
 }
 
 // cppcheck-suppress unusedFunction
-int WinBingo(const std::string_view& input)
+auto WinBingo(const std::string_view& input) -> int
 {
     size_t offset = 0;
     auto numberSequence = GetNumberSequence(input, &offset);
@@ -115,4 +115,4 @@ int WinBingo(const std::string_view& input)
 }
 
 
-}
+} // namespace solutions

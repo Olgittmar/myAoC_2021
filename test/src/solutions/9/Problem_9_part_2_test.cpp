@@ -9,7 +9,7 @@ TEST(Solution_9_2Test, CheckGenericValues) // NOLINT
 	EXPECT_EQ( solutions::ProductOfLargestBasinSizes(genericInput_9_2, 3), 1134); // NOLINT
 }
 
-int main(int argc, char **argv)
+auto main(int argc, char **argv) -> int
 {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

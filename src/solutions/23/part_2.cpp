@@ -3,6 +3,5 @@
 
 #include <StringSplit.h>
 
-namespace solutions {
 
-} // solutions
+

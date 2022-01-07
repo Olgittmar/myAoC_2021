@@ -5,7 +5,7 @@
 namespace solutions {
 
 // cppcheck-suppress unusedFunction
-int SubmarineNavigationProduct(const std::string_view& str)
+auto SubmarineNavigationProduct(const std::string_view& str) -> int
 {
     auto input = utils::SplitString(str, '\n');
     SubmarinePosition subPos;
@@ -28,7 +28,7 @@ int SubmarineNavigationProduct(const std::string_view& str)
     return subPos.h_position * subPos.depth;
 }
 
-std::pair<MovementType, int> StrToMovement(const std::string_view& str)
+auto StrToMovement(const std::string_view& str) -> std::pair<MovementType, int>
 {
     constexpr const std::string_view ForwardStr{"forward "};
     constexpr const std::string_view DownStr{"down "};
@@ -52,4 +52,4 @@ std::pair<MovementType, int> StrToMovement(const std::string_view& str)
     return std::make_pair<MovementType,int>(HORIZONTAL, 0);
 }
 
-}
+} // namespace solutions

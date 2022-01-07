@@ -14,7 +14,7 @@ TEST(MyMathTest, PowerOfTen) // NOLINT
 	EXPECT_EQ( utils::IntPowBase10(7), 10000000);
 }
 
-int main(int argc, char **argv)
+auto main(int argc, char **argv) -> int
 {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

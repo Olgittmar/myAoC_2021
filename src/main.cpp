@@ -1,9 +1,14 @@
-#include <iostream>
-#include <fstream>
 #include <filesystem>
+#include <fstream>
+#include <iostream>
 
 #include <1/part_1.h>
 #include <1/part_2.h>
+#include <10/part_1.h>
+#include <10/part_2.h>
+#include <11/part_1.h>
+#include <11/part_2.h>
+#include <12/part_1.h>
 #include <2/part_1.h>
 #include <2/part_2.h>
 #include <3/part_1.h>
@@ -20,11 +25,6 @@
 #include <8/part_2.h>
 #include <9/part_1.h>
 #include <9/part_2.h>
-#include <10/part_1.h>
-#include <10/part_2.h>
-#include <11/part_1.h>
-#include <11/part_2.h>
-#include <12/part_1.h>
 
 // ---------------------------------------------------------------------------
 // Main utils
@@ -32,8 +32,8 @@
 constexpr const char* dataFolder = "data";
 constexpr const char* projectRootFolder = "myAoC_2021";
 
-std::filesystem::path
-GenerateDataPath(const int& day, const int& problem) {
+auto
+GenerateDataPath(const int& day, const int& problem) -> std::filesystem::path {
     auto cwd = std::filesystem::current_path();
     std::filesystem::path rootPath = cwd;
 
@@ -52,7 +52,7 @@ GenerateDataPath(const int& day, const int& problem) {
     return dataPath;
 }
 
-std::string GetInputData(const int& day, const int& problem){
+auto GetInputData(const int& day, const int& problem) -> std::string{
     auto dataPath = GenerateDataPath(day, problem);
     auto filename = (dataPath/"input.txt").string();
 
@@ -68,7 +68,7 @@ std::string GetInputData(const int& day, const int& problem){
 }
 // ---------------------------------------------------------------------------
 
-int main(/*int argc, char** argv*/){
+auto main(/*int argc, char** argv*/) -> int{
 
     std::cout << "\nDay 1, problem 1: " << std::endl;
     std::cout << solutions::CountNumIncreasing( GetInputData(1, 1) ) << std::endl; // NOLINT

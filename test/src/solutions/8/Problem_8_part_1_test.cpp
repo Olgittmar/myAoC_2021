@@ -21,7 +21,7 @@ TEST(Solution_8_1Test, CheckGenericValues) // NOLINT
 	EXPECT_EQ( solutions::GetNumberOfCodesOfUniqueLengthInOutput(genericInput_8_1), 26); // NOLINT
 }
 
-int main(int argc, char **argv)
+auto main(int argc, char **argv) -> int
 {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

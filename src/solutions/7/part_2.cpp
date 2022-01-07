@@ -2,13 +2,13 @@
 
 #include <cmath>
 
-#include <StringSplit.h>
 #include <7/part_1.h>
+#include <StringSplit.h>
 
 namespace solutions
 {
 
-ulong CalculateExpensiveFuelConsumption(const std::vector<ulong>& crabPositions)
+auto CalculateExpensiveFuelConsumption(const std::vector<ulong>& crabPositions) -> ulong
 {
 	if(crabPositions.empty()){
 		return 0UL;
@@ -32,10 +32,10 @@ ulong CalculateExpensiveFuelConsumption(const std::vector<ulong>& crabPositions)
 	return optimalFuelConsumption;
 }
 
-ulong CalculateExpensiveAlignmentOptimalFuelConsumption(const std::string_view& input)
+auto CalculateExpensiveAlignmentOptimalFuelConsumption(const std::string_view& input) -> ulong
 {
 	auto crabPositions = utils::SplitStringToULong(input, ',');
 	return CalculateExpensiveFuelConsumption(crabPositions);
 }
 
-}
+} // namespace solutions

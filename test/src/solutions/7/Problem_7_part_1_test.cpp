@@ -9,7 +9,7 @@ TEST(Solution_7_1Test, CheckGenericValues) // NOLINT
 	EXPECT_EQ( solutions::CalculateAlignmentOptimalFuelConsumption(genericInput_7_1), 37);
 }
 
-int main(int argc, char **argv)
+auto main(int argc, char **argv) -> int
 {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

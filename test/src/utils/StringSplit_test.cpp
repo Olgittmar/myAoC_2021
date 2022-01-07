@@ -1,7 +1,7 @@
 #include <StringSplit.h>
 
-#include <vector>
 #include <string>
+#include <vector>
 
 #include <gtest/gtest.h>
 
@@ -34,7 +34,7 @@ TEST(SplitStringToIntTest, CheckGenericValues) // NOLINT
   EXPECT_EQ( utils::SplitStringToInt("1 , 2,\n3,\n2", ','), std::vector<int>({1,2,3,2}) );
 }
 
-int main(int argc, char **argv)
+auto main(int argc, char **argv) -> int
 {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

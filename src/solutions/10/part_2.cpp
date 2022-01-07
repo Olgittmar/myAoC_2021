@@ -5,8 +5,8 @@
 namespace solutions
 {
 
-std::stack<char>
-AutoComplete(const std::string_view& line)
+auto
+AutoComplete(const std::string_view& line) -> std::stack<char>
 {
 	std::stack<char> charStack{};
 
@@ -32,8 +32,8 @@ AutoComplete(const std::string_view& line)
 	return charStack;
 }
 
-unsigned long long
-MiddleCompletedScore(const std::string_view& input)
+auto
+MiddleCompletedScore(const std::string_view& input) -> unsigned long long
 {
 	auto lines = utils::SplitString(input, '\n');
 	std::vector<unsigned long long> scores{};

@@ -1,8 +1,8 @@
 #include <6/part_1.h>
 
-#include <numeric>
 #include <algorithm>
 #include <iostream>
+#include <numeric>
 
 #include <StringSplit.h>
 
@@ -10,7 +10,7 @@ namespace solutions
 {
 
 // cppcheck-suppress unusedFunction
-int CalculateNumberOfLanternFishAfterNDays(const std::string& input, int numDays)
+auto CalculateNumberOfLanternFishAfterNDays(const std::string& input, int numDays) -> int
 {
 	auto initState = utils::SplitStringToInt(input, ',');
 	std::vector<LanternFish> lanternFish;
@@ -34,4 +34,4 @@ int CalculateNumberOfLanternFishAfterNDays(const std::string& input, int numDays
 }
 
 
-}
+} // namespace solutions

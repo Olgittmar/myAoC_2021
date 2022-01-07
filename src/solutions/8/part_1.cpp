@@ -8,12 +8,12 @@
 namespace solutions
 {
 
-int GetNumberOfSegments(const std::string_view& code)
+auto GetNumberOfSegments(const std::string_view& code) -> int
 {
 	return static_cast<int>(code.size());
 }
 
-int GetNumberOfCodesOfUniqueLength(const std::vector<std::string_view>& data)
+auto GetNumberOfCodesOfUniqueLength(const std::vector<std::string_view>& data) -> int
 {
 	int _ret{0};
 	const std::unordered_set<int> sizesFound{2, 3, 4, 7};
@@ -25,7 +25,7 @@ int GetNumberOfCodesOfUniqueLength(const std::vector<std::string_view>& data)
 	return _ret;
 }
 
-int GetNumberOfCodesOfUniqueLengthInOutput(const std::string_view& input)
+auto GetNumberOfCodesOfUniqueLengthInOutput(const std::string_view& input) -> int
 {
 	// auto data = utils::SplitString(input, '|');
 	// auto jumbledInput = data.at(0);
@@ -40,4 +40,4 @@ int GetNumberOfCodesOfUniqueLengthInOutput(const std::string_view& input)
 	return numUnique;
 }
 
-}
+} // namespace solutions

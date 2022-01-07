@@ -9,7 +9,7 @@
 namespace solutions {
 
 // cppcheck-suppress unusedFunction
-int NumberOfOverlappingVentlinePoints(const std::string_view& input)
+auto NumberOfOverlappingVentlinePoints(const std::string_view& input) -> int
 {
     std::unordered_map<utils::Coordinate2D, int> grid;
     auto lines = utils::SplitString(input, '\n');
@@ -36,4 +36,4 @@ int NumberOfOverlappingVentlinePoints(const std::string_view& input)
     return numIntersections;
 }
 
-}
+} // namespace solutions

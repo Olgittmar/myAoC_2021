@@ -1,13 +1,13 @@
 #include <3/part_1.h>
 
-#include <iostream>
-#include <algorithm>
 #include <StringSplit.h>
+#include <algorithm>
+#include <iostream>
 
 namespace solutions {
 
 // cppcheck-suppress unusedFunction
-int SubmarinePowerConsumption(const std::string_view& str)
+auto SubmarinePowerConsumption(const std::string_view& str) -> int
 {
     auto input = utils::SplitString(str, '\n');
 
@@ -20,8 +20,8 @@ int SubmarinePowerConsumption(const std::string_view& str)
     return gamma * epsilon;
 }
 
-std::string
-FlipBitsInBitstring(const std::string_view& bitstring)
+auto
+FlipBitsInBitstring(const std::string_view& bitstring) -> std::string
 {
     std::string _ret;
     std::transform(bitstring.cbegin(), bitstring.cend(), std::back_inserter(_ret),
@@ -29,8 +29,8 @@ FlipBitsInBitstring(const std::string_view& bitstring)
     return _ret;
 }
 
-std::string
-TallyOnes(const std::vector<std::string_view>& bitstrings)
+auto
+TallyOnes(const std::vector<std::string_view>& bitstrings) -> std::string
 {
     std::string _ret;
     std::vector<int> buckets;
@@ -59,4 +59,4 @@ TallyOnes(const std::vector<std::string_view>& bitstrings)
     return _ret;
 }
 
-} // solutions
+} // namespace solutions

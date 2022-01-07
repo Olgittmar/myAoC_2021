@@ -6,7 +6,7 @@
 namespace utils
 {
 
-std::vector<std::string_view> SplitString(const std::string_view& str, const char& delim, bool greedy)
+auto SplitString(const std::string_view& str, const char& delim, bool greedy) -> std::vector<std::string_view>
 {
     std::vector<std::string_view> _ret{};
     size_t prev = str.find_first_not_of(delim) * static_cast<size_t>(greedy);
@@ -46,20 +46,20 @@ std::vector<std::string_view> SplitString(const std::string_view& str, const cha
     return _ret;
 }
 
-int StringViewToInt(const std::string_view& strView, int base)
+auto StringViewToInt(const std::string_view& strView, int base) -> int
 {
     std::string tmp{ strView };
     return std::stoi(tmp, nullptr, base);
 }
 
-ulong StringViewToULong(const std::string_view& strView, int base)
+auto StringViewToULong(const std::string_view& strView, int base) -> ulong
 {
     std::string tmp{ strView };
     return std::stoul(tmp, nullptr, base);
 }
 
 // cppcheck-suppress unusedFunction
-std::vector<int> SplitStringToInt(const std::string_view& str, const char& delim, bool greedy, int base)
+auto SplitStringToInt(const std::string_view& str, const char& delim, bool greedy, int base) -> std::vector<int>
 {
     std::vector<int> _ret;
     auto strView = SplitString(str, delim, greedy);
@@ -69,7 +69,7 @@ std::vector<int> SplitStringToInt(const std::string_view& str, const char& delim
 }
 
 // cppcheck-suppress unusedFunction
-std::vector<ulong> SplitStringToULong(const std::string_view& str, const char& delim, bool greedy, int base)
+auto SplitStringToULong(const std::string_view& str, const char& delim, bool greedy, int base) -> std::vector<ulong>
 {
     std::vector<ulong> _ret;
     auto strView = SplitString(str, delim, greedy);

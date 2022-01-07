@@ -1,7 +1,7 @@
 #include <9/part_2.h>
 
-#include <deque>
 #include <algorithm>
+#include <deque>
 #include <numeric>
 #include <set>
 
@@ -10,8 +10,8 @@
 namespace solutions
 {
 
-int
-GetBasinSize(const std::pair<int,int>& lowPoint, const std::map<std::pair<int,int>, int>& heightMap)
+auto
+GetBasinSize(const std::pair<int,int>& lowPoint, const std::map<std::pair<int,int>, int>& heightMap) -> int
 {
 	int basinSize = 1;
 	std::deque<std::pair<int,int>> queue{{lowPoint}};
@@ -48,8 +48,8 @@ GetBasinSize(const std::pair<int,int>& lowPoint, const std::map<std::pair<int,in
 	return basinSize;
 }
 
-std::vector<std::pair<int,int>>
-GetLowPoints(const std::map<std::pair<int,int>, int>& heightMap)
+auto
+GetLowPoints(const std::map<std::pair<int,int>, int>& heightMap) -> std::vector<std::pair<int,int>>
 {
 	std::vector<std::pair<int,int>> _ret;
 	for(auto item : heightMap) {
@@ -78,8 +78,8 @@ GetLowPoints(const std::map<std::pair<int,int>, int>& heightMap)
 	return _ret;
 }
 
-int
-ProductOfLargestBasinSizes(const std::string_view& input, size_t numLargestBasins)
+auto
+ProductOfLargestBasinSizes(const std::string_view& input, size_t numLargestBasins) -> int
 {
 	std::map<std::pair<int,int>, int> heightMap;
 	auto lines = utils::SplitString(input, '\n');

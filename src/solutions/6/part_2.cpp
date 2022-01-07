@@ -18,13 +18,13 @@ inline constexpr void CountDownFish(std::array<ulong,utils::lanternfishDaysAfter
 	fishArray.at(utils::lanternfishSpawnInterval - 1) += timedOut;
 }
 
-inline ulong CountTotalNumberOfFish(std::array<ulong,utils::lanternfishDaysAfterInitialSpawn>& fishArray)
+inline auto CountTotalNumberOfFish(std::array<ulong,utils::lanternfishDaysAfterInitialSpawn>& fishArray) -> ulong
 {
 	return std::accumulate(fishArray.cbegin(), fishArray.cend(), 0UL);
 }
 
 // cppcheck-suppress unusedFunction
-ulong CalculateMassiveNumberOfLanternFishAfterNDays(const std::string_view& input, ulong numDays)
+auto CalculateMassiveNumberOfLanternFishAfterNDays(const std::string_view& input, ulong numDays) -> ulong
 {
 	auto initialAges = utils::SplitStringToULong(input, ',');
 	std::array<ulong,utils::lanternfishDaysAfterInitialSpawn> fishlist{0UL};
@@ -40,4 +40,4 @@ ulong CalculateMassiveNumberOfLanternFishAfterNDays(const std::string_view& inpu
 	return CountTotalNumberOfFish(fishlist);
 }
 
-}
+} // namespace solutions

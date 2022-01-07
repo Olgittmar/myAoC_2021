@@ -35,7 +35,7 @@ TEST(Solution_1_1Test, CheckBadInput) // NOLINT
   EXPECT_EQ( solutions::CountNumIncreasing(str5), 0 );
 }
 
-int main(int argc, char **argv)
+auto main(int argc, char **argv) -> int
 {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

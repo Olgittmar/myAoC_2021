@@ -15,7 +15,7 @@ TEST(Solution_12_1Test, CheckGenericValues) // NOLINT
 	EXPECT_EQ( solutions::FindNumCavePaths(genericInput_12_1_huge), 226); // NOLINT
 }
 
-int main(int argc, char **argv)
+auto main(int argc, char **argv) -> int
 {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

@@ -6,8 +6,8 @@
 
 namespace solutions {
 
-ulong
-PredictSynchronizedFlash(const std::string_view& input, ulong maxSteps)
+auto
+PredictSynchronizedFlash(const std::string_view& input, ulong maxSteps) -> ulong
 {
 	auto lines = utils::SplitString(input, '\n');
 	std::array<std::array<int, utils::dumboMapSize>, utils::dumboMapSize> dumboMap{};
@@ -39,4 +39,4 @@ PredictSynchronizedFlash(const std::string_view& input, ulong maxSteps)
 }
 
 
-} // solutions
+} // namespace solutions

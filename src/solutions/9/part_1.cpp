@@ -8,7 +8,7 @@
 namespace solutions
 {
 
-int SumRiskLevelOfLowPoints(const std::string_view& input)
+auto SumRiskLevelOfLowPoints(const std::string_view& input) -> int
 {
 	std::map<std::pair<int,int>, int> heightMap;
 	auto lines = utils::SplitString(input, '\n');

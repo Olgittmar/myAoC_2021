@@ -6,7 +6,7 @@
 namespace utils {
 
 
-std::vector<Coordinate2D> Line::range() const
+auto Line::range() const -> std::vector<Coordinate2D>
 {
     std::vector<Coordinate2D> _ret;
     if(isVertical()){
@@ -22,7 +22,7 @@ std::vector<Coordinate2D> Line::range() const
 }
 
 // cppcheck-suppress unusedFunction
-Line Line::lineFromString(const std::string_view& str)
+auto Line::lineFromString(const std::string_view& str) -> Line
 {
     auto dividerPos = str.find(VentLineDivider);
     auto startCoordStr = str.substr( 0, dividerPos );
@@ -35,4 +35,4 @@ Line Line::lineFromString(const std::string_view& str)
         Coordinate2D( endCoords[0], endCoords[1] )};
 }
 
-}
+} // namespace utils

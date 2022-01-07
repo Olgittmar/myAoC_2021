@@ -9,7 +9,7 @@ TEST(Solution_10_1Test, CheckGenericValues) // NOLINT
 	EXPECT_EQ( solutions::SyntaxErrorScoreCorrupted(genericInput_10_1), 26397); // NOLINT
 }
 
-int main(int argc, char **argv)
+auto main(int argc, char **argv) -> int
 {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

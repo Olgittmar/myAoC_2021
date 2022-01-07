@@ -2,13 +2,13 @@
 
 #include <iostream>
 
-#include <StringSplit.h>
 #include <3/part_1.h>
+#include <StringSplit.h>
 
 namespace solutions {
 
 // cppcheck-suppress unusedFunction
-int SubmarineLifeSupportRating(const std::string_view& input)
+auto SubmarineLifeSupportRating(const std::string_view& input) -> int
 {
     auto bitstrings = utils::SplitString(input, '\n');
 
@@ -46,8 +46,8 @@ FilterByTrend(std::unordered_set<std::string_view>& bitstrings, bool filterByMos
     }
 }
 
-char
-GetCharByTrend(const std::unordered_map<char, int>& trend, bool searchForMostCommon, const char& tieBreaker)
+auto
+GetCharByTrend(const std::unordered_map<char, int>& trend, bool searchForMostCommon, const char& tieBreaker) -> char
 {
     auto it = trend.cbegin();
     auto trendingItem = it;
@@ -62,8 +62,8 @@ GetCharByTrend(const std::unordered_map<char, int>& trend, bool searchForMostCom
     return trendingItem->first;
 }
 
-std::unordered_map<char, int>
-TallyCharsAtBitstringPosition(const std::unordered_set<std::string_view>& bitstrings, size_t pos)
+auto
+TallyCharsAtBitstringPosition(const std::unordered_set<std::string_view>& bitstrings, size_t pos) -> std::unordered_map<char, int>
 {
     std::unordered_map<char,int> buckets;
 
@@ -91,4 +91,4 @@ RemoveIfNotMatchingTrendAtPosition(std::unordered_set<std::string_view>& bitstri
     }
 }
 
-}
+} // namespace solutions

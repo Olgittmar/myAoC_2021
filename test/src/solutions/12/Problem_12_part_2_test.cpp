@@ -9,13 +9,13 @@ constexpr const char* genericInput_12_2_huge = "fs-end\nhe-DX\nfs-he\nstart-DX\n
 
 TEST(Solution_12_2Test, CheckGenericValues) // NOLINT
 {
-	EXPECT_EQ( solutions::FindNumCavePathsWithExtraVisit(genericInput_12_1_none), 0); // NOLINT
-	EXPECT_EQ( solutions::FindNumCavePathsWithExtraVisit(genericInput_12_1_small), 36); // NOLINT
-	EXPECT_EQ( solutions::FindNumCavePathsWithExtraVisit(genericInput_12_1_larger), 103); // NOLINT
-	EXPECT_EQ( solutions::FindNumCavePathsWithExtraVisit(genericInput_12_1_huge), 3509); // NOLINT
+	EXPECT_EQ( solutions::FindNumCavePathsWithExtraVisit(genericInput_12_2_none), 0); // NOLINT
+	EXPECT_EQ( solutions::FindNumCavePathsWithExtraVisit(genericInput_12_2_small), 36); // NOLINT
+	EXPECT_EQ( solutions::FindNumCavePathsWithExtraVisit(genericInput_12_2_larger), 103); // NOLINT
+	EXPECT_EQ( solutions::FindNumCavePathsWithExtraVisit(genericInput_12_2_huge), 3509); // NOLINT
 }
 
-int main(int argc, char **argv)
+auto main(int argc, char **argv) -> int
 {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

@@ -6,8 +6,8 @@
 
 namespace solutions {
 
-ulong
-PropagateDumboFlashes(std::array<std::array<int, utils::dumboMapSize>, utils::dumboMapSize>& dumboMap )
+auto
+PropagateDumboFlashes(std::array<std::array<int, utils::dumboMapSize>, utils::dumboMapSize>& dumboMap ) -> ulong
 {
 	ulong numFlashes = 0UL;
 	std::array<std::array<bool, utils::dumboMapSize>, utils::dumboMapSize> flashMap{{{false}}};
@@ -61,8 +61,8 @@ PropagateDumboFlashes(std::array<std::array<int, utils::dumboMapSize>, utils::du
 	return numFlashes;
 }
 
-ulong
-CountDumboFlashes(const std::string_view& input, ulong numSteps)
+auto
+CountDumboFlashes(const std::string_view& input, ulong numSteps) -> ulong
 {
 	ulong numFlashes = 0UL;
 	auto lines = utils::SplitString(input, '\n');
@@ -94,4 +94,4 @@ CountDumboFlashes(const std::string_view& input, ulong numSteps)
 	return numFlashes;
 }
 
-} // solutions
+} // namespace solutions

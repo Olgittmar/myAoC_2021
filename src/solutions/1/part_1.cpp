@@ -8,7 +8,7 @@
 namespace solutions {
 
 // cppcheck-suppress unusedFunction
-int CountNumIncreasing(const std::string_view& str)
+auto CountNumIncreasing(const std::string_view& str) -> int
 {
     auto input = utils::SplitStringToInt(str, '\n');
     
@@ -33,4 +33,4 @@ int CountNumIncreasing(const std::string_view& str)
     return numLarger;
 }
 
-}
+} // namespace solutions

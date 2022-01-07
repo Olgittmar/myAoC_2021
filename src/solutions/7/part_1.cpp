@@ -7,7 +7,7 @@
 namespace solutions
 {
 
-ulong CalculateFuelConsumption(const std::vector<ulong>& crabPositions, size_t pos)
+auto CalculateFuelConsumption(const std::vector<ulong>& crabPositions, size_t pos) -> ulong
 {
 	ulong fuelConsumption{};
 	for(auto crabPos : crabPositions){
@@ -16,7 +16,7 @@ ulong CalculateFuelConsumption(const std::vector<ulong>& crabPositions, size_t p
 	return fuelConsumption;
 }
 
-std::pair<ulong,ulong> GetCrabPositionRange(const std::vector<ulong>& crabPositions)
+auto GetCrabPositionRange(const std::vector<ulong>& crabPositions) -> std::pair<ulong,ulong>
 {
 	std::pair<ulong,ulong> _ret{crabPositions.size() - 1, 0UL};
 	if(_ret.first == _ret.second){
@@ -31,7 +31,7 @@ std::pair<ulong,ulong> GetCrabPositionRange(const std::vector<ulong>& crabPositi
 	return _ret;
 }
 
-ulong CalculateAlignmentOptimalFuelConsumption(const std::string_view& input)
+auto CalculateAlignmentOptimalFuelConsumption(const std::string_view& input) -> ulong
 {
 	auto crabPositions = utils::SplitStringToULong(input, ',');
 	auto [minPos, maxPos] = GetCrabPositionRange(crabPositions);
@@ -50,4 +50,4 @@ ulong CalculateAlignmentOptimalFuelConsumption(const std::string_view& input)
 	return fuelConsumption;
 }
 
-}
+} // namespace solutions

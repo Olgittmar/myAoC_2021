@@ -1,7 +1,7 @@
 #include <Coordinates.h>
 
-#include <vector>
 #include <string>
+#include <vector>
 
 #include <gtest/gtest.h>
 // NOLINTBEGIN(*-readability-magic-numbers)
@@ -128,7 +128,7 @@ TEST(LineTest, IterateHorizontal) // NOLINT
     EXPECT_EQ(iterations, 7); // NOLINT
 }
 // NOLINTEND(*-readability-magic-numbers)
-int main(int argc, char **argv)
+auto main(int argc, char **argv) -> int
 {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

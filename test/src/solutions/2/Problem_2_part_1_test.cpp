@@ -14,7 +14,7 @@ TEST(Solution_2_1Test, CheckBadInput) // NOLINT
     EXPECT_EQ( solutions::SubmarineNavigationProduct(badInput_2_1), 0 );
 }
 
-int main(int argc, char **argv)
+auto main(int argc, char **argv) -> int
 {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

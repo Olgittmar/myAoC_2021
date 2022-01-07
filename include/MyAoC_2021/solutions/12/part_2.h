@@ -1,6 +1,7 @@
-#ifndef SOLUTION_12_2
-#define SOLUTION_12_2
+#ifndef SOLUTIONS_12_2
+#define SOLUTIONS_12_2
 
+#include <string_view>
 
 namespace solutions {
 
