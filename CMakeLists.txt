@@ -143,10 +143,10 @@ foreach(NUM RANGE 1 25)
 	PUBLIC
 	  $<INSTALL_INTERFACE:include/solutions>
 	  $<INSTALL_INTERFACE:include/utils>
-	  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}/solutions>
-	  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}/utils>
+	  $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include/${PROJECT_NAME}/solutions>
+	  $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include/${PROJECT_NAME}/utils>
 	PRIVATE
-	  ${CMAKE_CURRENT_SOURCE_DIR}/src/solutions
+	  ${CMAKE_SOURCE_DIR}/src/solutions
   )
 
   set_target_properties(

@@ -4,6 +4,8 @@
 
 namespace solutions {
 
+unsigned long FindNumCavePathsWithExtraVisit(const std::string_view& input);
+
 }
 
 #endif

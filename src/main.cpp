@@ -24,6 +24,7 @@
 #include <10/part_2.h>
 #include <11/part_1.h>
 #include <11/part_2.h>
+#include <12/part_1.h>
 
 // ---------------------------------------------------------------------------
 // Main utils
@@ -134,6 +135,9 @@ int main(/*int argc, char** argv*/){
 
 	std::cout << "\nDay 11, problem 2:" << std::endl;
     std::cout << solutions::PredictSynchronizedFlash( GetInputData(11, 1), 1000 ) << std::endl; // NOLINT
+
+	std::cout << "\nDay 12, problem 1:" << std::endl;
+    std::cout << solutions::FindNumCavePaths( GetInputData(12, 1) ) << std::endl; // NOLINT
 
     return 0;
 }
