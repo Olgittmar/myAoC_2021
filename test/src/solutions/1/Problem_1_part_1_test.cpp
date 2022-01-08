@@ -1,10 +1,10 @@
-#include <1/part_1.h>
+#include <solutions/1/day_1_part_1.h>
 
 constexpr const char* genericInput_1_1 = "199\n200\n208\n210\n200\n207\n240\n269\n260\n263";
 
 #include <gtest/gtest.h>
 
-#include <Constants.h>
+#include <utils/Constants.h>
 
 TEST(Solution_1_1Test, CheckGenericValues) // NOLINT
 {

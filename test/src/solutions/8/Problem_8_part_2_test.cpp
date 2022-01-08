@@ -1,4 +1,4 @@
-#include <8/part_2.h>
+#include <solutions/8/day_8_part_2.h>
 
 constexpr const char* genericInput_8_2_small = "acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab | cdfeb fcadb cdfeb cdbaf";
 constexpr const char* genericInput_8_2 =

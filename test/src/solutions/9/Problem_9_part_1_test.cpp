@@ -1,4 +1,4 @@
-#include <9/part_1.h>
+#include <solutions/9/day_9_part_1.h>
 
 constexpr const char* genericInput_9_1 = "2199943210\n3987894921\n9856789892\n8767896789\n9899965678";
 

@@ -1,4 +1,4 @@
-#include <2/part_1.h>
+#include <solutions/2/day_2_part_1.h>
 
 constexpr const char* genericInput_2_1 = "forward 5\ndown 5\nforward 8\nup 3\ndown 8\nforward 2";
 constexpr const char* badInput_2_1 = "forward 0\ndown 0\nforward 0\nup 0";

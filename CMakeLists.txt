@@ -80,10 +80,10 @@ target_precompile_headers(
     <string>
     <string_view>
     <vector>
-	$<INSTALL_INTERFACE:include/utils>
-	$<INSTALL_INTERFACE:include/utils>
-	$<INSTALL_INTERFACE:include/utils>
-	$<INSTALL_INTERFACE:include/utils>
+	$<INSTALL_INTERFACE:include/utils/Constants.h>
+	$<INSTALL_INTERFACE:include/utils/Coordinates.h>
+	$<INSTALL_INTERFACE:include/utils/myMath.h>
+	$<INSTALL_INTERFACE:include/utils/StringSplit.h>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}/utils/Constants.h>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}/utils/Coordinates.h>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}/utils/myMath.h>
@@ -93,10 +93,10 @@ target_precompile_headers(
 target_include_directories(
   ${PROJECT_NAME}_UTILS_LIB
   PUBLIC
-    $<INSTALL_INTERFACE:include/utils>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}/utils>
+    $<INSTALL_INTERFACE:include>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}>
   PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/utils
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
 if(${PROJECT_NAME}_VERBOSE_OUTPUT)
@@ -148,10 +148,10 @@ foreach(NUM RANGE 1 25)
   add_library(
     ${PROJECT_NAME}_SOLUTION_${NUM}_LIB
     STATIC
-	  include/${PROJECT_NAME}/solutions/${NUM}/part_1.h
-	  include/${PROJECT_NAME}/solutions/${NUM}/part_2.h
-  	  src/solutions/${NUM}/part_1.cpp
-  	  src/solutions/${NUM}/part_2.cpp
+	  include/${PROJECT_NAME}/solutions/${NUM}/day_${NUM}_part_1.h
+	  include/${PROJECT_NAME}/solutions/${NUM}/day_${NUM}_part_2.h
+  	  src/solutions/${NUM}/day_${NUM}_part_1.cpp
+  	  src/solutions/${NUM}/day_${NUM}_part_2.cpp
   )
 
   # Add dependency to utils lib so we don't start compiling solutions before utils are done
@@ -163,12 +163,10 @@ foreach(NUM RANGE 1 25)
   target_include_directories(
     ${PROJECT_NAME}_SOLUTION_${NUM}_LIB
 	PUBLIC
-	  $<INSTALL_INTERFACE:include/solutions>
-	  $<INSTALL_INTERFACE:include/utils>
-	  $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include/${PROJECT_NAME}/solutions>
-	  $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include/${PROJECT_NAME}/utils>
+	  $<INSTALL_INTERFACE:include>
+	  $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include/${PROJECT_NAME}>
 	PRIVATE
-	  ${CMAKE_SOURCE_DIR}/src/solutions
+	  ${CMAKE_SOURCE_DIR}/src
   )
 
   set_target_properties(
@@ -198,9 +196,9 @@ install(
 	ARCHIVE DESTINATION
 	  ${CMAKE_INSTALL_LIBDIR}
 	INCLUDES DESTINATION
-	  include/solutions/${NUM}
+	  include/solutions
 	PUBLIC_HEADER DESTINATION
-	  include/solutions/${NUM}
+	  include/solutions
   )
 
   add_library(solution_${num} ALIAS ${PROJECT_NAME}_SOLUTION_${NUM}_LIB)

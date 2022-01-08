@@ -30,10 +30,10 @@ foreach(file ${test_utils_sources})
   target_include_directories(
 	${test_name}_Tests
 	PUBLIC
-	  $<INSTALL_INTERFACE:include/utils>
-	  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}/utils>
+	  $<INSTALL_INTERFACE:include>
+	  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 	PRIVATE
-	  ${CMAKE_CURRENT_SOURCE_DIR}/src/utils
+	  ${CMAKE_CURRENT_SOURCE_DIR}/src
   )
 
   #
@@ -70,10 +70,10 @@ foreach(file ${test_solutions_sources})
   target_include_directories(
 	${test_name}_Tests
 	PUBLIC
-	  $<INSTALL_INTERFACE:include/solutions>
-	  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}/solutions>
+	  $<INSTALL_INTERFACE:include>
+	  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 	PRIVATE
-	  ${CMAKE_CURRENT_SOURCE_DIR}/src/solutions
+	  ${CMAKE_CURRENT_SOURCE_DIR}/src
   )
 
   #

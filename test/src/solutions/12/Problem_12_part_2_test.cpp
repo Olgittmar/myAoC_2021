@@ -1,4 +1,4 @@
-#include <12/part_2.h>
+#include <solutions/12/day_12_part_2.h>
 
 constexpr const char* genericInput_12_2_none = "start-A\nA-c\nb-d\nb-end";
 constexpr const char* genericInput_12_2_small = "start-A\nstart-b\nA-c\nA-b\nb-d\nA-end\nb-end";

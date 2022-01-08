@@ -1,5 +1,5 @@
-#ifndef CONSTANTS_H
-#define CONSTANTS_H
+#ifndef MYAOC_2021_UTILS_CONSTANTS_H
+#define MYAOC_2021_UTILS_CONSTANTS_H
 
 // Gonna sneak in these includes since I use them pretty much everywhere
 #include <iostream>

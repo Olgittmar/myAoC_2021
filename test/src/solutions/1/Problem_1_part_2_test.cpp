@@ -1,4 +1,4 @@
-#include <1/part_2.h>
+#include <solutions/1/day_1_part_2.h>
 
 #include <gtest/gtest.h>
 

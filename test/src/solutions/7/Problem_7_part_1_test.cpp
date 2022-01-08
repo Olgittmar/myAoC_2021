@@ -1,4 +1,4 @@
-#include <7/part_1.h>
+#include <solutions/7/day_7_part_1.h>
 
 constexpr const char* genericInput_7_1 = "16,1,2,0,4,2,7,1,2,14";
 

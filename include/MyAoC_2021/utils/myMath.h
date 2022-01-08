@@ -1,10 +1,10 @@
-#ifndef MY_MATH
-#define MY_MATH
+#ifndef MYAOC_2021_UTILS_MY_MATH_H
+#define MYAOC_2021_UTILS_MY_MATH_H
 
 namespace utils {
 
-long long IntPowBase10(unsigned long n);
+auto IntPowBase10(unsigned long n) -> long long;
 
-}
+} // namespace utils
 
 #endif

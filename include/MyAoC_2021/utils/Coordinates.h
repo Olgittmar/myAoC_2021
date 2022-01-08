@@ -1,10 +1,10 @@
-#ifndef COORDINATES_H
-#define COORDINATES_H
+#ifndef MYAOC_2021_UTILS_COORDINATES_H
+#define MYAOC_2021_UTILS_COORDINATES_H
 
-#include <string>
 #include <cmath>
-#include <vector>
 #include <functional>
+#include <string>
+#include <vector>
 
 namespace utils {
 
@@ -18,18 +18,18 @@ class Coordinate2D {
 	//TODO: Need to look at how this works again
 	explicit constexpr Coordinate2D(int _x, int _y) : m_x(_x), m_y(_y) {}
 
-	Coordinate2D& operator=(const Coordinate2D& other) = default;
-	Coordinate2D& operator=(Coordinate2D&& other) = default;
+	auto operator=(const Coordinate2D& other) -> Coordinate2D& = default;
+	auto operator=(Coordinate2D&& other) -> Coordinate2D& = default;
 
-	constexpr bool operator==(const Coordinate2D& other) const {
+	constexpr auto operator==(const Coordinate2D& other) const -> bool {
 		return m_x == other.m_x && m_y == other.m_y;
 	}
-	constexpr bool operator!=(const Coordinate2D& other) const {
+	constexpr auto operator!=(const Coordinate2D& other) const -> bool {
 		return !operator==(other);
 	}
 
-	[[nodiscard]] inline constexpr int x() const { return m_x; }
-	[[nodiscard]] inline constexpr int y() const { return m_y; }
+	[[nodiscard]] inline constexpr auto x() const -> int { return m_x; }
+	[[nodiscard]] inline constexpr auto y() const -> int { return m_y; }
 
   private:
     int m_x = 0;
@@ -37,7 +37,7 @@ class Coordinate2D {
 };
 
 struct Coordinate2DHash {
-	size_t operator()(Coordinate2D const& coord) const noexcept
+	auto operator()(Coordinate2D const& coord) const noexcept -> size_t
 	{
 		size_t hx = std::hash<int>{}(coord.x());
 		size_t hy = std::hash<int>{}(coord.y());
@@ -54,30 +54,30 @@ class Line {
 	explicit Line(const std::string_view& line);
 	~Line() = default;
 
-	Line& operator=(const Line& other) = default;
-	Line& operator=(Line&& other) = default;
+	auto operator=(const Line& other) -> Line& = default;
+	auto operator=(Line&& other) -> Line& = default;
 
-	constexpr bool operator==(const Line& other) const {
+	constexpr auto operator==(const Line& other) const -> bool {
 		return m_start == other.m_start && m_end == other.m_end;
 	}
-	constexpr bool operator!=(const Line& other) const {
+	constexpr auto operator!=(const Line& other) const -> bool {
 		return m_start != other.m_start || m_end != other.m_end;
 	}
 
-	[[nodiscard]] constexpr int right() const { return std::max(m_start.x(), m_end.x()); }
-	[[nodiscard]] constexpr int left() const { return std::min(m_start.x(), m_end.x()); }
-	[[nodiscard]] constexpr int up() const { return std::max(m_start.y(), m_end.y()); }
-	[[nodiscard]] constexpr int down() const { return std::min(m_start.y(), m_end.y()); }
-	[[nodiscard]] constexpr int leftMostY() const { return (m_start.x() <= m_end.x()) ? m_start.y() : m_end.y(); }
-	[[nodiscard]] constexpr bool isHorizontal() const { return m_start.y() == m_end.y(); }
-	[[nodiscard]] constexpr bool isVertical() const { return m_start.x() == m_end.x(); }
-	[[nodiscard]] constexpr bool isSloped() const { return !(isHorizontal() || isVertical()); }
-	[[nodiscard]] constexpr int slope() const { return (m_end.y() - m_start.y())/(m_end.x() - m_start.x()); }
+	[[nodiscard]] constexpr auto right() const -> int { return std::max(m_start.x(), m_end.x()); }
+	[[nodiscard]] constexpr auto left() const -> int { return std::min(m_start.x(), m_end.x()); }
+	[[nodiscard]] constexpr auto up() const -> int { return std::max(m_start.y(), m_end.y()); }
+	[[nodiscard]] constexpr auto down() const -> int { return std::min(m_start.y(), m_end.y()); }
+	[[nodiscard]] constexpr auto leftMostY() const -> int { return (m_start.x() <= m_end.x()) ? m_start.y() : m_end.y(); }
+	[[nodiscard]] constexpr auto isHorizontal() const -> bool { return m_start.y() == m_end.y(); }
+	[[nodiscard]] constexpr auto isVertical() const -> bool { return m_start.x() == m_end.x(); }
+	[[nodiscard]] constexpr auto isSloped() const -> bool { return !(isHorizontal() || isVertical()); }
+	[[nodiscard]] constexpr auto slope() const -> int { return (m_end.y() - m_start.y())/(m_end.x() - m_start.x()); }
 
-	static Line lineFromString(const std::string_view& str);
+	static auto lineFromString(const std::string_view& str) -> Line;
 
 	[[nodiscard]] [[maybe_unused]] [[gnu::used]]
-	std::vector<Coordinate2D> range() const;
+	auto range() const -> std::vector<Coordinate2D>;
 
   private:
 	static inline const std::string_view VentLineDivider = "->";
@@ -85,12 +85,12 @@ class Line {
     Coordinate2D m_end;
 };
 
-}
+} // namespace utils
 
 template<>
 struct std::hash<utils::Coordinate2D>
 {
-	size_t operator()(utils::Coordinate2D const& coord) const noexcept
+	auto operator()(utils::Coordinate2D const& coord) const noexcept -> size_t
 	{
 		return utils::Coordinate2DHash{}(coord);
 	}

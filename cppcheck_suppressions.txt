@@ -1,3 +1,2 @@
-llvm-header-guard
 readability-magic-numbers
 cppcoreguidelines-avoid-magic-numbers

@@ -1,4 +1,4 @@
-#include <16/part_2.h>
+#include <solutions/16/day_16_part_2.h>
 
 // constexpr const char* genericInput_11_1 = "";
 
