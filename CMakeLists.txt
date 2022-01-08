@@ -26,7 +26,6 @@ message(STATUS "Started CMake for ${PROJECT_NAME} v${PROJECT_VERSION} Build type
 #
 
 include(cmake/StandardSettings.cmake)
-include(cmake/StaticAnalyzers.cmake)
 include(cmake/Utils.cmake)
 
 
@@ -72,6 +71,23 @@ add_library(
   STATIC
     ${utils_headers}
     ${utils_sources}
+)
+
+target_precompile_headers(
+    ${PROJECT_NAME}_UTILS_LIB
+  PUBLIC
+    <iostream>
+    <string>
+    <string_view>
+    <vector>
+	$<INSTALL_INTERFACE:include/utils>
+	$<INSTALL_INTERFACE:include/utils>
+	$<INSTALL_INTERFACE:include/utils>
+	$<INSTALL_INTERFACE:include/utils>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}/utils/Constants.h>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}/utils/Coordinates.h>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}/utils/myMath.h>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}/utils/StringSplit.h>
 )
 
 target_include_directories(
@@ -138,6 +154,12 @@ foreach(NUM RANGE 1 25)
   	  src/solutions/${NUM}/part_2.cpp
   )
 
+  # Add dependency to utils lib so we don't start compiling solutions before utils are done
+  add_dependencies(${PROJECT_NAME}_SOLUTION_${NUM}_LIB ${PROJECT_NAME}_UTILS_LIB)
+
+  # Reuse precompiled headers from utils lib
+  target_precompile_headers(${PROJECT_NAME}_SOLUTION_${NUM}_LIB REUSE_FROM ${PROJECT_NAME}_UTILS_LIB)
+
   target_include_directories(
     ${PROJECT_NAME}_SOLUTION_${NUM}_LIB
 	PUBLIC
@@ -173,14 +195,12 @@ install(
 	  ${PROJECT_NAME}Targets
 	LIBRARY DESTINATION
 	  ${CMAKE_INSTALL_LIBDIR}
-	RUNTIME DESTINATION
-	  ${CMAKE_INSTALL_BINDIR}
 	ARCHIVE DESTINATION
 	  ${CMAKE_INSTALL_LIBDIR}
 	INCLUDES DESTINATION
-	  include/solutions
+	  include/solutions/${NUM}
 	PUBLIC_HEADER DESTINATION
-	  include/solutions
+	  include/solutions/${NUM}
   )
 
   add_library(solution_${num} ALIAS ${PROJECT_NAME}_SOLUTION_${NUM}_LIB)
@@ -193,8 +213,26 @@ if(${PROJECT_NAME}_VERBOSE_OUTPUT)
   endforeach()
 endif()
 
+#
+# Unit testing setup
+#
+
+if(${PROJECT_NAME}_ENABLE_UNIT_TESTING)
+  enable_testing()
+  message(STATUS "Build unit tests for the project. Tests should always be found in the test folder\n")
+  add_subdirectory(test)
+  file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/Testing)
+endif()
+
+# Enable static analyzers for main target only
+# I think this should stop clang-tidy and cppcheck from running for all files for each target generated
+include(cmake/StaticAnalyzers.cmake)
+
 # Create main executable or exportable interface (Not sure how the latter will work)
 add_executable(${PROJECT_NAME} ${exe_sources})
+add_dependencies(${PROJECT_NAME} ${SOLUTIONS_LIBS})
+
+list(APPEND STATIC_ANALYSIS_SOURCES ${exe_sources})
 
 if(${PROJECT_NAME}_VERBOSE_OUTPUT)
   verbose_message("Found the following sources:")
@@ -225,10 +263,6 @@ message(STATUS "Added all header and implementation files.\n")
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
 set_project_warnings(${PROJECT_NAME})
 
-# if(${PROJECT_NAME}_ENABLE_UNIT_TESTING)
-#   target_compile_features(${PROJECT_NAME}_LIB PUBLIC cxx_std_20)
-# endif()
-
 verbose_message("Applied compiler warnings. Using standard ${CMAKE_CXX_STANDARD}.\n")
 
 #
@@ -236,63 +270,6 @@ verbose_message("Applied compiler warnings. Using standard ${CMAKE_CXX_STANDARD}
 #
 
 include(cmake/Doxygen.cmake)
-
-#
-# Model project dependencies
-#
-
-# Identify and link with the specific "packages" the project uses
-#find_package(package_name package_version REQUIRED package_type [other_options])
-#target_link_libraries(
-#  ${PROJECT_NAME}
-#  PUBLIC
-#    dependency1 ...
-#  PRIVATE
-#    dependency2 ...
-#    ${PROJECT_NAME}_PROJECT_OPTIONS
-#    ${PROJECT_NAME}_PROJECT_WARNINGS
-#)
-
-# For Windows, it is necessary to link with the MultiThreaded library.
-# Depending on how the rest of the project's dependencies are linked, it might be necessary
-# to change the line to statically link with the library.
-#
-# This is done as follows:
-#
-# set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
-#
-# On Linux and Mac this variable is ignored. If any issues rise from it, try commenting it out
-# and letting CMake decide how to link with it.
-# set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
-
-verbose_message("Successfully added all dependencies and linked against them.")
-
-#
-# Set the build/user include directories
-#
-
-# Allow usage of header files in the `src` directory, but only for utilities
-# target_include_directories(
-#   ${PROJECT_NAME}
-#   PUBLIC
-#   $<INSTALL_INTERFACE:include>
-#   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-#   PRIVATE
-#   ${CMAKE_CURRENT_SOURCE_DIR}/src
-# )
-
-# if(${PROJECT_NAME}_ENABLE_UNIT_TESTING)
-#   target_include_directories(
-# 	${PROJECT_NAME}_LIB
-# 	PUBLIC
-# 	$<INSTALL_INTERFACE:include>
-# 	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-# 	PRIVATE
-# 	${CMAKE_CURRENT_SOURCE_DIR}/src
-#   )
-# endif()
-
-message(STATUS "Finished setting up include directories.")
 
 #
 # Provide alias to library for
@@ -317,26 +294,27 @@ install(
   EXPORT
   ${PROJECT_NAME}Targets
   LIBRARY DESTINATION
-  ${CMAKE_INSTALL_LIBDIR}
+	${CMAKE_INSTALL_LIBDIR}
   RUNTIME DESTINATION
-  ${CMAKE_INSTALL_BINDIR}
+	${CMAKE_INSTALL_BINDIR}
   ARCHIVE DESTINATION
-  ${CMAKE_INSTALL_LIBDIR}
+	${CMAKE_INSTALL_LIBDIR}
   INCLUDES DESTINATION
-  include
+	include
   PUBLIC_HEADER DESTINATION
-  include
+	include
 )
 
+# I have probably broken this with the restructuring...
 install(
   EXPORT
   ${PROJECT_NAME}Targets
   FILE
-  ${PROJECT_NAME}Targets.cmake
+	${PROJECT_NAME}Targets.cmake
   NAMESPACE
-  ${PROJECT_NAME}::
+	${PROJECT_NAME}::
   DESTINATION
-  ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
+	${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
 )
 
 #
@@ -353,21 +331,23 @@ install(
   FILES
   ${CMAKE_CURRENT_BINARY_DIR}/include/${PROJECT_NAME_LOWERCASE}/version.hpp
   DESTINATION
-  include/${PROJECT_NAME_LOWERCASE}
+	include/${PROJECT_NAME_LOWERCASE}
 )
 
 #
 # Install the `include` directory
 #
+## solutions and utils are built as semi-independent libs
+## and install rules are generated for them individually
 
-install(
-  DIRECTORY
-  include/${PROJECT_NAME_LOWERCASE}
-  DESTINATION
-  include
-)
+# install(
+#   DIRECTORY
+#   include/${PROJECT_NAME_LOWERCASE}
+#   DESTINATION
+#   include
+# )
 
-verbose_message("Install targets succesfully build. Install with `cmake --build <build_directory> --target install --config <build_config>`.")
+# verbose_message("Install targets succesfully build. Install with `cmake --build <build_directory> --target install --config <build_config>`.")
 
 #
 # Quick `ConfigVersion.cmake` creation
@@ -377,9 +357,9 @@ include(CMakePackageConfigHelpers)
 write_basic_package_version_file(
   ${PROJECT_NAME}ConfigVersion.cmake
   VERSION
-  ${PROJECT_VERSION}
+	${PROJECT_VERSION}
   COMPATIBILITY
-  SameMajorVersion
+	SameMajorVersion
 )
 
 configure_package_config_file(
@@ -391,16 +371,16 @@ configure_package_config_file(
 
 install(
   FILES
-  ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
-  ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
+	${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
+	${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
   DESTINATION
-  ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
+	${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
 )
 
 #
 # Generate export header if specified
 #
-
+## Should not be used, may look into how this works in the future
 if(${PROJECT_NAME}_GENERATE_EXPORT_HEADER)
   include(GenerateExportHeader)
   generate_export_header(${PROJECT_NAME})
@@ -415,15 +395,3 @@ if(${PROJECT_NAME}_GENERATE_EXPORT_HEADER)
 endif()
 
 message(STATUS "Finished building requirements for installing the package.\n")
-
-#
-# Unit testing setup
-#
-
-if(${PROJECT_NAME}_ENABLE_UNIT_TESTING)
-  enable_testing()
-  message(STATUS "Build unit tests for the project. Tests should always be found in the test folder\n")
-  add_subdirectory(test)
-  file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/Testing)
-  file(TOUCH ${CMAKE_BINARY_DIR}/Testing/testlog.log)
-endif()
