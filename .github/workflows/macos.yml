@@ -43,6 +43,12 @@ jobs:
         cmake --build build --config Release
         cmake --build build --target install --config Release
         cd ../MyAoC_2021
+    
+    - name: Install clang-tidy
+      run: sudo apt install clang-tidy
+
+    - name: Install cppcheck
+      run: sudo apt install cppcheck
 
     - name: configure
       run: cmake -Bbuild -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/$INSTALL_LOCATION

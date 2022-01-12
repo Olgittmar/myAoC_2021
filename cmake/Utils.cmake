@@ -18,19 +18,19 @@ function(add_clang_format_target)
     endif()
 
     if(${PROJECT_NAME}_CLANG_FORMAT_BINARY)
-		add_custom_target(clang-format
+		add_custom_target(clang-format_utils
 			COMMAND ${${PROJECT_NAME}_CLANG_FORMAT_BINARY}
 			-i ${utils_sources} ${utils_headers}
 			WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
 		)
 
-		add_custom_target(clang-format
+		add_custom_target(clang-format_solutions
 			COMMAND ${${PROJECT_NAME}_CLANG_FORMAT_BINARY}
 			-i ${solutions_sources} ${solutions_headers}
 			WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
 		)
 
-		add_custom_target(clang-format
+		add_custom_target(clang-format_main
 			COMMAND ${${PROJECT_NAME}_CLANG_FORMAT_BINARY}
 			-i ${exe_sources}
 			WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
