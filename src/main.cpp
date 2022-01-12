@@ -9,6 +9,7 @@
 #include <solutions/11/day_11_part_1.h>
 #include <solutions/11/day_11_part_2.h>
 #include <solutions/12/day_12_part_1.h>
+#include <solutions/12/day_12_part_2.h>
 #include <solutions/2/day_2_part_1.h>
 #include <solutions/2/day_2_part_2.h>
 #include <solutions/3/day_3_part_1.h>
@@ -138,6 +139,9 @@ auto main(/*int argc, char** argv*/) -> int{
 
 	std::cout << "\nDay 12, problem 1:" << std::endl;
     std::cout << solutions::FindNumCavePaths( GetInputData(12, 1) ) << std::endl; // NOLINT
+	
+	std::cout << "\nDay 12, problem 2:" << std::endl;
+    std::cout << solutions::FindNumCavePathsWithExtraVisit( GetInputData(12, 1) ) << std::endl; // NOLINT
 
     return 0;
 }

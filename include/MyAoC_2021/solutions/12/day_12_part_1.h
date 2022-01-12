@@ -11,17 +11,16 @@
 
 namespace solutions {
 
-inline auto IsSmall(const std::string& caveId) -> bool {
+inline auto IsSmall(const std::string_view& caveId) -> bool {
 	return std::all_of(caveId.cbegin(), caveId.cend(),
 		[](const char& c){ return std::islower(c); });
 }
 
-inline auto IsVisited(const std::string& caveId, const std::vector<std::string>& path) -> bool {
-	return std::any_of(path.cbegin(), path.cend(),
-		[&caveId](const std::string& str) -> bool { return str == caveId; });
+inline auto IsVisited(const std::string_view& caveId, const std::string_view& path) -> bool {
+	return path.find(caveId) != std::string_view::npos;
 }
 
-void NumValidPaths(unsigned long& numPaths, std::deque<std::vector<std::string>>& paths, const std::map<std::string, std::set<std::string>>& caveMap);
+void NumValidPaths(unsigned long& numPaths, std::deque<std::string>& paths, const std::map<std::string, std::set<std::string>>& caveMap);
 
 auto FindNumCavePaths(const std::string_view& input) -> unsigned long;
 
