@@ -59,7 +59,7 @@ jobs:
       run: cmake -Bbuild -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/$INSTALL_LOCATION -DMyAoC_2021_ENABLE_CODE_COVERAGE=1
       
     - name: build
-      run: cmake --build build --config $BUILD_TYPE -j4
+      run: cmake --build build --config $BUILD_TYPE -j4 -- -std=c++2a
 
     - name: run tests
       run: |
