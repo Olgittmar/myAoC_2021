@@ -16,8 +16,8 @@ inline auto NumTimesVisited(const std::string& caveId, const std::vector<std::st
 }
 
 inline auto HasSmallCaveVisitedTwice(const std::vector<std::string>& path) -> bool {
-	auto found = std::set<std::string>{path.cbegin(), path.cend()};
-	return found.size() == path.size();
+	auto found = std::set<std::string>(path.cbegin(), path.cend());
+	return path.size() != found.size();
 }
 
 void NumValidPathsWithExtraSmallCaveVisit(unsigned long& numPaths, std::deque<std::vector<std::string>>& paths,

@@ -8,7 +8,7 @@ namespace utils {
 
 auto Line::range() const -> std::vector<Coordinate2D>
 {
-    std::vector<Coordinate2D> _ret;
+    std::vector<Coordinate2D> _ret{};
     if(isVertical()){
         for(int i = 0; i < abs( up() - down() + 1 ); ++i) {
             _ret.emplace_back( Coordinate2D( m_start.x(), down() + i ) );

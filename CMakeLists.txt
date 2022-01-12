@@ -1,4 +1,13 @@
 cmake_minimum_required(VERSION 3.15)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
+
+# Cmake doesn't respect my life choices.
+# (some c++20 features are available for LLVM but not in gnu++20
+# this causes my compiler to not play nice with my code.)
+if(CMAKE_CXX_COMPILER_ID MATCHES ".*Clang")
+	set( CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -stdlib=libc++")
+endif()
 
 #
 # Project details
@@ -10,7 +19,6 @@ project(
   LANGUAGES CXX
 )
 
-set(CMAKE_CXX_STANDARD 20)
 
 if(NOT CMAKE_BUILD_TYPE)
 	set(CMAKE_BUILD_TYPE "Debug")
@@ -63,7 +71,6 @@ include(cmake/Vcpkg.cmake)
 # Find all headers and implementation files
 include(cmake/SourcesAndHeaders.cmake)
 include(cmake/CompilerWarnings.cmake)
-include(GNUInstallDirs)
 
 # Create utils library
 add_library(
@@ -73,21 +80,25 @@ add_library(
     ${utils_sources}
 )
 
+set(UTILS_PCH
+	<iostream>
+	<string>
+	<string_view>
+	<vector>
+)
+
+foreach(rel_path ${utils_headers})
+	list(APPEND UTILS_PCH
+		$<INSTALL_INTERFACE:${rel_path}>
+		$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/${rel_path}>
+	)
+endforeach()
+
+
 target_precompile_headers(
     ${PROJECT_NAME}_UTILS_LIB
   PUBLIC
-    <iostream>
-    <string>
-    <string_view>
-    <vector>
-	$<INSTALL_INTERFACE:include/utils/Constants.h>
-	$<INSTALL_INTERFACE:include/utils/Coordinates.h>
-	$<INSTALL_INTERFACE:include/utils/myMath.h>
-	$<INSTALL_INTERFACE:include/utils/StringSplit.h>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}/utils/Constants.h>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}/utils/Coordinates.h>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}/utils/myMath.h>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}/utils/StringSplit.h>
+	${UTILS_PCH}
 )
 
 target_include_directories(
@@ -126,42 +137,40 @@ install(
   EXPORT
     ${PROJECT_NAME}Targets
   LIBRARY DESTINATION
-    ${CMAKE_INSTALL_LIBDIR}
-  RUNTIME DESTINATION
-    ${CMAKE_INSTALL_BINDIR}
+    ${CMAKE_INSTALL_PREFIX}/lib
   ARCHIVE DESTINATION
-    ${CMAKE_INSTALL_LIBDIR}
+	${CMAKE_INSTALL_PREFIX}/lib
   PUBLIC_HEADER DESTINATION
-	include/utils
+	${CMAKE_INSTALL_PREFIX}/include/utils
   INCLUDES DESTINATION
-    include/utils
+	${CMAKE_INSTALL_PREFIX}/include/utils
   PUBLIC_HEADER DESTINATION
-    include/utils
+	${CMAKE_INSTALL_PREFIX}/include/utils
 )
 
-add_library(utils ALIAS ${PROJECT_NAME}_UTILS_LIB)
+add_library(${PROJECT_NAME}::utils ALIAS ${PROJECT_NAME}_UTILS_LIB)
 
 # Create solution libraries
 # TODO: Each solution should be an independent library
 set(SOLUTIONS_LIBS "")
-foreach(NUM RANGE 1 25)
+foreach(DAY RANGE 1 25)
   add_library(
-    ${PROJECT_NAME}_SOLUTION_${NUM}_LIB
+    ${PROJECT_NAME}_SOLUTION_${DAY}_LIB
     STATIC
-	  include/${PROJECT_NAME}/solutions/${NUM}/day_${NUM}_part_1.h
-	  include/${PROJECT_NAME}/solutions/${NUM}/day_${NUM}_part_2.h
-  	  src/solutions/${NUM}/day_${NUM}_part_1.cpp
-  	  src/solutions/${NUM}/day_${NUM}_part_2.cpp
+	  include/${PROJECT_NAME}/solutions/${DAY}/day_${DAY}_part_1.h
+	  include/${PROJECT_NAME}/solutions/${DAY}/day_${DAY}_part_2.h
+  	  src/solutions/${DAY}/day_${DAY}_part_1.cpp
+  	  src/solutions/${DAY}/day_${DAY}_part_2.cpp
   )
 
   # Add dependency to utils lib so we don't start compiling solutions before utils are done
-  add_dependencies(${PROJECT_NAME}_SOLUTION_${NUM}_LIB ${PROJECT_NAME}_UTILS_LIB)
+  add_dependencies(${PROJECT_NAME}_SOLUTION_${DAY}_LIB ${PROJECT_NAME}_UTILS_LIB)
 
   # Reuse precompiled headers from utils lib
-  target_precompile_headers(${PROJECT_NAME}_SOLUTION_${NUM}_LIB REUSE_FROM ${PROJECT_NAME}_UTILS_LIB)
+  target_precompile_headers(${PROJECT_NAME}_SOLUTION_${DAY}_LIB REUSE_FROM ${PROJECT_NAME}_UTILS_LIB)
 
   target_include_directories(
-    ${PROJECT_NAME}_SOLUTION_${NUM}_LIB
+    ${PROJECT_NAME}_SOLUTION_${DAY}_LIB
 	PUBLIC
 	  $<INSTALL_INTERFACE:include>
 	  $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include/${PROJECT_NAME}>
@@ -170,38 +179,41 @@ foreach(NUM RANGE 1 25)
   )
 
   set_target_properties(
-	  ${PROJECT_NAME}_SOLUTION_${NUM}_LIB
+	  ${PROJECT_NAME}_SOLUTION_${DAY}_LIB
     PROPERTIES
       ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/${CMAKE_BUILD_TYPE}"
       LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/${CMAKE_BUILD_TYPE}"
   )
 
   target_link_libraries(
-	  ${PROJECT_NAME}_SOLUTION_${NUM}_LIB
+	  ${PROJECT_NAME}_SOLUTION_${DAY}_LIB
     PRIVATE
       ${PROJECT_NAME}_UTILS_LIB
   )
 
-  target_compile_features(${PROJECT_NAME}_SOLUTION_${NUM}_LIB PUBLIC cxx_std_20)
-  set_project_warnings(${PROJECT_NAME}_SOLUTION_${NUM}_LIB)
-  list(APPEND SOLUTIONS_LIBS ${PROJECT_NAME}_SOLUTION_${NUM}_LIB)
-  
-install(
+  target_compile_features(${PROJECT_NAME}_SOLUTION_${DAY}_LIB PUBLIC cxx_std_20)
+  set_project_warnings(${PROJECT_NAME}_SOLUTION_${DAY}_LIB)
+  list(APPEND SOLUTIONS_LIBS ${PROJECT_NAME}_SOLUTION_${DAY}_LIB)
+
+  install(
 	TARGETS
-	  ${PROJECT_NAME}_SOLUTION_${NUM}_LIB
+	  ${PROJECT_NAME}_SOLUTION_${DAY}_LIB
 	EXPORT
 	  ${PROJECT_NAME}Targets
 	LIBRARY DESTINATION
-	  ${CMAKE_INSTALL_LIBDIR}
+	  ${CMAKE_INSTALL_PREFIX}/lib
 	ARCHIVE DESTINATION
-	  ${CMAKE_INSTALL_LIBDIR}
-	INCLUDES DESTINATION
-	  include/solutions
+	  ${CMAKE_INSTALL_PREFIX}/lib
 	PUBLIC_HEADER DESTINATION
-	  include/solutions
+	  ${CMAKE_INSTALL_PREFIX}/include/solutions
+	INCLUDES DESTINATION
+	  ${CMAKE_INSTALL_PREFIX}/include/solutions
+	PUBLIC_HEADER DESTINATION
+	  ${CMAKE_INSTALL_PREFIX}/include/solutions
   )
 
-  add_library(solution_${num} ALIAS ${PROJECT_NAME}_SOLUTION_${NUM}_LIB)
+  add_library(${PROJECT_NAME}::solution_${DAY} ALIAS ${PROJECT_NAME}_SOLUTION_${DAY}_LIB)
+  message("${PROJECT_NAME}_SOLUTION_${DAY}_LIB aliased as ${PROJECT_NAME}::solution_${DAY}")
 endforeach()
 
 if(${PROJECT_NAME}_VERBOSE_OUTPUT)
@@ -219,7 +231,6 @@ if(${PROJECT_NAME}_ENABLE_UNIT_TESTING)
   enable_testing()
   message(STATUS "Build unit tests for the project. Tests should always be found in the test folder\n")
   add_subdirectory(test)
-  file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/Testing)
 endif()
 
 # Enable static analyzers for main target only
@@ -248,9 +259,9 @@ target_link_libraries(
 set_target_properties(
   ${PROJECT_NAME}
   PROPERTIES
-  ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/${CMAKE_BUILD_TYPE}"
-  LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/${CMAKE_BUILD_TYPE}"
-  RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/${CMAKE_BUILD_TYPE}"
+	ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/${CMAKE_BUILD_TYPE}"
+	LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/${CMAKE_BUILD_TYPE}"
+	RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/${CMAKE_BUILD_TYPE}"
 )
 
 message(STATUS "Added all header and implementation files.\n")
@@ -338,14 +349,14 @@ install(
 ## solutions and utils are built as semi-independent libs
 ## and install rules are generated for them individually
 
-# install(
-#   DIRECTORY
-#   include/${PROJECT_NAME_LOWERCASE}
-#   DESTINATION
-#   include
-# )
+install(
+  DIRECTORY
+  include/${PROJECT_NAME_LOWERCASE}
+  DESTINATION
+  include
+)
 
-# verbose_message("Install targets succesfully build. Install with `cmake --build <build_directory> --target install --config <build_config>`.")
+verbose_message("Install targets succesfully build. Install with `cmake --build <build_directory> --target install --config <build_config>`.")
 
 #
 # Quick `ConfigVersion.cmake` creation

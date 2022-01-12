@@ -2,9 +2,13 @@
 #define MYAOC_2021_UTILS_COORDINATES_H
 
 #include <cmath>
+#include <iostream>
 #include <functional>
+#include <sstream>
 #include <string>
 #include <vector>
+
+#include <utils/myConcepts.h>
 
 namespace utils {
 
@@ -32,6 +36,9 @@ class Coordinate2D {
 	[[nodiscard]] inline constexpr auto y() const -> int { return m_y; }
 
   private:
+	friend inline std::ostream& operator<<(std::ostream& os, const utils::Coordinate2D& coord) {
+		return os << '(' << coord.m_x << ", " << coord.m_y << ')';
+	}
     int m_x = 0;
     int m_y = 0;
 };
@@ -80,6 +87,9 @@ class Line {
 	auto range() const -> std::vector<Coordinate2D>;
 
   private:
+	friend inline std::ostream& operator<<(std::ostream &os, const utils::Line& line) {
+		return os << (line.m_start) << ' ' << line.VentLineDivider << ' ' << (line.m_end);
+	}
 	static inline const std::string_view VentLineDivider = "->";
     Coordinate2D m_start;
     Coordinate2D m_end;

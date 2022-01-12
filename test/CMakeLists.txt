@@ -25,7 +25,7 @@ endif()
 foreach(file ${test_utils_sources})
   string(REGEX REPLACE "(.*/)([a-zA-Z0-9_ ]+)(\.cpp)" "\\2" test_name ${file})
   add_executable(${test_name}_Tests ${file})
-  add_dependencies(${test_name}_Tests utils)
+  add_dependencies(${test_name}_Tests MyAoC_2021::utils)
   
   target_include_directories(
 	${test_name}_Tests
@@ -47,7 +47,7 @@ foreach(file ${test_utils_sources})
       GTest::gtest
       GTest::gtest_main
       ${GOOGLE_MOCK_LIBRARIES}
-      utils
+      MyAoC_2021::utils
   )
 
   #
@@ -63,18 +63,9 @@ foreach(file ${test_utils_sources})
 endforeach()
 
 foreach(file ${test_solutions_sources})
-  string(REGEX REPLACE "(.*/)([a-zA-Z0-9_ ]+)(\.cpp)" "\\2" test_name ${file})
+  string(REGEX REPLACE "(.*/)(day_)([0-9]+)([a-zA-Z0-9_ ]+)(\.cpp)" "\\2\\3" test_name ${file})
+  set(dayNumber ${CMAKE_MATCH_3})
   add_executable(${test_name}_Tests ${file})
-  add_dependencies(${test_name}_Tests ${SOLUTIONS_LIBS})
-  
-  target_include_directories(
-	${test_name}_Tests
-	PUBLIC
-	  $<INSTALL_INTERFACE:include>
-	  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-	PRIVATE
-	  ${CMAKE_CURRENT_SOURCE_DIR}/src
-  )
 
   #
   # Set the compiler standard
@@ -87,7 +78,7 @@ foreach(file ${test_solutions_sources})
       GTest::gtest
       GTest::gtest_main
       ${GOOGLE_MOCK_LIBRARIES}
-      ${SOLUTIONS_LIBS}
+      MyAoC_2021::solution_${dayNumber}
   )
 
   #

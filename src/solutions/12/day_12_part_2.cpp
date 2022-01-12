@@ -6,8 +6,12 @@
 
 namespace solutions {
 
-void NumValidPathsWithExtraSmallCaveVisit(unsigned long& numPaths, std::deque<std::vector<std::string>>& paths, const std::map<std::string, std::set<std::string>>& caveMap)
+void NumValidPathsWithExtraSmallCaveVisit(
+	unsigned long& numPaths,
+	[[maybe_unused]] std::deque<std::vector<std::string>>& paths,
+	[[maybe_unused]] const std::map<std::string, std::set<std::string>>& caveMap)
 {
+	static const std::string _start{"start"};
 	static const std::string _end{"end"};
 
 	// Something something small cave
@@ -24,13 +28,13 @@ void NumValidPathsWithExtraSmallCaveVisit(unsigned long& numPaths, std::deque<st
 		bool hasVisitedSmallCaveTwice = HasSmallCaveVisitedTwice(path);
 		
 		for(const auto& cave : caveMap.at(path.back())) {
-			bool isSmall = IsSmall(cave);
-
-			if(hasVisitedSmallCaveTwice && isSmall && IsVisited(cave, path)) {
+			if(cave == _start) {
 				continue;
 			}
 
-			if(!hasVisitedSmallCaveTwice && isSmall && NumTimesVisited(cave, path) < 2L) {
+			bool isSmall = IsSmall(cave);
+
+			if(hasVisitedSmallCaveTwice && isSmall && IsVisited(cave, path)) {
 				continue;
 			}
 
@@ -43,12 +47,12 @@ void NumValidPathsWithExtraSmallCaveVisit(unsigned long& numPaths, std::deque<st
 
 
 auto
-FindNumCavePathsWithExtraVisit(const std::string_view& input) -> unsigned long
+FindNumCavePathsWithExtraVisit([[maybe_unused]] const std::string_view& input) -> unsigned long
 {
 	static const std::string _start{"start"};
 
 	auto data = utils::SplitString(input, '\n');
-	std::map<std::string, std::set<std::string>> caveMap{};
+	auto caveMap = std::map<std::string, std::set<std::string>>();
 	
 	// Set up caveMap
 	for(const auto& line : data) {
@@ -61,7 +65,8 @@ FindNumCavePathsWithExtraVisit(const std::string_view& input) -> unsigned long
 	}
 
 	unsigned long numPaths = 0UL;
-	std::deque<std::vector<std::string>> paths{{_start}};
+	std::deque<std::vector<std::string>> paths = {};
+	paths.emplace_back( std::vector<std::string>({_start}) );
 	NumValidPathsWithExtraSmallCaveVisit(numPaths, paths, caveMap);
 
 	return numPaths;
