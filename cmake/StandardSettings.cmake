@@ -4,6 +4,11 @@
 option(${PROJECT_NAME}_USE_ALT_NAMES "Use alternative names for the project, such as naming the include directory all lowercase." OFF)
 
 #
+# Build options
+#
+option(${PROJECT_NAME}_USE_LLVM "Use LLVM toolchain, libraries and build utilities." ON)
+
+#
 # Compiler options
 #
 

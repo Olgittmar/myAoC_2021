@@ -2,13 +2,6 @@ cmake_minimum_required(VERSION 3.15)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
-# Cmake doesn't respect my life choices.
-# (some c++20 features are available for LLVM but not in gnu++20
-# this causes my compiler to not play nice with my code.)
-if(CMAKE_CXX_COMPILER_ID MATCHES ".*Clang")
-	set( CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -stdlib=libc++")
-endif()
-
 #
 # Project details
 #
@@ -78,6 +71,12 @@ add_library(
   STATIC
     ${utils_headers}
     ${utils_sources}
+)
+
+target_link_libraries(
+	${PROJECT_NAME}_UTILS_LIB
+	PUBLIC
+	  ${llvm_libs}
 )
 
 set(UTILS_PCH
@@ -189,6 +188,7 @@ foreach(DAY RANGE 1 25)
 	  ${PROJECT_NAME}_SOLUTION_${DAY}_LIB
     PRIVATE
       ${PROJECT_NAME}_UTILS_LIB
+	  ${llvm_libs}
   )
 
   target_compile_features(${PROJECT_NAME}_SOLUTION_${DAY}_LIB PUBLIC cxx_std_20)
@@ -254,6 +254,7 @@ target_link_libraries(
 	${PROJECT_NAME}
   PRIVATE
     ${SOLUTIONS_LIBS}
+	${llvm_libs}
 )
 
 set_target_properties(

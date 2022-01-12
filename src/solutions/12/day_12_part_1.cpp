@@ -11,7 +11,7 @@
 namespace solutions {
 
 void
-NumValidPaths(unsigned long& numPaths, std::deque<std::vector<std::string>>& paths, const std::map<std::string, std::set<std::string>>& caveMap)
+NumValidPaths(unsigned long& numPaths, std::deque<std::string>& paths, const std::map<std::string, std::set<std::string>>& caveMap)
 {
 	static const std::string _end{"end"};
 
@@ -21,18 +21,19 @@ NumValidPaths(unsigned long& numPaths, std::deque<std::vector<std::string>>& pat
 		auto path = paths.front();
 		paths.pop_front();
 
-		if(path.back() == _end){
+		if(path.ends_with(_end)){
 			++numPaths;
 			continue;
 		}
+
+		auto lastDelimiterPos = path.rfind(',');
+		auto lastVisited = path.substr(lastDelimiterPos == std::string::npos ? 0UL : lastDelimiterPos + 1UL);
 		
-		for(const auto& cave : caveMap.at(path.back())) {
+		for( const auto& cave : caveMap.at(lastVisited) ) {
 			if( IsSmall(cave) && IsVisited(cave, path)){
 				continue;
 			}
-			std::vector<std::string> tmpCpy{path};
-			tmpCpy.emplace_back(cave);
-			paths.emplace_back(tmpCpy);
+			paths.emplace_back(path + ',' + cave);
 		}
 	}
 }
@@ -56,7 +57,7 @@ FindNumCavePaths(const std::string_view& input) -> unsigned long
 	}
 
 	unsigned long numPaths = 0UL;
-	std::deque<std::vector<std::string>> paths{{_start}};
+	std::deque<std::string> paths{_start};
 	NumValidPaths(numPaths, paths, caveMap);
 
 	return numPaths;

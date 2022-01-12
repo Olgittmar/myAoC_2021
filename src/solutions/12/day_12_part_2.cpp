@@ -3,12 +3,13 @@
 #include <solutions/12/day_12_part_1.h>
 
 #include <utils/StringSplit.h>
+#include <utils/utils.h>
 
 namespace solutions {
 
 void NumValidPathsWithExtraSmallCaveVisit(
 	unsigned long& numPaths,
-	[[maybe_unused]] std::deque<std::vector<std::string>>& paths,
+	[[maybe_unused]] std::deque<std::pair<std::string, bool>>& paths,
 	[[maybe_unused]] const std::map<std::string, std::set<std::string>>& caveMap)
 {
 	static const std::string _start{"start"};
@@ -17,30 +18,35 @@ void NumValidPathsWithExtraSmallCaveVisit(
 	// Something something small cave
 	while (!paths.empty())
 	{
-		auto path = paths.front();
+		auto path = paths.front().first;
+		bool hasVisitedSmallCaveTwice = paths.front().second;
 		paths.pop_front();
 
-		if(path.back() == _end){
+		if( path.ends_with(_end) ){
 			++numPaths;
 			continue;
 		}
 
-		bool hasVisitedSmallCaveTwice = HasSmallCaveVisitedTwice(path);
+		auto lastDelimiterPos = path.rfind(',');
+		auto lastVisited = path.substr(lastDelimiterPos == std::string::npos ? 0UL : lastDelimiterPos + 1);
 		
-		for(const auto& cave : caveMap.at(path.back())) {
-			if(cave == _start) {
+		auto caves = caveMap.at(lastVisited);
+
+		for( const auto& cave : caves ) {
+			if(cave == _start && path.size() > 1UL ) {
 				continue;
 			}
 
-			bool isSmall = IsSmall(cave);
-
-			if(hasVisitedSmallCaveTwice && isSmall && IsVisited(cave, path)) {
-				continue;
+			bool willHaveVisitedSmallCaveTwice = hasVisitedSmallCaveTwice;
+			if( IsSmall(cave) && IsVisited(cave, path) ) {
+				if(hasVisitedSmallCaveTwice) {
+					continue;
+				}
+				willHaveVisitedSmallCaveTwice = true;
 			}
 
-			std::vector<std::string> tmpCpy{path};
-			tmpCpy.emplace_back(cave);
-			paths.emplace_back(tmpCpy);
+			auto next = std::pair<std::string, bool>{path + ',' + cave, hasVisitedSmallCaveTwice || willHaveVisitedSmallCaveTwice};
+			paths.emplace_back(next);
 		}
 	}
 }
@@ -65,8 +71,7 @@ FindNumCavePathsWithExtraVisit([[maybe_unused]] const std::string_view& input) -
 	}
 
 	unsigned long numPaths = 0UL;
-	std::deque<std::vector<std::string>> paths = {};
-	paths.emplace_back( std::vector<std::string>({_start}) );
+	std::deque<std::pair<std::string, bool>> paths{{_start, false}};
 	NumValidPathsWithExtraSmallCaveVisit(numPaths, paths, caveMap);
 
 	return numPaths;
