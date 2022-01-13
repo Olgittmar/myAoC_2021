@@ -4,6 +4,7 @@
 constexpr const char* genericInput_2_a = "forward 5\ndown 5\nforward 8\nup 3\ndown 8\nforward 2";
 constexpr const char* genericInput_2_b = "forward 5\ndown 5\nforward 5\nup 10\nforward 5";
 constexpr const char* badInput_2 = "forward 0\ndown 0\nforward 0\nup 0";
+
 #include <gtest/gtest.h>
 
 TEST(Solution_2_1Test, CheckGenericValues) // NOLINT

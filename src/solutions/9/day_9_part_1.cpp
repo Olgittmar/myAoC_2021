@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <map>
 
-#include <utils/StringSplit.h>
+#include <utils/utils.h>
 
 namespace solutions
 {

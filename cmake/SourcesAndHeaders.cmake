@@ -14,6 +14,7 @@ set(utils_headers
     include/${PROJECT_NAME}/utils/Coordinates.h
     include/${PROJECT_NAME}/utils/myMath.h
     include/${PROJECT_NAME}/utils/myConcepts.h
+	include/${PROJECT_NAME}/utils/utils.h
 )
 
 set(test_utils_sources

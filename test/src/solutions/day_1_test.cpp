@@ -5,7 +5,7 @@ constexpr const char* genericInput_1 = "199\n200\n208\n210\n200\n207\n240\n269\n
 
 #include <gtest/gtest.h>
 
-#include <utils/Constants.h>
+#include <utils/utils.h>
 
 TEST(Solution_1_1Test, CheckGenericValues) // NOLINT
 {

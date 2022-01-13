@@ -2,7 +2,7 @@
 
 #include <cmath>
 
-#include <utils/StringSplit.h>
+#include <utils/utils.h>
 
 namespace solutions
 {

@@ -65,6 +65,18 @@ include(cmake/Vcpkg.cmake)
 include(cmake/SourcesAndHeaders.cmake)
 include(cmake/CompilerWarnings.cmake)
 
+# Set up common precompiled headers
+set(STD_PCH
+  <iostream>
+  <string>
+  <string_view>
+  <vector>
+  <map>
+  <set>
+  <algorithm>
+  <numeric>
+)
+
 # Create utils library
 add_library(
   ${PROJECT_NAME}_UTILS_LIB
@@ -73,19 +85,22 @@ add_library(
     ${utils_sources}
 )
 
+target_include_directories(
+  ${PROJECT_NAME}_UTILS_LIB
+  PRIVATE
+	$<INSTALL_INTERFACE:include/utils>
+	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/utils>
+)
+
 target_link_libraries(
 	${PROJECT_NAME}_UTILS_LIB
 	PUBLIC
 	  ${llvm_libs}
 )
 
-set(UTILS_PCH
-	<iostream>
-	<string>
-	<string_view>
-	<vector>
-)
+target_compile_features(${PROJECT_NAME}_UTILS_LIB PUBLIC cxx_std_20)
 
+set(UTILS_PCH "")
 foreach(rel_path ${utils_headers})
 	list(APPEND UTILS_PCH
 		$<INSTALL_INTERFACE:${rel_path}>
@@ -95,18 +110,20 @@ endforeach()
 
 
 target_precompile_headers(
-    ${PROJECT_NAME}_UTILS_LIB
+  ${PROJECT_NAME}_UTILS_LIB
   PUBLIC
+	${STD_PCH}
+  PRIVATE
 	${UTILS_PCH}
 )
 
 target_include_directories(
   ${PROJECT_NAME}_UTILS_LIB
   PUBLIC
-    $<INSTALL_INTERFACE:include>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}>
+	$<INSTALL_INTERFACE:include/utils>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/${PROJECT_NAME}/utils>
   PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/utils
 )
 
 if(${PROJECT_NAME}_VERBOSE_OUTPUT)
@@ -127,7 +144,6 @@ set_target_properties(
     LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib/${CMAKE_BUILD_TYPE}"
 )
 
-target_compile_features(${PROJECT_NAME}_UTILS_LIB PUBLIC cxx_std_20)
 set_project_warnings(${PROJECT_NAME}_UTILS_LIB)
 
 install(
@@ -166,12 +182,20 @@ foreach(DAY RANGE 1 25)
   add_dependencies(${PROJECT_NAME}_SOLUTION_${DAY}_LIB ${PROJECT_NAME}_UTILS_LIB)
 
   # Reuse precompiled headers from utils lib
-  target_precompile_headers(${PROJECT_NAME}_SOLUTION_${DAY}_LIB REUSE_FROM ${PROJECT_NAME}_UTILS_LIB)
+  target_precompile_headers(
+	${PROJECT_NAME}_SOLUTION_${DAY}_LIB
+	PUBLIC
+	  ${STD_PCH}
+	PRIVATE
+	  include/${PROJECT_NAME}/solutions/${DAY}/day_${DAY}_part_1.h
+	  include/${PROJECT_NAME}/solutions/${DAY}/day_${DAY}_part_2.h
+  )
 
   target_include_directories(
     ${PROJECT_NAME}_SOLUTION_${DAY}_LIB
 	PUBLIC
 	  $<INSTALL_INTERFACE:include>
+	  $<INSTALL_INTERFACE:lib>
 	  $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include/${PROJECT_NAME}>
 	PRIVATE
 	  ${CMAKE_SOURCE_DIR}/src
@@ -350,14 +374,14 @@ install(
 ## solutions and utils are built as semi-independent libs
 ## and install rules are generated for them individually
 
-install(
-  DIRECTORY
-  include/${PROJECT_NAME_LOWERCASE}
-  DESTINATION
-  include
-)
+# install(
+#   DIRECTORY
+#   include/${PROJECT_NAME_LOWERCASE}
+#   DESTINATION
+#   include
+# )
 
-verbose_message("Install targets succesfully build. Install with `cmake --build <build_directory> --target install --config <build_config>`.")
+# verbose_message("Install targets succesfully build. Install with `cmake --build <build_directory> --target install --config <build_config>`.")
 
 #
 # Quick `ConfigVersion.cmake` creation
@@ -391,17 +415,17 @@ install(
 # Generate export header if specified
 #
 ## Should not be used, may look into how this works in the future
-if(${PROJECT_NAME}_GENERATE_EXPORT_HEADER)
-  include(GenerateExportHeader)
-  generate_export_header(${PROJECT_NAME})
-  install(
-    FILES
-    ${PROJECT_BINARY_DIR}/${PROJECT_NAME_LOWERCASE}_export.h
-    DESTINATION
-    include
-  )
+# if(${PROJECT_NAME}_GENERATE_EXPORT_HEADER)
+#   include(GenerateExportHeader)
+#   generate_export_header(${PROJECT_NAME})
+#   install(
+#     FILES
+#     ${PROJECT_BINARY_DIR}/${PROJECT_NAME_LOWERCASE}_export.h
+#     DESTINATION
+#     include
+#   )
 
-  message(STATUS "Generated the export header `${PROJECT_NAME_LOWERCASE}_export.h` and installed it.")
-endif()
+#   message(STATUS "Generated the export header `${PROJECT_NAME_LOWERCASE}_export.h` and installed it.")
+# endif()
 
 message(STATUS "Finished building requirements for installing the package.\n")

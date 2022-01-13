@@ -1,5 +1,5 @@
-#ifndef MYAOC_2021_UTILS_MY_MATH_H
-#define MYAOC_2021_UTILS_MY_MATH_H
+#ifndef MYAOC_2021_UTILS_MYMATH_H
+#define MYAOC_2021_UTILS_MYMATH_H
 
 namespace utils {
 

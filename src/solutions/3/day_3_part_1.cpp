@@ -1,6 +1,6 @@
 #include <solutions/3/day_3_part_1.h>
 
-#include <utils/StringSplit.h>
+#include <utils/utils.h>
 #include <algorithm>
 #include <iostream>
 

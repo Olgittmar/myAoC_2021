@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-#include <utils/StringSplit.h>
+#include <utils/utils.h>
 
 namespace solutions {
 
@@ -52,30 +52,30 @@ Submarine::StrToMovecommand(const std::string_view& str) -> Submarine::MoveComma
     if( str.find(UpStr) != std::string_view::npos ){
         return UP;
     }
-    std::string errMsg{"Argument"};
+    std::string errMsg{"Argument \""};
     errMsg += str.data();
-    errMsg += " is not a moveCommand";
+    errMsg += " \"is not a moveCommand";
     throw std::invalid_argument(errMsg);
 }
 
 auto
 Submarine::StrToCommandValuePair(const std::string_view& str) -> std::pair<Submarine::MoveCommand, int>
 {
-    auto delimPos = str.find(' ');
-    if(delimPos == std::string::npos || delimPos + 1 >= str.size()){
+    auto delimPos = str.find_last_of(' ') + 1UL;
+    if(delimPos == std::string::npos || delimPos >= str.size()){
         return std::make_pair<Submarine::MoveCommand, int>( UNKNOWN, 0 );
     }
-    return std::make_pair<Submarine::MoveCommand, int>(
-        StrToMovecommand( str.substr(0, delimPos) ),
-        utils::StringViewToInt( str.substr(delimPos) )
-    );
+	auto moveCommand = StrToMovecommand( str.substr(0, delimPos) );
+	auto distance = utils::StringViewToInt( str.substr(delimPos) );
+    return { moveCommand, distance };
 }
 
 // cppcheck-suppress unusedFunction
 auto SubmarineAdvancedNavigationProduct(const std::string_view& str) -> int
 {
     Submarine sub{};
-    sub.Navigate( utils::SplitString(str, '\n') );
+	auto instructions = utils::SplitString(str, '\n');
+    sub.Navigate( instructions );
     return sub.GetNavigationProduct();
 }
 

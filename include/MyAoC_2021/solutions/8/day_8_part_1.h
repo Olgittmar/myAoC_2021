@@ -1,5 +1,5 @@
-#ifndef MYAOC_2021_SOLUTIONS_8_DAY_8_8_PART_1_H
-#define MYAOC_2021_SOLUTIONS_8_DAY_8_8_PART_1_H
+#ifndef MYAOC_2021_SOLUTIONS_8_DAY_8_PART_1_H
+#define MYAOC_2021_SOLUTIONS_8_DAY_8_PART_1_H
 
 #include <string_view>
 #include <vector>

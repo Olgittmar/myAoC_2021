@@ -1,10 +1,8 @@
-#ifndef MYAOC_2021_SOLUTIONS_7_DAY_7_7_PART_1_H
-#define MYAOC_2021_SOLUTIONS_7_DAY_7_7_PART_1_H
+#ifndef MYAOC_2021_SOLUTIONS_7_DAY_7_PART_1_H
+#define MYAOC_2021_SOLUTIONS_7_DAY_7_PART_1_H
 
 #include <string>
 #include <vector>
-
-#include <utils/Constants.h>
 
 namespace solutions
 {

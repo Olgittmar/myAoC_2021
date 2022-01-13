@@ -2,8 +2,9 @@
 
 #include <cmath>
 
+#include <utils/utils.h>
+
 #include <solutions/7/day_7_part_1.h>
-#include <utils/StringSplit.h>
 
 namespace solutions
 {

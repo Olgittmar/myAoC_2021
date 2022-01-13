@@ -3,7 +3,8 @@
 #include <iostream>
 
 #include <solutions/4/day_4_part_1.h>
-#include <utils/StringSplit.h>
+
+#include <utils/utils.h>
 
 namespace solutions {
 

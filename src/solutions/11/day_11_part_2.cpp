@@ -1,6 +1,6 @@
 #include <solutions/11/day_11_part_2.h>
 
-#include <utils/StringSplit.h>
+#include <utils/utils.h>
 
 #include <solutions/11/day_11_part_1.h>
 

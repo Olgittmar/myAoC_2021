@@ -1,4 +1,4 @@
-#include <utils/myMath.h>
+#include <myMath.h>
 
 #include <array>
 #include <utility>

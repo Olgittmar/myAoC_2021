@@ -1,6 +1,6 @@
 #include <solutions/10/day_10_part_2.h>
 
-#include <utils/StringSplit.h>
+#include <utils/utils.h>
 
 namespace solutions
 {

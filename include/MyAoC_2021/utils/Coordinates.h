@@ -8,8 +8,6 @@
 #include <string>
 #include <vector>
 
-#include <utils/myConcepts.h>
-
 namespace utils {
 
 class Coordinate2D {
@@ -31,6 +29,9 @@ class Coordinate2D {
 	constexpr auto operator!=(const Coordinate2D& other) const -> bool {
 		return !operator==(other);
 	}
+
+	inline constexpr auto setX(int newX) -> void { m_x = newX; }
+	inline constexpr auto setY(int newY) -> void { m_y = newY; }
 
 	[[nodiscard]] inline constexpr auto x() const -> int { return m_x; }
 	[[nodiscard]] inline constexpr auto y() const -> int { return m_y; }
@@ -88,7 +89,7 @@ class Line {
 
   private:
 	friend inline std::ostream& operator<<(std::ostream &os, const utils::Line& line) {
-		return os << (line.m_start) << ' ' << line.VentLineDivider << ' ' << (line.m_end);
+		return os << line.m_start << ' ' << line.VentLineDivider << ' ' << line.m_end;
 	}
 	static inline const std::string_view VentLineDivider = "->";
     Coordinate2D m_start;

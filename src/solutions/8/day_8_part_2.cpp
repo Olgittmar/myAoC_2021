@@ -4,8 +4,7 @@
 #include <iostream>
 #include <string_view>
 
-#include <utils/StringSplit.h>
-#include <utils/myMath.h>
+#include <utils/utils.h>
 
 namespace solutions
 {

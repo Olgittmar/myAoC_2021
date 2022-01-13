@@ -1,4 +1,4 @@
-#include <utils/myMath.h>
+#include <utils.h>
 
 #include <gtest/gtest.h>
 

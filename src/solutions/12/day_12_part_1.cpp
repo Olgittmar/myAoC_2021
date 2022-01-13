@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-#include <utils/StringSplit.h>
+#include <utils.h>
 
 namespace solutions {
 

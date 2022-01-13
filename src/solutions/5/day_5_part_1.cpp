@@ -3,8 +3,6 @@
 #include <iostream>
 #include <numeric>
 
-#include <utils/Coordinates.h>
-#include <utils/StringSplit.h>
 #include <utils/utils.h>
 
 namespace solutions {

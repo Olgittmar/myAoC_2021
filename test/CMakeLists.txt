@@ -29,11 +29,9 @@ foreach(file ${test_utils_sources})
   
   target_include_directories(
 	${test_name}_Tests
-	PUBLIC
-	  $<INSTALL_INTERFACE:include>
-	  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 	PRIVATE
-	  ${CMAKE_CURRENT_SOURCE_DIR}/src
+	  $<INSTALL_INTERFACE:include/utils>
+	  $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include/utils>
   )
 
   #

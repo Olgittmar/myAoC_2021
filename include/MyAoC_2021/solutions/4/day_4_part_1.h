@@ -1,5 +1,5 @@
-#ifndef MYAOC_2021_SOLUTIONS_4_DAY_4_4_PART_1_H
-#define MYAOC_2021_SOLUTIONS_4_DAY_4_4_PART_1_H
+#ifndef MYAOC_2021_SOLUTIONS_4_DAY_4_PART_1_H
+#define MYAOC_2021_SOLUTIONS_4_DAY_4_PART_1_H
 
 #include <string_view>
 #include <unordered_map>

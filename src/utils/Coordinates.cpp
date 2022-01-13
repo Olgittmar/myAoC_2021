@@ -1,10 +1,8 @@
-#include <utils/Coordinates.h>
-#include <utils/StringSplit.h>
+#include <Coordinates.h>
 
 #include <iostream>
 
 namespace utils {
-
 
 auto Line::range() const -> std::vector<Coordinate2D>
 {
@@ -21,7 +19,6 @@ auto Line::range() const -> std::vector<Coordinate2D>
     return _ret;
 }
 
-// cppcheck-suppress unusedFunction
 auto Line::lineFromString(const std::string_view& str) -> Line
 {
     auto dividerPos = str.find(VentLineDivider);

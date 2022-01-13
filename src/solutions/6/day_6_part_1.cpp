@@ -4,7 +4,7 @@
 #include <iostream>
 #include <numeric>
 
-#include <utils/StringSplit.h>
+#include <utils/utils.h>
 
 namespace solutions
 {

@@ -1,7 +1,6 @@
-#include <utils/StringSplit.h>
+#include <StringSplit.h>
 
 #include <algorithm>
-#include <charconv>
 
 namespace utils
 {
@@ -46,35 +45,47 @@ auto SplitString(const std::string_view& str, const char& delim, bool greedy) ->
     return _ret;
 }
 
-auto StringViewToInt(const std::string_view& strView, int base) -> int
+auto SplitStringToInt(const std::string_view& toConvert, const char& delim, bool greedy, int base) -> std::vector<int>
 {
-    std::string tmp{ strView };
-    return std::stoi(tmp, nullptr, base);
-}
-
-auto StringViewToULong(const std::string_view& strView, int base) -> ulong
-{
-    std::string tmp{ strView };
-    return std::stoul(tmp, nullptr, base);
-}
-
-// cppcheck-suppress unusedFunction
-auto SplitStringToInt(const std::string_view& str, const char& delim, bool greedy, int base) -> std::vector<int>
-{
-    std::vector<int> _ret;
-    auto strView = SplitString(str, delim, greedy);
-    std::transform(strView.cbegin(), strView.cend(), std::back_inserter(_ret),
-		[&](const std::string_view& str) { return StringViewToInt(str, base); });
+    std::vector<int> _ret{};
+	try {
+    	auto strView = SplitString(toConvert, delim, greedy);
+    	std::transform(strView.cbegin(), strView.cend(), std::back_inserter(_ret),
+			[&](const std::string_view& str) { return StringViewToInt(str, base); });
+	} catch(std::invalid_argument err) {
+		_ret.clear();
+		// See if it works if we remove unconvertible chars
+		std::string tmp{toConvert.begin(), toConvert.end()};
+		tmp.erase( std::remove_if(tmp.begin(), tmp.end(),
+			[&](unsigned char c) -> bool { return !std::isdigit(c) && !(c == delim); }),
+			tmp.end());
+		
+		auto strView = SplitString(tmp, delim, greedy);
+    	std::transform(strView.cbegin(), strView.cend(), std::back_inserter(_ret),
+			[&](const std::string_view& str) { return StringViewToInt(str, base); });
+	}
     return _ret;
 }
 
-// cppcheck-suppress unusedFunction
-auto SplitStringToULong(const std::string_view& str, const char& delim, bool greedy, int base) -> std::vector<ulong>
+auto SplitStringToULong(const std::string_view& toConvert, const char& delim, bool greedy, int base) -> std::vector<ulong>
 {
-    std::vector<ulong> _ret;
-    auto strView = SplitString(str, delim, greedy);
+    std::vector<ulong> _ret{};
+	try {
+    auto strView = SplitString(toConvert, delim, greedy);
     std::transform(strView.cbegin(), strView.cend(), std::back_inserter(_ret),
 		[&](const std::string_view& str) { return StringViewToULong(str, base); });
+	} catch(std::invalid_argument err) {
+		_ret.clear();
+		// See if it works if we remove unconvertible chars
+		std::string tmp{toConvert.begin(), toConvert.end()};
+		tmp.erase( std::remove_if(tmp.begin(), tmp.end(),
+			[&](unsigned char c) -> bool { return !std::isdigit(c) && !(c == delim); }),
+			tmp.end());
+		
+		auto strView = SplitString(tmp, delim, greedy);
+    	std::transform(strView.cbegin(), strView.cend(), std::back_inserter(_ret),
+			[&](const std::string_view& str) { return StringViewToInt(str, base); });
+	}
     return _ret;
 }
 

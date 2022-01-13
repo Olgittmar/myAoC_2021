@@ -2,8 +2,9 @@
 
 #include <iostream>
 
+#include <utils/utils.h>
+
 #include <solutions/3/day_3_part_1.h>
-#include <utils/StringSplit.h>
 
 namespace solutions {
 
