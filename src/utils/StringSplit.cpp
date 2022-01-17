@@ -1,6 +1,7 @@
 #include <StringSplit.h>
 
 #include <algorithm>
+#include <cassert>
 
 namespace utils
 {
@@ -42,6 +43,22 @@ auto SplitString(const std::string_view& str, const char& delim, bool greedy) ->
 		    _ret.push_back(lastItem);
 	    }
     }
+    return _ret;
+}
+
+auto SplitString(const std::string_view& str, const std::string_view& delimStr) -> std::vector<std::string_view>
+{
+	assert(!delimStr.empty());
+    std::vector<std::string_view> _ret{};
+    size_t prev = 0UL;
+	size_t delimPos = 0UL;
+
+	do {
+		delimPos = str.find(delimStr, prev);
+		_ret.push_back(str.substr(prev, delimPos - prev));
+		prev = delimPos + delimStr.size();
+	} while(delimPos != std::string_view::npos);
+    
     return _ret;
 }
 
