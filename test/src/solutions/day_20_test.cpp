@@ -5,7 +5,7 @@
 
 #include <gtest/gtest.h>
 
-TEST(Solution_20_1Test, CheckGenericValues) // NOLINT
+TEST(Solution20Part1Test, CheckGenericValues) // NOLINT
 {
 	// EXPECT_EQ( solutions::MiddleCompletedScore(genericInput_11), 0); // NOLINT
 }

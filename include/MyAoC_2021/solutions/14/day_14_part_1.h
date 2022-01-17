@@ -6,7 +6,11 @@
 
 namespace solutions {
 
-auto GetPolymerChain(const std::string_view& polymerChain, const std::vector<std::string_view>& insertionRules) -> std::string;
+auto GetPolymerChain(
+	const std::map<std::string_view, std::string_view>& insertionRules,
+	const std::map<std::string, long>& pairCountMap,
+	std::map<char, long>& charCountMap)
+  -> std::map<std::string, long>;
 auto CommonUncommonPolymerDiff(const std::string_view& input, int numSteps) -> long;
 
 } // namespace solutions

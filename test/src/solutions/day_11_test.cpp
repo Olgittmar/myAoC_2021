@@ -5,12 +5,12 @@ constexpr const char* genericInput_11 = "5483143223\n2745854711\n5264556173\n614
 
 #include <gtest/gtest.h>
 
-TEST(Solution_11_1Test, CheckGenericValues) // NOLINT
+TEST(Solution11Part1Test, CheckGenericValues) // NOLINT
 {
 	EXPECT_EQ( solutions::CountDumboFlashes(genericInput_11, 100), 1656); // NOLINT
 }
 
-TEST(Solution_11_2Test, CheckGenericValues) // NOLINT
+TEST(Solution11Part2Test, CheckGenericValues) // NOLINT
 {
 	EXPECT_EQ( solutions::PredictSynchronizedFlash(genericInput_11, 1000), 195); // NOLINT
 }

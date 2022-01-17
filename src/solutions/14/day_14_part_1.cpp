@@ -2,18 +2,57 @@
 
 #include <sstream>
 #include <span>
+#include <tuple>
 
 #include <utils/utils.h>
 
 namespace solutions
 {
 
-auto GetPolymerChain(const std::string_view& polymerChain, const std::vector<std::string_view>& insertionRules) -> std::string
+auto GetPolymerChain(
+	const std::map<std::string_view, std::string_view>& insertionRuleMap,
+	const std::map<std::string, long>& pairCountMap,
+	std::map<char, long>& charCountMap)
+  -> std::map<std::string, long>
 {
-	std::string _ret{};
+	std::map<std::string, long> _retPairCount{};
+	
+	for(const auto& pair : pairCountMap) {
+		auto key = pair.first;
+		auto val = pair.second;
+		
+		if( insertionRuleMap.contains(key) ) {
+			auto insertVal = insertionRuleMap.at(key).front();
+			charCountMap[insertVal] += val;
+			
+			std::string leftKey{key.front()};
+			leftKey += insertVal;
 
-	// Ok since lifetime of this map is less than insertionRules
+			std::string rightKey{insertVal};
+			rightKey += key.back();
+
+			_retPairCount[leftKey] += val;
+			_retPairCount[rightKey] += val;
+		} else {
+			_retPairCount[key] += val;
+		}
+	}
+
+	return _retPairCount;
+}
+
+auto CommonUncommonPolymerDiff(const std::string_view& input, int numSteps) -> long
+{
+	auto delimPos = input.find("\n\n");
+	auto polyChainTemplate = input.substr(0UL, delimPos);
+	auto insertionRules = utils::SplitString(input.substr(delimPos + 2UL), '\n');
+
+	// Which pairs should be split, and what should be inserted
 	std::map<std::string_view, std::string_view> insertionRuleMap{};
+	// How many of each pair do we currently have?
+	std::map<std::string, long> pairCountMap{};
+	// How many of each char do we have?
+	std::map<char, long> charCountMap{};
 
 	for(const auto& item : insertionRules){
 		auto rule = utils::SplitString(item, " -> ");
@@ -23,39 +62,19 @@ auto GetPolymerChain(const std::string_view& polymerChain, const std::vector<std
 		insertionRuleMap.emplace(rule.at(0UL), rule.at(1UL));
 	}
 
-	std::string key{"0"};
-	key += polymerChain.at(0UL);
-	// key is a sliding window over the pairs of chars in polymerChain.
-	for(const char& c : polymerChain.substr(1UL)) {
-		key.at(0UL) = key.at(1UL);
-		key.at(1UL) = c;
+	for(size_t offset = 0UL; offset < polyChainTemplate.size(); ++offset) {
+		charCountMap[polyChainTemplate.at(offset)] += 1L;
 
-		_ret += key.at(0UL);
-		if(insertionRuleMap.contains(key)) {
-			_ret += insertionRuleMap.at(key);
+		auto pair = polyChainTemplate.substr(offset, 2UL);
+		if( pair.size() < 2UL ) {
+			continue;
 		}
+		++pairCountMap[std::string{pair}];
 	}
-	// Add last char, it's not covered by loop above, but will not result in any new insertions
-	_ret += key.at(1UL);
-	return _ret;
-}
-
-auto CommonUncommonPolymerDiff(const std::string_view& input, int numSteps) -> long
-{
-	auto delimPos = input.find("\n\n");
-	auto polyChainTemplate = input.substr(0UL, delimPos);
-	auto insertionRules = utils::SplitString(input.substr(delimPos + 2UL), '\n');
 
 	// Go through the steps
-	std::string polyChain{polyChainTemplate.begin(), polyChainTemplate.end()};
 	for(int step = 0; step < numSteps; ++step) {
-		polyChain = GetPolymerChain(polyChain, insertionRules);
-	}
-
-	// Count occurances
-	std::map<char, long> charCountMap{};
-	for(const char& c : polyChain) {
-		++charCountMap[c];
+		pairCountMap = GetPolymerChain(insertionRuleMap, pairCountMap, charCountMap);
 	}
 
 	long mostCommon{0}, leastCommon{__LONG_MAX__};

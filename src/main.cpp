@@ -155,5 +155,8 @@ auto main(/*int argc, char** argv*/) -> int{
 	std::cout << "\nDay 14, problem 1:" << std::endl;
     std::cout << solutions::CommonUncommonPolymerDiff( GetInputData(14, 1), 10 ) << std::endl; // NOLINT
 
+	std::cout << "\nDay 14, problem 2:" << std::endl;
+    std::cout << solutions::CommonUncommonPolymerDiff( GetInputData(14, 1), 40 ) << std::endl; // NOLINT
+
     return 0;
 }

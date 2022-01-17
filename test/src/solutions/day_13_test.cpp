@@ -5,13 +5,13 @@ constexpr const char* genericInput_13 = "6,10\n0,14\n9,10\n0,3\n10,4\n4,11\n6,0\
 
 #include <gtest/gtest.h>
 
-TEST(Solution_13_1Test, CheckGenericValues) // NOLINT
+TEST(Solution13Part1Test, CheckGenericValues) // NOLINT
 {
 	EXPECT_EQ( solutions::DotsVisibleAfterNFolds(genericInput_13, 1), 17); // NOLINT
 }
 
 // No idea how to test this?
-TEST(Solution_13_2Test, CheckGenericValues) // NOLINT
+TEST(Solution13Part2Test, CheckGenericValues) // NOLINT
 {
 	std::string _ret{};
 	EXPECT_NO_FATAL_FAILURE( _ret = solutions::PrintCodeFromDottedPaper(genericInput_13, 0) ); // NOLINT

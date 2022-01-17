@@ -5,9 +5,34 @@ constexpr const char* genericInput_14 = "NNCB\n\nCH -> B\nHH -> N\nCB -> H\nNH -
 
 #include <gtest/gtest.h>
 
-TEST(Solution_14_1Test, CheckGenericValues) // NOLINT
+TEST(Solution14Part1Test, CheckAfterOneStep) // NOLINT
+{
+	EXPECT_EQ( solutions::CommonUncommonPolymerDiff(genericInput_14, 1), 1); // NOLINT
+}
+
+TEST(Solution14Part1Test, CheckAfterTwoSteps) // NOLINT
+{
+	EXPECT_EQ( solutions::CommonUncommonPolymerDiff(genericInput_14, 2), 5); // NOLINT
+}
+
+TEST(Solution14Part1Test, CheckAfterThreeSteps) // NOLINT
+{
+	EXPECT_EQ( solutions::CommonUncommonPolymerDiff(genericInput_14, 3), 7); // NOLINT
+}
+
+TEST(Solution14Part1Test, CheckAfterFourSteps) // NOLINT
+{
+	EXPECT_EQ( solutions::CommonUncommonPolymerDiff(genericInput_14, 4), 18); // NOLINT
+}
+
+TEST(Solution14Part1Test, CheckAfterTenSteps) // NOLINT
 {
 	EXPECT_EQ( solutions::CommonUncommonPolymerDiff(genericInput_14, 10), 1588); // NOLINT
+}
+
+TEST(Solution14Part2Test, CheckAfterFortySteps) // NOLINT
+{
+	EXPECT_EQ( solutions::CommonUncommonPolymerDiff(genericInput_14, 40), 2188189693529L); // NOLINT
 }
 
 auto main(int argc, char **argv) -> int

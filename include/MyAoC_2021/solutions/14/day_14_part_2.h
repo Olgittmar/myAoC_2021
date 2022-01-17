@@ -4,6 +4,8 @@
 
 namespace solutions {
 
+// See solution to day 14 part 1
+
 } // namespace solutions
 
 #endif

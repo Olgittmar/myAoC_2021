@@ -7,23 +7,23 @@ constexpr const char* badInput_2 = "forward 0\ndown 0\nforward 0\nup 0";
 
 #include <gtest/gtest.h>
 
-TEST(Solution_2_1Test, CheckGenericValues) // NOLINT
+TEST(Solution2Part1Test, CheckGenericValues) // NOLINT
 {
     EXPECT_EQ( solutions::SubmarineNavigationProduct(genericInput_2_a), 150 );
 }
 
-TEST(Solution_2_1Test, CheckBadInput) // NOLINT
+TEST(Solution2Part1Test, CheckBadInput) // NOLINT
 {
     EXPECT_EQ( solutions::SubmarineNavigationProduct(badInput_2), 0 );
 }
 
-TEST(Solution_2_2Test, CheckGenericValues) // NOLINT
+TEST(Solution2Part2Test, CheckGenericValues) // NOLINT
 {
   EXPECT_EQ(solutions::SubmarineAdvancedNavigationProduct(genericInput_2_a), 900);
   EXPECT_EQ(solutions::SubmarineAdvancedNavigationProduct(genericInput_2_b), 0);
 }
 
-TEST(Solution_2_2Test, CheckBadInput) // NOLINT
+TEST(Solution2Part2Test, CheckBadInput) // NOLINT
 {
   EXPECT_EQ(solutions::SubmarineAdvancedNavigationProduct(badInput_2), 0);
 }

@@ -16,13 +16,13 @@ constexpr const char* genericInput_8 =
 
 #include <gtest/gtest.h>
 
-TEST(Solution_8_1Test, CheckGenericValues) // NOLINT
+TEST(Solution8Part1Test, CheckGenericValues) // NOLINT
 {
 	EXPECT_EQ( solutions::GetNumberOfCodesOfUniqueLengthInOutput(genericInput_8_small), 0); // NOLINT
 	EXPECT_EQ( solutions::GetNumberOfCodesOfUniqueLengthInOutput(genericInput_8), 26); // NOLINT
 }
 
-TEST(Solution_8_2Test, CheckGenericValues) // NOLINT
+TEST(Solution8Part2Test, CheckGenericValues) // NOLINT
 {
 	EXPECT_EQ( solutions::SumOfJumbledCodes(genericInput_8_small), 5353); // NOLINT
 	EXPECT_EQ( solutions::SumOfJumbledCodes(genericInput_8), 61229); // NOLINT

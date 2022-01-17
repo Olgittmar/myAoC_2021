@@ -7,7 +7,7 @@ constexpr const char* genericInput_1 = "199\n200\n208\n210\n200\n207\n240\n269\n
 
 #include <utils/utils.h>
 
-TEST(Solution_1_1Test, CheckGenericValues) // NOLINT
+TEST(Solution1Part1Test, CheckGenericValues) // NOLINT
 {
   constexpr std::string_view str1{"1\n2\n3\n2"};
   constexpr std::string_view str2{"1\n2\n3\n4"};
@@ -21,7 +21,7 @@ TEST(Solution_1_1Test, CheckGenericValues) // NOLINT
   EXPECT_EQ( solutions::CountNumIncreasing(genericInput_1), 7 );
 }
 
-TEST(Solution_1_1Test, CheckBadInput) // NOLINT
+TEST(Solution1Part1Test, CheckBadInput) // NOLINT
 {
   constexpr std::string_view str1{};
   constexpr std::string_view str2{"1"};
@@ -36,7 +36,7 @@ TEST(Solution_1_1Test, CheckBadInput) // NOLINT
   EXPECT_EQ( solutions::CountNumIncreasing(str5), 0 );
 }
 
-TEST(Solution_1_2Test, CheckBadInput) // NOLINT
+TEST(Solution1Part2Test, CheckBadInput) // NOLINT
 {
 	constexpr std::string_view str1{};
 	constexpr std::string_view str2{"1"};
@@ -47,7 +47,7 @@ TEST(Solution_1_2Test, CheckBadInput) // NOLINT
     EXPECT_EQ(solutions::CountIncreasingSlidingWindow(str3), 0);
 }
 
-TEST(Solution_1_2Test, CheckGenericValues) // NOLINT
+TEST(Solution1Part2Test, CheckGenericValues) // NOLINT
 {
 	constexpr std::string_view str1{"2\n3\n4\n2\n1\n1"};
 	constexpr std::string_view str2{"1\n2\n3\n4\n5\n1"};

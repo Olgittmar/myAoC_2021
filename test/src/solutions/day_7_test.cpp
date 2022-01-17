@@ -5,12 +5,12 @@ constexpr const char* genericInput_7 = "16,1,2,0,4,2,7,1,2,14";
 
 #include <gtest/gtest.h>
 
-TEST(Solution_7_1Test, CheckGenericValues) // NOLINT
+TEST(Solution7Part1Test, CheckGenericValues) // NOLINT
 {
 	EXPECT_EQ( solutions::CalculateAlignmentOptimalFuelConsumption(genericInput_7), 37);
 }
 
-TEST(Solution_7_2Test, CheckGenericValues) // NOLINT
+TEST(Solution7Part2Test, CheckGenericValues) // NOLINT
 {
 	EXPECT_EQ( solutions::CalculateExpensiveAlignmentOptimalFuelConsumption(genericInput_7), 168); // NOLINT
 }

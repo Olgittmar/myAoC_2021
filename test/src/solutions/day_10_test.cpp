@@ -5,12 +5,12 @@ constexpr const char* genericInput_10 = "[({(<(())[]>[[{[]{<()<>>\n[(()[<>])]({[
 
 #include <gtest/gtest.h>
 
-TEST(Solution_10_1Test, CheckGenericValues) // NOLINT
+TEST(Solution10Part1Test, CheckGenericValues) // NOLINT
 {
 	EXPECT_EQ( solutions::SyntaxErrorScoreCorrupted(genericInput_10), 26397); // NOLINT
 }
 
-TEST(Solution_10_2Test, CheckGenericValues) // NOLINT
+TEST(Solution10Part2Test, CheckGenericValues) // NOLINT
 {
 	EXPECT_EQ( solutions::MiddleCompletedScore(genericInput_10), 288957ULL); // NOLINT
 }

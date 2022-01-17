@@ -6,7 +6,7 @@ constexpr const char* genericInput_4 = "7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6
 
 #include <gtest/gtest.h>
 
-TEST(Solution_4_1Test, CheckGenericValues) // NOLINT
+TEST(Solution4Part1Test, CheckGenericValues) // NOLINT
 {
 	EXPECT_EQ( solutions::WinBingo(genericInput_4), 4512);
 }
@@ -71,7 +71,7 @@ TEST(BingoBoardTest, Score) // NOLINT
 		1 + 12 + 20 + 15 + 19) * 22);
 }
 
-TEST(Solution_4_2Test, CheckGenericValues) // NOLINT
+TEST(Solution4Part2Test, CheckGenericValues) // NOLINT
 {
 	EXPECT_EQ( solutions::LoseBingo(genericInput_4), 1924);
 }

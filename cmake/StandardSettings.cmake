@@ -41,6 +41,12 @@ option(${PROJECT_NAME}_ENABLE_CLANG_TIDY "Enable static analysis with Clang-Tidy
 option(${PROJECT_NAME}_ENABLE_CPPCHECK "Enable static analysis with Cppcheck." ON)
 
 #
+# Profiling tools
+#
+
+option(${PROJECT_NAME}_ENABLE_GPROF "Enable profiling with gprof" OFF)
+
+#
 # Code coverage
 #
 # No idea how this works
@@ -61,6 +67,12 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 option(${PROJECT_NAME}_VERBOSE_OUTPUT "Enable verbose output, allowing for a better understanding of each step taken." ON)
 option(${PROJECT_NAME}_GENERATE_EXPORT_HEADER "Create a `project_export.h` file containing all exported symbols." OFF)
+
+if(${PROJECT_NAME}_ENABLE_GPROF)
+	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pg")
+	SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pg")
+	SET(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -pg")
+endif()
 
 # Export all symbols when building a shared library
 if(BUILD_SHARED_LIBS)

@@ -5,12 +5,12 @@ constexpr const char* genericInput_9 = "2199943210\n3987894921\n9856789892\n8767
 
 #include <gtest/gtest.h>
 
-TEST(Solution_9_1Test, CheckGenericValues) // NOLINT
+TEST(Solution9Part1Test, CheckGenericValues) // NOLINT
 {
 	EXPECT_EQ( solutions::SumRiskLevelOfLowPoints(genericInput_9), 15); // NOLINT
 }
 
-TEST(Solution_9_2Test, CheckGenericValues) // NOLINT
+TEST(Solution9Part2Test, CheckGenericValues) // NOLINT
 {
 	EXPECT_EQ( solutions::ProductOfLargestBasinSizes(genericInput_9, 3), 1134); // NOLINT
 }

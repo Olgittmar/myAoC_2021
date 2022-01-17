@@ -5,12 +5,12 @@ constexpr const char* genericInput_5 = "0,9 -> 5,9\n8,0 -> 0,8\n9,4 -> 3,4\n2,2 
 
 #include <gtest/gtest.h>
 
-TEST(Solution_5_1Test, CheckGenericValues) // NOLINT
+TEST(Solution5Part1Test, CheckGenericValues) // NOLINT
 {
 	EXPECT_EQ(solutions::NumberOfOverlappingVentlinePoints(genericInput_5), 5);
 }
 
-TEST(Solution_5_2Test, CheckGenericValues) // NOLINT
+TEST(Solution5Part2Test, CheckGenericValues) // NOLINT
 {
   EXPECT_EQ( solutions::NumberOfOverlappingVentlinePointsIncludingDiagonals(genericInput_5), 12);
 }
