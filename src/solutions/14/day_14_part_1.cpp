@@ -37,7 +37,6 @@ auto GetPolymerChain(const std::string_view& polymerChain, const std::vector<std
 	}
 	// Add last char, it's not covered by loop above, but will not result in any new insertions
 	_ret += key.at(1UL);
-
 	return _ret;
 }
 
@@ -49,10 +48,8 @@ auto CommonUncommonPolymerDiff(const std::string_view& input, int numSteps) -> l
 
 	// Go through the steps
 	std::string polyChain{polyChainTemplate.begin(), polyChainTemplate.end()};
-	std::cout << "before: " << polyChain << '\n';
 	for(int step = 0; step < numSteps; ++step) {
 		polyChain = GetPolymerChain(polyChain, insertionRules);
-		std::cout << "after step" << step << ": " << polyChain << '\n';
 	}
 
 	// Count occurances

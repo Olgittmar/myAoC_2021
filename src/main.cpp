@@ -12,6 +12,7 @@
 #include <solutions/12/day_12_part_2.h>
 #include <solutions/13/day_13_part_1.h>
 #include <solutions/13/day_13_part_2.h>
+#include <solutions/14/day_14_part_1.h>
 #include <solutions/2/day_2_part_1.h>
 #include <solutions/2/day_2_part_2.h>
 #include <solutions/3/day_3_part_1.h>
@@ -150,6 +151,9 @@ auto main(/*int argc, char** argv*/) -> int{
 
 	std::cout << "\nDay 13, problem 2:" << std::endl;
     std::cout << solutions::PrintCodeFromDottedPaper( GetInputData(13, 1), 0 ) << std::endl; // NOLINT
+
+	std::cout << "\nDay 14, problem 1:" << std::endl;
+    std::cout << solutions::CommonUncommonPolymerDiff( GetInputData(14, 1), 10 ) << std::endl; // NOLINT
 
     return 0;
 }
