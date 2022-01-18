@@ -56,7 +56,7 @@ jobs:
       run: sudo apt install cppcheck
 
     - name: configure
-      run: cmake -Bbuild -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/$INSTALL_LOCATION -DMyAoC_2021_ENABLE_CODE_COVERAGE=1
+      run: cmake -Bbuild -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/$INSTALL_LOCATION
       
     - name: build
       run: cmake -G Ninja --build build --config $BUILD_TYPE -j4
@@ -66,8 +66,8 @@ jobs:
         cd build
         ctest -C $BUILD_TYPE -VV
 
-    - name: Code coverage using Codecov 
-      run: bash <(curl -s https://codecov.io/bash) 
+    # - name: Code coverage using Codecov 
+    #   run: bash <(curl -s https://codecov.io/bash) 
 
     - name: install project
       run: cmake --build build --target install --config Release 
