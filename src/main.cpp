@@ -13,6 +13,8 @@
 #include <solutions/13/day_13_part_1.h>
 #include <solutions/13/day_13_part_2.h>
 #include <solutions/14/day_14_part_1.h>
+// #include <solutions/14/day_14_part_2.h>
+#include <solutions/15/day_15_part_1.h>
 #include <solutions/2/day_2_part_1.h>
 #include <solutions/2/day_2_part_2.h>
 #include <solutions/3/day_3_part_1.h>
@@ -157,6 +159,9 @@ auto main(/*int argc, char** argv*/) -> int{
 
 	std::cout << "\nDay 14, problem 2:" << std::endl;
     std::cout << solutions::CommonUncommonPolymerDiff( GetInputData(14, 1), 40 ) << std::endl; // NOLINT
+
+	std::cout << "\nDay 15, problem 1:" << std::endl;
+    std::cout << solutions::RiskValueOfLeastRiskyPath( GetInputData(15, 1) ) << std::endl; // NOLINT
 
     return 0;
 }

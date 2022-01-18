@@ -4,6 +4,9 @@
 
 namespace solutions {
 
+auto FindLeastRiskyPath(const std::vector<std::vector<int>>& map, int avgCost) -> int;
+auto RiskValueOfLeastRiskyPath(const std::string_view& input) -> int;
+
 } // namespace solutions
 
 #endif
