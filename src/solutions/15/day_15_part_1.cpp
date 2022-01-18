@@ -10,18 +10,21 @@ namespace solutions
 {
 
 // TODO: function turned out quite chunky, need to refactor for clarity
-auto FindLeastRiskyPath(const std::vector<std::vector<int>>& map, int avgCost) -> int
+auto FindLeastRiskyPath(const std::vector<std::vector<int>>& map) -> int
 {
 	typedef std::pair<int, int> Coordinate;
 	typedef std::pair<Coordinate, int> ValuedCoordinate;
 	
 	const Coordinate _start{0, 0};
 	const Coordinate _goal{static_cast<int>(map.at(0UL).size() - 1UL), static_cast<int>(map.size() - 1UL)};
+	// empirically found, should represent a biased average cost to get to goal
+	// Lower values means the function will bias towards exploring more direct solutions first
+	constexpr const int D = 2;
 	
 	auto h =  [&] ( const Coordinate& coord ) constexpr -> int {
 		auto dx = std::max(coord.first, _goal.first) -  std::min(coord.first, _goal.first);
     	auto dy = std::max(coord.second, _goal.second) - std::min(coord.second, _goal.second);
-    	return avgCost * (dx + dy);
+    	return D * (dx + dy);
 	};
 
 	// Queue of paths to be considered, with the associated cost
@@ -110,18 +113,16 @@ auto RiskValueOfLeastRiskyPath(const std::string_view& input) -> int
 	auto x_size = lines.at(0UL).size();
 	auto y_size = lines.size();
 	auto charToInt = [](const char& c) -> int { return c - '0'; };
-	double avgCost{-1.0}; // Heuristic constant used in pathfinding algorithm later
 
 	std::vector<std::vector<int>> map( y_size, std::vector<int>(x_size, 0) );
 	for(size_t y = 0UL; y < y_size; ++y) { // y
 		for(size_t x = 0UL; x < x_size; ++x) { // x
 			auto val = charToInt( lines.at(y).at(x) );
 			map.at(y).at(x) = val;
-			avgCost = (avgCost == -1.0 ? double(val) : (avgCost + double(val)) / 2.0);
 		}
 	}
 
-	return FindLeastRiskyPath(map, int(avgCost));
+	return FindLeastRiskyPath(map);
 }
 
 } // namespace solutions

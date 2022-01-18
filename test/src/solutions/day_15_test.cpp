@@ -10,6 +10,11 @@ TEST(Solution15Part1Test, CheckGenericValues) // NOLINT
 	EXPECT_EQ( solutions::RiskValueOfLeastRiskyPath(genericInput_15), 40); // NOLINT
 }
 
+TEST(Solution15Part2Test, CheckGenericValues) // NOLINT
+{
+	EXPECT_EQ( solutions::RiskValueOfLeastRiskyPathThroughLargeMap(genericInput_15), 315); // NOLINT
+}
+
 auto main(int argc, char **argv) -> int
 {
   ::testing::InitGoogleTest(&argc, argv);

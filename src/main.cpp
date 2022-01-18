@@ -15,6 +15,7 @@
 #include <solutions/14/day_14_part_1.h>
 // #include <solutions/14/day_14_part_2.h>
 #include <solutions/15/day_15_part_1.h>
+#include <solutions/15/day_15_part_2.h>
 #include <solutions/2/day_2_part_1.h>
 #include <solutions/2/day_2_part_2.h>
 #include <solutions/3/day_3_part_1.h>
@@ -162,6 +163,9 @@ auto main(/*int argc, char** argv*/) -> int{
 
 	std::cout << "\nDay 15, problem 1:" << std::endl;
     std::cout << solutions::RiskValueOfLeastRiskyPath( GetInputData(15, 1) ) << std::endl; // NOLINT
+
+	std::cout << "\nDay 15, problem 2:" << std::endl;
+    std::cout << solutions::RiskValueOfLeastRiskyPathThroughLargeMap( GetInputData(15, 1) ) << std::endl; // NOLINT
 
     return 0;
 }

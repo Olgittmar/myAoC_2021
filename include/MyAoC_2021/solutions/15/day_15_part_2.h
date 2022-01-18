@@ -4,6 +4,8 @@
 
 namespace solutions {
 
+auto RiskValueOfLeastRiskyPathThroughLargeMap(const std::string_view& input) -> int;
+
 } // namespace solutions
 
 #endif
