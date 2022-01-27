@@ -4,6 +4,8 @@
 
 namespace solutions {
 
+auto EvaluatePackageValues(const std::string_view& input) -> ulong;
+
 } // namespace solutions
 
 #endif

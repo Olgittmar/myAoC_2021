@@ -10,14 +10,17 @@
 
 namespace solutions {
 
+//TODO: Implement comparator operators to clean up EvaluatePackageValues a bit
 struct Package {
 	enum PackageType {
 		BASE, LITERAL, OPERATOR
 	};
+
 	std::string_view version;
 	std::string_view typeID;
 
-	inline auto GetSumOfPackageVersions() -> int;
+	inline auto GetSumOfPackageVersions() -> ulong;
+	auto GetPackageValue() -> ulong;
 };
 
 struct LiteralPackage : public Package {
@@ -47,7 +50,7 @@ auto GetPackages(const std::string_view& bits)
 	-> std::vector<std::unique_ptr<Package>>;
 
 constexpr auto CharToBits(const char& c) -> const char*;
-auto SumOfPacketVersions(const std::string_view& input) -> int;
+auto SumOfPackageVersions(const std::string_view& input) -> ulong;
 
 } // namespace solutions
 

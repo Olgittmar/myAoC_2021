@@ -17,6 +17,7 @@
 #include <solutions/15/day_15_part_1.h>
 #include <solutions/15/day_15_part_2.h>
 #include <solutions/16/day_16_part_1.h>
+#include <solutions/16/day_16_part_2.h>
 #include <solutions/2/day_2_part_1.h>
 #include <solutions/2/day_2_part_2.h>
 #include <solutions/3/day_3_part_1.h>
@@ -175,7 +176,10 @@ auto main(/*int argc, char** argv*/) -> int{
     std::cout << "Answer:\n " << solutions::RiskValueOfLeastRiskyPathThroughLargeMap( GetInputData(15, 1) ) << std::endl; // NOLINT
 
 	std::cout << "\nDay 16, problem 1:" << std::endl;
-    std::cout << "Answer:\n " << solutions::SumOfPacketVersions( GetInputData(16, 1) ) << std::endl; // NOLINT
+    std::cout << "Answer:\n " << solutions::SumOfPackageVersions( GetInputData(16, 1) ) << std::endl; // NOLINT
+
+	std::cout << "\nDay 16, problem 2:" << std::endl;
+    std::cout << "Answer:\n " << solutions::EvaluatePackageValues( GetInputData(16, 1) ) << std::endl; // NOLINT
 
     return 0;
 }

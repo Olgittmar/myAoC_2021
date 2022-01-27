@@ -115,10 +115,10 @@ constexpr auto CharToBits(const char& c) -> const char*
 	}
 }
 
-inline auto Package::GetSumOfPackageVersions() -> int
+inline auto Package::GetSumOfPackageVersions() -> ulong
 {
 	using namespace std::string_literals;
-	int _ret = utils::StringViewToInt(version, 2);
+	ulong _ret = utils::StringViewToULong(version, 2);
 	if(typeID != "100"s) {
 		auto op = static_cast<OperatorPackage*>(this);
 		for( auto& subPackage : op->subPackages) {
@@ -128,7 +128,80 @@ inline auto Package::GetSumOfPackageVersions() -> int
 	return _ret;
 }
 
-auto SumOfPacketVersions(const std::string_view& input) -> int
+auto Package::GetPackageValue() -> ulong
+{
+	using namespace std::string_literals;
+	if(typeID == "100"s) {
+		auto lp = static_cast<LiteralPackage*>(this);
+		return lp->value;
+	}
+
+	auto op = static_cast<OperatorPackage*>(this);
+	ulong _ret{};
+	switch (utils::StringViewToULong(typeID, 2))
+	{
+	case 0UL: // Sum
+	{
+		_ret = std::accumulate(
+			std::next(op->subPackages.begin()), op->subPackages.end(),
+			op->subPackages.front()->GetPackageValue(),
+			[&](ulong S, std::unique_ptr<solutions::Package>& subPackage) {
+				return S + subPackage->GetPackageValue();
+			}
+		);
+	} break;
+	case 1UL: // Product
+	{
+		_ret = std::accumulate(
+			std::next(op->subPackages.begin()), op->subPackages.end(),
+			op->subPackages.front()->GetPackageValue(),
+			[&](ulong S, std::unique_ptr<solutions::Package>& subPackage) {
+				return S * subPackage->GetPackageValue();
+			}
+		);
+
+	} break;
+	case 2UL: // Min
+	{
+		//! Can we do this more reasonably with std::min or similar?
+		_ret = ULLONG_MAX;
+		for(auto& subPackage : op->subPackages) {
+			_ret = std::min(_ret, subPackage->GetPackageValue());
+		}
+	} break;
+	case 3UL: // Max
+	{
+		_ret = 0UL;
+		for(auto& subPackage : op->subPackages) {
+			_ret = std::max(_ret, subPackage->GetPackageValue());
+		}
+	} break;
+	case 5UL: // Greater
+	{
+		auto firstVal = op->subPackages.front()->GetPackageValue();
+		auto secondVal = op->subPackages.at(1UL)->GetPackageValue();
+		_ret = static_cast<ulong>( firstVal > secondVal );
+	} break;
+	case 6UL: // Less
+	{
+		auto firstVal = op->subPackages.front()->GetPackageValue();
+		auto secondVal = op->subPackages.at(1UL)->GetPackageValue();
+		_ret = static_cast<ulong>( firstVal < secondVal );
+	} break;
+	case 7UL: // Eq
+	{
+		auto firstVal = op->subPackages.front()->GetPackageValue();
+		auto secondVal = op->subPackages.at(1UL)->GetPackageValue();
+		_ret = static_cast<ulong>( firstVal == secondVal );
+	} break;
+
+	default: break;
+	}
+
+	return _ret;
+}
+
+auto SumOfPackageVersions(const std::string_view& input) -> ulong
 {
 	std::string bits{};
 	bits.reserve(input.size() * 4UL);
@@ -137,11 +210,10 @@ auto SumOfPacketVersions(const std::string_view& input) -> int
 		bits += CharToBits(c);
 	}
 
-	int sumOfVersions = 0;
 	size_t pos = 0UL;
 	auto rootPackage = GetNextPackage(bits, pos);
 
-	sumOfVersions += rootPackage->GetSumOfPackageVersions();
+	ulong sumOfVersions = rootPackage->GetSumOfPackageVersions();
 	
 	return sumOfVersions;
 }
