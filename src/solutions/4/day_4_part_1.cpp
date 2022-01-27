@@ -53,7 +53,6 @@ BingoBoard::HaveWon() const -> bool
 auto
 BingoBoard::Score(int justCalled) const -> int
 {
-	std::cout << "Scoring" << std::endl;
     int sum = std::accumulate(board.cbegin(), board.cend(), 0, 
         [&](int S, const std::pair<int, solutions::BoardNumber>& BoardNumber){
 			return S + BoardNumber.first * static_cast<int>(!BoardNumber.second.isHit());

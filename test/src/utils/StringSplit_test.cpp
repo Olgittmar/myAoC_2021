@@ -59,6 +59,41 @@ TEST(SplitStringToULongTest, CheckGenericValues) // NOLINT
 }
 
 
+TEST(StringViewToIntTest, CheckBase10) // NOLINT
+{
+  EXPECT_EQ( utils::StringViewToInt("1234567890"), int(1234567890) );
+  EXPECT_EQ( utils::StringViewToInt("1234567890", 10), int(1234567890) );
+  EXPECT_EQ( utils::StringViewToInt("1", 10), int(1) );
+  EXPECT_EQ( utils::StringViewToInt("0000000", 10), int(0) );
+}
+
+TEST(StringViewToIntTest, CheckBase2) // NOLINT
+{
+  EXPECT_EQ( utils::StringViewToInt("1", 2), int(1) );
+  EXPECT_EQ( utils::StringViewToInt("10", 2), int(2) );
+  EXPECT_EQ( utils::StringViewToInt("101", 2), int(5) );
+  EXPECT_EQ( utils::StringViewToInt("1011011010111010101010110101011", 2), int(1532843435) );
+  EXPECT_EQ( utils::StringViewToInt("0000000", 2), int(0) );
+}
+
+TEST(StringViewToULongTest, CheckBase10) // NOLINT
+{
+  EXPECT_EQ( utils::StringViewToULong("1234567890"), ulong(1234567890) );
+  EXPECT_EQ( utils::StringViewToULong("1234567890", 10), ulong(1234567890) );
+  EXPECT_EQ( utils::StringViewToULong("1", 10), ulong(1) );
+  EXPECT_EQ( utils::StringViewToULong("0000000", 10), ulong(0) );
+}
+
+TEST(StringViewToULongTest, CheckBase2) // NOLINT
+{
+  EXPECT_EQ( utils::StringViewToULong("1", 2), ulong(1) );
+  EXPECT_EQ( utils::StringViewToULong("10", 2), ulong(2) );
+  EXPECT_EQ( utils::StringViewToULong("101", 2), ulong(5) );
+  EXPECT_EQ( utils::StringViewToULong("1011011010111010101010110101011", 2), ulong(1532843435) );
+  EXPECT_EQ( utils::StringViewToULong("0000000", 2), ulong(0) );
+}
+
+
 auto main(int argc, char **argv) -> int
 {
   ::testing::InitGoogleTest(&argc, argv);
